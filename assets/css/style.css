@@ -1,0 +1,351 @@
+/* RESET CSS */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* dùng để k phải tính toán kích thước (width, height) */
+}
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* sans-serif: chuẩn ko chân */
+}
+
+/*
+1. Từ ngoài vào trong
+2. Từ trên xuống dưới
+3. Từ tổng quan đến chi tiết
+*/
+
+/*
+1. Vị trí 
+2. Kích thước (width, height)
+3. Màu sắc 
+4. Kiểu dáng (kiểu chữ, hình tròn, vuông, ...) 
+*/
+
+/* ----- ROOT VARIABLES ----- */
+:root {
+    --background-light: #F9FAFB;
+}
+
+/* BASE STYLES */
+body {
+    background: #F9FAFB;
+}
+
+/* LAYOUT & CONTAINERS */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container.main-content {
+    margin-top: 30px;
+}
+
+.main-content {
+    display: grid;
+    /* chia layout thành các ô bảng */
+    grid-template-columns: 1fr 3fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.sub-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* HEADER STYLES */
+.banner {
+    height: 300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-content {
+    display: flex;
+    height: 140px;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 250px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.logo img {
+    border-radius: 10px;
+    height: 60px;
+    width: auto;
+}
+
+/* NAVIGATION */
+header {
+    background-color: #1f2937;
+}
+
+.container-header {
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav li a {
+    color: #fff;
+    text-decoration: none;
+    /* bỏ gạch chân */
+    line-height: 85.6px;
+    padding: 0 15px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+nav li:hover a {
+    color: #000;
+    background-color: #ccc;
+}
+
+.nav-menu li a:hover,
+.nav-menu li a.active {
+    background-color: #0ac389;
+}
+
+/* SIDEBAR STYLES */
+.side-bar {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-title {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    color: #1340ef;
+}
+
+.side-bar p {
+    margin-bottom: 15px;
+    color: #374151;
+}
+
+/* MAIN CONTENT STYLES */
+.content {
+    padding: 25px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content-title {
+    background-color: #2563eb;
+    color: #fff;
+    text-align: center;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    margin: 0px 0px 25px;
+    line-height: 32px;
+}
+
+.ad-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.tips-section {
+    text-align: center;
+    margin: 15px;
+    border-top: 2px solid #374151;
+}
+
+.description {
+    line-height: 1.6;
+}
+
+/* EXAM INFO ELEMENTS */
+.exam-info {
+    background-color: #f8fafc;
+    border-left: 4px solid #2563eb;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.exam-info li {
+    margin-bottom: 10px;
+    list-style-position: inside;
+}
+
+.warning-box {
+    background-color: #fef2f2;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 5px 5px 0;
+    border-left: 4px solid #ef4444;
+    line-height: 1.6;
+    /* giãn dòng trong 1 đoạn văn */
+}
+
+.exam-btn {
+    background-color: #10B981;
+    text-decoration: none;
+    color: white;
+    padding: 12px 10px;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.exam-btn:hover {
+    background-color: #059669;
+    transform: translateY(-3px);
+}
+
+.exam-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.exam-note {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #ef4444;
+    text-align: center;
+}
+
+/* STUDY STEPS & GUIDES */
+.study-steps {
+    margin-bottom: 25px;
+}
+
+.study-steps li {
+    margin-bottom: 15px;
+    margin-left: 35px;
+    line-height: 1.6;
+}
+
+.address-section {
+    border-top: 2px solid #374151;
+    margin-top: 10px;
+}
+
+.address-section ul li {
+    margin-left: 35px;
+    margin-top: 10px;
+}
+
+.address-section ul {
+    margin-top: 15px;
+}
+
+/* VIDEO SECTION */
+.video-wrapper {
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* BUTTONS & INTERACTIVE ELEMENTS */
+.cta-button {
+    display: inline-block;
+    background-color: #10B981;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #059669;
+    transform: translateY(-4px);
+    /* move phần tử theo trục dọc Y -> lên hoặc xuống mà k làm thay đổi layout xung quanh
+    có 2 giá trị âm và dương: -3px -> move lên trên 3px
+                               3px -> move xuống dưới 3px */
+    /* translateX(3px) -> di chuyển sang phải 3px
+       translateX(-3px) -> di chuyển sang trái 3px
+       translateY(3px) -> di chuyển xuống dưới 3px
+       translateY(-3px) -> di chuyển lên trên 3px 
+       translateX(3px) -> đẩy phần tử ra gần ng xem hơn
+       translateX(-3px) -> đẩy phần tử vào sâu hơn, xa ng xem
+       
+       => muốn dùng translateX thì phải có thuộc tính prespective*/
+}
+
+/* FOOTER STYLES */
+footer {
+    padding: 30px 0;
+    background-color: #374151;
+    margin-top: 50px;
+    color: #fff;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-section {
+    min-width: 250px;
+    flex: 1;
+}
+
+.footer-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-links li {
+    margin: 0 0 10px 0;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #374151;
+    color: #d1b5bd;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
