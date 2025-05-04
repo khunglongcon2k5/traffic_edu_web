@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thi thử bằng lái xe A1 Online 2025</title>
+    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
     <link rel="stylesheet" href="../assets/css/quiz.css" />
-    <link rel="icon" href="../assets/img/logo1.jpg" type="image.jpg">
+    <link rel="icon" href="../assets/img/logo.svg" type="image.jpg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
 </head>
 
 <body>
     <div class="banner header-content">
         <div class="logo">
-            <img src="../assets/img/logo1.jpg" width="150" height="100"
-                alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <img src="../assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
         </div>
         <div class="contact-info">
-            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0815.62.63.72</span>
+            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
         </div>
     </div>
     <!-- Header chính -->
@@ -25,12 +25,11 @@
         <div class="container-header">
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#" class="active">Chọn Phần Thi</a></li>
-                    <li><a href="#">Thi Thử A1</a></li>
-                    <li><a href="#">Thi Thử A2</a></li>
-                    <li><a href="#">Thi 20 Câu Điểm Liệt</a></li>
-                    <li><a href="#">Thi 50 Câu Điểm Liệt</a></li>
-                    <li><a href="#">Thi 60 Câu Điểm Liệt</a></li>
+                    <li><a href="">Chọn Phần Thi</a></li>
+                    <li><a href="../thi-bang-lai-xe-a1-online.php" class="active">Thi Thử A1</a></li>
+                    <li><a href="../thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
+                    <li><a href="./thi-thu-20-cau-diem-liet-a1.php">Thi 20 Câu Điểm Liệt A1</a></li>
+                    <li><a href="./thi-thu-50-cau-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
                 </ul>
             </nav>
         </div>
@@ -45,9 +44,13 @@
     <div class="test-container">
         <div class="question-nav">
             <div class="question-nav-header">
-                <p>Câu hỏi | Đề số: 01 - 200 Câu Hỏi Thi A1</p>
+                <h4>
+                    <span style=" color: #1d4ed8;">Câu hỏi | Đề số:</span>
+                    <span style="color: #dc2626;">01 - 200</span>
+                    Câu Hỏi Thi A1
+                </h4>
             </div>
-            <div class="question-grid">
+            <div class=" question-grid">
                 <button class="question-btn active">1</button>
                 <button class="question-btn">2</button>
                 <button class="question-btn">3</button>
@@ -100,10 +103,15 @@
             </div>
             <div class="navigation-buttons">
                 <button class="nav-btn">
-                    Câu trước
+                    <div class="previous-question">
+                        Câu trước
+                    </div>
                 </button>
+
                 <button class="nav-btn next">
-                    Câu tiếp theo
+                    <div class="next-question">
+                        Câu tiếp theo
+                    </div>
                 </button>
             </div>
         </div>
@@ -137,9 +145,9 @@
             <div class="footer-section">
                 <h3 class="footer-title">Liên Hệ</h3>
                 <ul class="footer-links">
-                    <li>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</li>
+                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
                     <li>Điện thoại: 0256 3646373</li>
-                    <li>Email: info@hoclaixe.vn</li>
+                    <li>Email: trafficedu@qn.com.vn</li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -153,7 +161,7 @@
                 <h3 class="footer-title">Theo Dõi</h3>
                 <ul class="footer-links">
                     <li>
-                        <a href="https://www.facebook.com/TTDTSHLXCGBD.company">Facebook</a>
+                        <a href="https://www.facebook.com/truongdaylaixequynhon">Facebook</a>
                     </li>
 
                     <li>
@@ -161,7 +169,7 @@
                     </li>
 
                     <li>
-                        <a href="https://youtube.com/@hoclaixemoto?si=Zz4XF0DnJPu4aELI">Youtube</a>
+                        <a href="#">Youtube</a>
                     </li>
                 </ul>
             </div>

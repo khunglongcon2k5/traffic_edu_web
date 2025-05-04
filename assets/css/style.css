@@ -3,26 +3,11 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* dùng để k phải tính toán kích thước (width, height) */
 }
 
 html {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* sans-serif: chuẩn ko chân */
+    font-family: 'Quicksand', sans-serif;
 }
-
-/*
-1. Từ ngoài vào trong
-2. Từ trên xuống dưới
-3. Từ tổng quan đến chi tiết
-*/
-
-/*
-1. Vị trí 
-2. Kích thước (width, height)
-3. Màu sắc 
-4. Kiểu dáng (kiểu chữ, hình tròn, vuông, ...) 
-*/
 
 /* ----- ROOT VARIABLES ----- */
 :root {
@@ -47,7 +32,6 @@ body {
 
 .main-content {
     display: grid;
-    /* chia layout thành các ô bảng */
     grid-template-columns: 1fr 3fr;
     gap: 30px;
     margin-top: 30px;

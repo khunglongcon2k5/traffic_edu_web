@@ -3,26 +3,11 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* dùng để k phải tính toán kích thước (width, height) */
 }
 
 html {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* sans-serif: chuẩn ko chân */
+    font-family: 'Quicksand', sans-serif;
 }
-
-/*
-1. Từ ngoài vào trong
-2. Từ trên xuống dưới
-3. Từ tổng quan đến chi tiết
-*/
-
-/*
-1. Vị trí 
-2. Kích thước (width, height)
-3. Màu sắc 
-4. Kiểu dáng (kiểu chữ, hình tròn, vuông, ...) 
-*/
 
 /* ----- ROOT VARIABLES ----- */
 :root {
@@ -96,7 +81,7 @@ body {
 }
 
 header {
-    background-color: var(--dark);
+    background: var(--dark);
 }
 
 .container-header {
@@ -110,7 +95,6 @@ nav li {
 nav li a {
     color: var(--white);
     text-decoration: none;
-    /* bỏ gạch chân */
     line-height: 85.6px;
     padding: 0 15px;
     display: inline-block;
@@ -132,10 +116,13 @@ nav li:hover a {
     background-color: var(--primary);
     padding: 15px 20px;
     margin-top: 30px;
-    margin-left: 180px;
-    margin-right: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
     border-radius: 5px;
+    width: 1158px;
 }
+
 
 /* ----- QUIZ/TEST CONTAINER ----- */
 .test-container {
@@ -214,6 +201,10 @@ nav li:hover a {
     margin-bottom: 30px;
 }
 
+.question-nav-header {
+    margin-bottom: 20px;
+}
+
 /* ----- ANSWER OPTIONS ----- */
 .option {
     padding: 16px;
@@ -230,7 +221,6 @@ nav li:hover a {
     width: 22px;
     height: 22px;
     accent-color: var(--primary);
-    /* đổi màu các font mặc định như checkbox, radio,.. */
 }
 
 .option label {
@@ -246,6 +236,12 @@ nav li:hover a {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
+}
+
+.previous-question {
+    color: transparent;
+    background: linear-gradient(to bottom right, #5ebbff, #a174ff);
+    background-clip: text;
 }
 
 .nav-btn {
@@ -310,7 +306,9 @@ nav li:hover a {
 .timer-value {
     font-size: 28px;
     font-weight: 700;
-    color: var(--primary);
+    color: transparent;
+    background: linear-gradient(to bottom right, #5ebbff, #a174ff);
+    background-clip: text;
 }
 
 /* ----- SUBMIT BUTTONS ----- */
@@ -341,7 +339,7 @@ nav li:hover a {
 /* ----- FOOTER ----- */
 footer {
     padding: 30px 0;
-    background-color: var(--dark);
+    background: var(--dark);
     margin-top: 50px;
     color: var(--white);
 }
@@ -366,7 +364,6 @@ footer {
 
 .footer-links {
     list-style: none;
-    /* bỏ dấu của thẻ li */
 }
 
 .footer-links li {

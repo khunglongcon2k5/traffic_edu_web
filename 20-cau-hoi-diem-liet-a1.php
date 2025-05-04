@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>20 Câu Hỏi Điểm Liệt Thi Bằng Lái Xe Máy A1 2025</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
+    <style>
+    :root {}
+    </style>
+</head>
+
+<body>
+    <div class="banner header-content">
+        <div class="logo">
+            <img src="./assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
+        </div>
+        <div class="contact-info">
+            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
+        </div>
+    </div>
+    <!-- HEADER -->
+    <header>
+        <div class="container-header">
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="">Chọn Phần Thi</a></li>
+                    <li><a href="./thi-bang-lai-xe-a1-online.php">Thi Thử A1</a></li>
+                    <li><a href="./thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
+                    <li><a href="./20-cau-hoi-diem-liet-a1.php" class="active">Thi 20 Câu Điểm Liệt A1</a></li>
+                    <li><a href="./50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="container main-content">
+        <aside class="side-bar">
+            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A1!</h3>
+            <p style="font-weight: 800; color: #ef4444;">
+                Ôn tập câu điểm liệt bằng lái xe A1 – Học dễ, nhớ lâu, thi là đậu!
+            </p>
+
+            <p>
+                Để giúp bạn chuẩn bị cho kỳ thi bằng lái xe A1 dễ dàng và hiệu quả hơn, Trung Tâm đã phát triển phần mềm
+                thi thử 20 câu hỏi điểm liệt, chính thức áp dụng từ <span
+                    style="color:#ef4444; font-weight: 700;">18/06/2025</span> . Với
+                bộ công cụ này, bạn sẽ có cơ hội ôn tập và kiểm tra kiến thức lý thuyết mọi lúc, mọi nơi, hoàn toàn miễn
+                phí!
+            </p>
+
+            <p>
+                Đặc biệt, phần mềm này được tối ưu hóa để sử dụng trên nhiều thiết bị khác nhau như điện thoại, laptop,
+                máy tính bảng, iPhone, iPad, điện thoại Android, thậm chí cả điện thoại Nokia, miễn là bạn có kết nối
+                mạng (Wifi, 3G, 4G, 5G). Chỉ cần vài bước đơn giản, bạn có thể trải nghiệm và ôn luyện ngay lập tức.
+            </p>
+
+            <p>
+                Khi bạn hoàn thành 20 câu hỏi này, bạn sẽ tự tin hơn rất nhiều, vì đây chính là phần thi quan trọng giúp
+                bạn “tránh được việc bị loại” khi bước vào kỳ thi lý thuyết 200 câu hỏi. Đây là một công cụ cực kỳ hữu
+                ích, giúp bạn làm quen với những câu hỏi thường gặp và chuẩn bị tinh thần sẵn sàng cho kỳ thi chính
+                thức.
+            </p>
+
+            <p>
+                Không cần lo lắng hay tốn kém chi phí, phần mềm 20 câu hỏi điểm liệt này hoàn toàn miễn phí, dễ sử dụng
+                và giúp bạn nâng cao khả năng thi đạt điểm cao một cách nhanh chóng. Vậy thì còn chờ gì nữa? Hãy thử
+                ngay hôm nay và chinh phục kỳ thi lái xe A1 với sự tự tin tuyệt đối!
+            </p>
+
+            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
+            </div>
+        </aside>
+
+        <main class="content">
+            <h2 class="content-title">ĐỀ THI THỬ 20 CÂU HỎI ĐIỂM LIỆT A1 MỚI NHẤT 2025</h2>
+
+            <div class="sub-content">
+                <div>
+                    <h2 style="font-size: 18px; margin-bottom: 15px; text-align: center;">PHẦN MỀM LUYỆN THI 20 CÂU HỎI
+                        ĐIỂM LIỆT A1</h2>
+                    <img src="./assets/img/20-cau-hoi-diem-liet-A1.png"
+                        alt=" thi bằng lái xe máy a1 2025 20 câu hỏi điểm liệt A1" class="ad-image" />
+                </div>
+                <div>
+                    <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ 20 CÂU HỎI ĐIỂM LIỆT A1 CHÍNH THỨC
+                        TỪ 01/08/2020
+                    </h2>
+                    <p>
+                        Cấu trúc bộ đề thi câu điểm liệt hạng A1 mới sẽ bao gồm 20 câu hỏi, mỗi câu hỏi có 1 đáp án duy
+                        nhất phản ánh chính xác bản chất của kỳ thi trắc nghiệm. Điều này khác hoàn toàn với bộ đề thi
+                        luật cũ, nơi mỗi câu hỏi lại có 2 đáp án để bạn phải lựa chọn.
+
+                        Với bộ đề thi mới này, học viên sẽ dễ dàng hơn trong việc xác định đúng đáp án và tự tin hơn khi
+                        bước vào kỳ thi. Không cần phải phân vân hay lo lắng về những câu hỏi có nhiều đáp án mơ hồ, vì
+                        chỉ có một lựa chọn đúng duy nhất, giúp bạn tập trung ôn luyện và nâng cao khả năng thi đậu.
+
+                        Hãy chuẩn bị thật kỹ càng với bộ đề thi 20 câu hỏi điểm liệt, để khi bước vào kỳ thi thật, bạn
+                        sẽ dễ dàng vượt qua mà không gặp phải bất kỳ trở ngại nào!
+                    </p>
+
+                    <ul class="exam-info">
+                        <li>
+                            <span style="font-weight: 700">Số lượng câu hỏi</span>: 20 câu.
+                        </li>
+
+                        <li>
+                            <span style="font-weight: 700">Yêu cầu làm đúng</span>: 20/20 câu.
+                        </li>
+
+                        <li><span style="font-weight: 700">Thời gian</span>: 15 phút.</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p>
+                            <strong> Lưu ý đặc biệt:</strong> Tuyệt đối không được làm sai câu hỏi điểm liệt, vì
+                            trong kỳ thi thật nếu học viên làm sai "Câu Điểm Liệt" đồng nghĩa
+                            với việc "KHÔNG ĐẠT" dù cho các câu khác trả lời đúng!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <h3 style="margin-bottom: 15px;">Khám phá ngay bộ đề 20 câu điểm liệt, giúp bạn tự tin chinh phục kỳ
+                    thi! 📲🔥:</h3>
+                <div style="text-align: center;">
+                    <a href="#" class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">
+                        20 Câu Hỏi Điểm Liệt
+                    </a>
+                </div>
+
+                <div class="address-section">
+                    <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy
+                        Nhơn:
+                    </p>
+                    <ul>
+                        <li>
+                            <span style="color: blue;">
+                                Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
+                                <a href="https://www.facebook.com/vieclamsinhvienqn"
+                                    style="text-decoration: none; color: red; font-weight: 700;">
+                                    Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung,
+                                TP
+                                Quy Nhơn, Bình Định</strong>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào
+                                tạo
+                                NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Google Maps: </span>
+                            <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
+                                style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
+                                Tại Đây
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">Về Chúng Tôi</h3>
+                <p>
+                    Trung Tâm Đào Tạo Lái Xe chuyên cung cấp các khóa học lái xe chất
+                    lượng cao, giúp học viên đạt tỷ lệ đậu cao nhất.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">Liên Hệ</h3>
+                <ul class="footer-links">
+                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    <li>Điện thoại: 0256 3646373</li>
+                    <li>Email: trafficedu@qn.com.vn</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">Khóa Học</h3>
+                <ul class="footer-links">
+                    <li>Bằng Lái Xe A1</li>
+                    <li>Bằng Lái Xe A2</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">Theo Dõi</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.facebook.com/truongdaylaixequynhon">Facebook</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Zalo</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Youtube</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Trung Tâm Đào Tạo Lái Xe. Tất cả quyền được bảo lưu.
+        </div>
+    </footer>
+</body>
+
+</html>

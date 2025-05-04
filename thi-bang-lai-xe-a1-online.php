@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Traffic Edu</title>
+    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="icon" href="./assets/img/logo1.jpg" type="image.jpg">
+    <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <style>
     :root {}
     </style>
@@ -15,11 +16,11 @@
 <body>
     <div class="banner header-content">
         <div class="logo">
-            <img src="./assets/img/logo1.jpg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <img src="./assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
         </div>
         <div class="contact-info">
-            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0815.62.63.72</span>
+            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
         </div>
     </div>
     <!-- Header chính -->
@@ -27,12 +28,11 @@
         <div class="container-header">
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="" class="active">Chọn Phần Thi</a></li>
-                    <li><a href="">Thi Thử A1</a></li>
-                    <li><a href="">Thi Thử A2</a></li>
-                    <li><a href="">Thi 20 Câu Điểm Liệt</a></li>
-                    <li><a href="">Thi 50 Câu Điểm Liệt</a></li>
-                    <li><a href="">Thi 60 Câu Điểm Liệt</a></li>
+                    <li><a href="">Chọn Phần Thi</a></li>
+                    <li><a href="./thi-bang-lai-xe-a1-online.php" class="active">Thi Thử A1</a></li>
+                    <li><a href="./thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
+                    <li><a href="./20-cau-hoi-diem-liet-a1.php">Thi 20 Câu Điểm Liệt A1</a></li>
+                    <li><a href="./50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
                 </ul>
             </nav>
         </div>
@@ -41,34 +41,35 @@
     <!-- Nội dung chính -->
     <div class="container main-content">
         <aside class="side-bar">
-            <h3 class="sidebar-title">Thông Tin Ôn Tập</h3>
-            <p>
-                Để ôn tập phần thi lý thuyết bằng lái xe A1 học viên có thể sử dụng
-                trực tiếp phần mềm thi bằng lái xe A1 online do Trung Tâm xây dựng
-                chính thức áp dụng từ <b style="color: red">01/08/2020.</b>
+            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A1!</h3>
+            <p style="font-weight: 800; color: #ef4444;">
+                Ôn Tập Lý Thuyết A1 – Dễ Hiểu, Dễ Nhớ, Dễ Đậu!
             </p>
 
             <p>
-                Bộ phần mềm đề thi này được tổng hợp đầy đủ từ 200 câu hỏi sát hạch
-                lái xe A1 do Tổng Cục Đường Bộ Việt Nam ban hành.
+                Bạn đang lo lắng cho kỳ thi lý thuyết A1 sắp tới? Đừng lo! Giờ đây, bạn có thể ôn tập mọi lúc mọi nơi
+                với
+                ứng dụng thi thử A1 online do chúng tôi phát triển, được chính thức đưa vào sử dụng từ
+                <b style="color: red">18/06/2025.</b>
             </p>
 
             <p>
-                Chỉ cần có kết nối mạng Wifi,3G,4G,5G là bạn có thể sử dụng ứng
-                dụng, phù hợp với các loại phương tiện hiện tại như: laptop, điện
-                thoại, iphone, ipad, máy tính bảng, điện thoại chạy Android,Samsung,
-                điện thoại Nokia...
+                Ứng dụng này tích hợp trọn bộ 200 câu hỏi chuẩn do Tổng Cục Đường Bộ Việt Nam ban hành – sát đề, đúng
+                trọng tâm, giúp bạn ôn nhanh, nắm chắc kiến thức cần thiết.
             </p>
 
             <p>
-                Chúc quý học viên thi tốt, nếu có khó khăn gì trong quá trình học,
-                hãy để lại bình luận để chúng tôi có thể hỗ trợ bạn !
+                Chỉ cần có kết nối mạng (Wifi, 3G, 4G, 5G), bạn có thể truy cập ngay trên mọi thiết bị quen thuộc: điện
+                thoại, máy tính bảng, iPhone, Android, Samsung, Nokia, laptop, iPad... Không cần cài đặt, chỉ cần mở web
+                là học liền!
             </p>
 
-            <div style="margin-top: 30px">
-                <h3 class="sidebar-title">Tham Khảo Thêm</h3>
-                <!-- Call to Action -->
-                <a href="#" class="cta-button">Khóa Thi Bằng Lái Xe Máy A1 200 Câu Năm 2025</a>
+            <p>
+                Vào học thử là mê – học kỹ là đậu! Còn chờ gì nữa, bắt đầu ôn tập ngay hôm nay để tự tin bước vào kỳ thi
+                A1 nhé!
+            </p>
+
+            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
             </div>
         </aside>
 
@@ -79,9 +80,8 @@
                 <div>
                     <h2 style="font-size: 18px; margin-bottom: 15px; text-align: center;">PHẦN MỀM LUYỆN THI LÝ THUYẾT
                         200 CÂU A1</h2>
-                    <img src="./assets/img/200-cau-hoi-thi-bang-lai-xe-may-hang-a1.png"
-                        alt="thi bằng lái xe máy a1 2025 8 bộ đề 200 câu hỏi" width="328" height="474"
-                        class="ad-image" />
+                    <img src="./assets/img/200-cau-hoi-thi-A1.png" alt="thi bằng lái xe máy a1 2025 8 bộ đề 200 câu hỏi"
+                        width="328" height="474" class="ad-image" />
                 </div>
                 <div>
                     <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ BẰNG LÁI XE MÁY A1 CHÍNH THỨC TỪ
@@ -116,22 +116,23 @@
                     </div>
 
                     <p>
-                        Thi thử 20 câu hỏi điểm liệt A1 trước là một ý rất hay -
+                        Khởi Động Cùng 20 Câu Hỏi Điểm Liệt A1 -
                         <a href="#" style="text-decoration: none">
-                            <span style="color: red; font-weight: 700">NÀO TA CÙNG THI</span>
+                            <span style="color: red; font-weight: 700">Cùng Thử Sức Ngay! 🚗💥</span>
                         </a>
                     </p>
 
-                    <p>
-                        Với nền tảng ôn thi A1 trực tuyến của chúng tôi, bạn sẽ được trải nghiệm hệ thống câu hỏi bám
-                        sát
-                        đề thật, kèm theo video hướng dẫn chi tiết từng tình huống, mini‑game ghép biển báo giúp ghi nhớ
-                        luật nhanh chóng và báo cáo tiến độ tự động qua email lẫn thông báo đẩy trên app; đồng thời, đội
-                        ngũ giảng viên giàu kinh nghiệm luôn
-                        sẵn sàng giải đáp thắc mắc qua Zalo và Facebook, hỗ trợ bạn từ lúc bắt đầu ôn luyện đến khi tự
-                        tin chinh phục kỳ thi. Đăng ký ngay hôm nay để
-                        nhận trọn bộ “50 mẹo vàng vượt vũ môn” hoàn toàn miễn phí và biến giấc mơ sở hữu bằng lái A1
-                        thành hiện thực!
+                    <p style="margin-top: 10px;">
+                        Thi thử A1 – Hãy cùng thử sức ngay với bộ đề thi chính thức! 🏍️ Với nền tảng thi thử A1 của
+                        chúng tôi, bạn sẽ được trải nghiệm những câu hỏi trắc nghiệm chuẩn với đề thi thật, giúp bạn làm
+                        quen với các câu hỏi quan trọng, đặc biệt là các câu điểm liệt. 📝🔑
+
+                        Chỉ cần đăng nhập và làm bài thi thử, bạn sẽ dễ dàng kiểm tra được trình độ của mình và chuẩn bị
+                        sẵn sàng cho kỳ thi A1. 📚✨ Đừng lo lắng, đây là cơ hội tuyệt vời để bạn luyện tập và tự tin hơn
+                        trong kỳ thi thật!
+
+                        Nhanh tay đăng ký và bắt đầu thi thử ngay hôm nay! 🏆 Cùng nhau chinh phục kỳ thi và biến giấc
+                        mơ sở hữu bằng lái A1 thành hiện thực! 💨
                     </p>
                 </div>
             </div>
@@ -139,19 +140,20 @@
             <div>
                 <h3 style="margin-bottom: 15px;">Chọn đề thi:</h3>
                 <div>
-                    <a href="#" class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu
+                    <a href="./pages/thi-thu-20-cau-diem-liet-a1.php" class="exam-btn"
+                        style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu
                         Hỏi Điểm Liệt</a>
                 </div>
 
                 <div class="exam-grid">
-                    <a href="#" class="exam-btn">Đề 1</a>
-                    <a href="#" class="exam-btn">Đề 2</a>
-                    <a href="#" class="exam-btn">Đề 3</a>
-                    <a href="#" class="exam-btn">Đề 4</a>
-                    <a href="#" class="exam-btn">Đề 5</a>
-                    <a href="#" class="exam-btn">Đề 6</a>
-                    <a href="#" class="exam-btn">Đề 7</a>
-                    <a href="#" class="exam-btn">Đề 8</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 1</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 2</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 3</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 4</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 5</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 6</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 7</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 8</a>
                 </div>
 
                 <p style="margin: 20px 0; color: #ef4444;">
@@ -164,26 +166,26 @@
                 </p>
 
                 <div class="exam-grid">
-                    <a href="#" class="exam-btn">Đề 1</a>
-                    <a href="#" class="exam-btn">Đề 2</a>
-                    <a href="#" class="exam-btn">Đề 3</a>
-                    <a href="#" class="exam-btn">Đề 4</a>
-                    <a href="#" class="exam-btn">Đề 5</a>
-                    <a href="#" class="exam-btn">Đề 6</a>
-                    <a href="#" class="exam-btn">Đề 7</a>
-                    <a href="#" class="exam-btn">Đề 8</a>
-                    <a href="#" class="exam-btn">Đề 9</a>
-                    <a href="#" class="exam-btn">Đề 10</a>
-                    <a href="#" class="exam-btn">Đề 11</a>
-                    <a href="#" class="exam-btn">Đề 12</a>
-                    <a href="#" class="exam-btn">Đề 13</a>
-                    <a href="#" class="exam-btn">Đề 14</a>
-                    <a href="#" class="exam-btn">Đề 15</a>
-                    <a href="#" class="exam-btn">Đề 16</a>
-                    <a href="#" class="exam-btn">Đề 17</a>
-                    <a href="#" class="exam-btn">Đề 18</a>
-                    <a href="#" class="exam-btn">Đề 19</a>
-                    <a href="#" class="exam-btn">Đề 20</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 1</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 2</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 3</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 4</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 5</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 6</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 7</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 8</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 9</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 10</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 11</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 12</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 13</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 14</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 15</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 16</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 17</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 18</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 19</a>
+                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 20</a>
                 </div>
             </div>
 
@@ -332,29 +334,32 @@
             </div>
 
             <div class="address-section">
-                <p style="font-weight: 700;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy Nhơn</p>
+                <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy Nhơn:
+                </p>
                 <ul>
                     <li>
                         <span style="color: blue;">
                             Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
-                            <a href="https://hoclaixetaibinhdinh.com/lich-thi-bang-lai-xe-may-tai-binh-dinh/"
-                                style="text-decoration: none; color: red;">
+                            <a href="https://www.facebook.com/vieclamsinhvienqn"
+                                style="text-decoration: none; color: red; font-weight: 700;">
                                 Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
                         </span>
                     </li>
 
                     <li>
-                        <span style="color: blue;">Địa chỉ đăng ký học :</span><span> </span>
+                        <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung, TP
+                            Quy Nhơn, Bình Định</strong>
                     </li>
 
                     <li>
-                        <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><span> </span>
+                        <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào tạo
+                            NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
                     </li>
 
                     <li>
                         <span style="color: blue;">Google Maps: </span>
                         <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
-                            style="color: #ef4444; text-decoration: none;">Xem
+                            style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
                             Tại Đây
                         </a>
                     </li>
@@ -376,9 +381,9 @@
             <div class="footer-section">
                 <h3 class="footer-title">Liên Hệ</h3>
                 <ul class="footer-links">
-                    <li>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</li>
+                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
                     <li>Điện thoại: 0256 3646373</li>
-                    <li>Email: info@hoclaixe.vn</li>
+                    <li>Email: trafficedu@qn.com.vn</li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -392,7 +397,7 @@
                 <h3 class="footer-title">Theo Dõi</h3>
                 <ul class="footer-links">
                     <li>
-                        <a href="https://www.facebook.com/TTDTSHLXCGBD.company">Facebook</a>
+                        <a href="https://www.facebook.com/truongdaylaixequynhon">Facebook</a>
                     </li>
 
                     <li>
