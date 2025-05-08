@@ -28,8 +28,8 @@
                     <li><a href="">Chọn Phần Thi</a></li>
                     <li><a href="../thi-bang-lai-xe-a1-online.php">Thi Thử A1</a></li>
                     <li><a href="../thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
-                    <li><a href="./thi-thu-20-cau-diem-liet-a1.php" class="active">Thi 20 Câu Điểm Liệt A1</a></li>
-                    <li><a href="./thi-thu-50-cau-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
+                    <li><a href="../20-cau-hoi-diem-liet-a1.php" class="active">Thi 20 Câu Điểm Liệt A1</a></li>
+                    <li><a href="../50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
                 </ul>
             </nav>
         </div>
@@ -45,9 +45,9 @@
         <div class="question-nav">
             <div class="question-nav-header">
                 <h4>
-                    <span style=" color: #1d4ed8;">Câu hỏi | Đề số:</span>
-                    <span style="color: #dc2626;">01 - 200</span>
-                    Câu Hỏi Thi A1
+                    <span style=" color: #1d4ed8;">Câu hỏi | Đề:</span>
+                    <span style="color: #dc2626;">20</span>
+                    Câu Hỏi Điểm Liệt A1
                 </h4>
             </div>
             <div class=" question-grid">
@@ -111,18 +111,19 @@
             </div>
         </div>
 
-        <div class="time">
-            <div class="timer-text">
+        <div class="countdown">
+            <div class="countdonw-text">
                 Thời gian còn lại:
-                <div class="timer-value">
-                    15:58
+                <div class="countdown-value">
+                    15 : 00
                 </div>
             </div>
         </div>
 
         <div class="submit-buttons">
-            <button class="submit-btn" style="text-transform: uppercase;">
-                Kết thúc bài thi
+            <button class="submit-btn" style="text-transform: uppercase;"
+                onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
+                Nộp Bài
             </button>
         </div>
     </div>
@@ -173,6 +174,8 @@
             © 2025 Trung Tâm Đào Tạo Lái Xe. Tất cả quyền được bảo lưu.
         </div>
     </footer>
+
+    <script src="../assets/js/main_cau_hoi_diem_liet.js"></script>
 </body>
 
 </html>

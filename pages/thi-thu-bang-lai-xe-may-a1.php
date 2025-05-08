@@ -1,3 +1,23 @@
+<?php
+require_once '../includes/config.php';
+// Lấy ID đề thi từ tham số URL
+$set_id = isset($_GET['set_id']) ? intval($_GET['set_id']) : 1;
+// Lấy thông tin đề thi
+$sql_exam = "SELECT * FROM `exam_sets` WHERE `set_id` = $set_id";
+$result_exam = $conn->query($sql_exam);
+$exam = $result_exam->fetch_assoc();
+// Lấy danh sách câu hỏi thuộc đề thi
+$sql_questions = "SELECT * FROM `questions` WHERE `set_id` = $set_id ORDER BY `question_id`";
+$result_questions = $conn->query($sql_questions);
+// Đếm tổng số câu hỏi
+// Mảng chứa tất cả câu hỏi và đáp án
+// Lấy danh sách đáp án cho câu hỏi
+// Thêm câu hỏi và đáp án vào mảng
+// Lấy thông tin về thời gian làm bài từ danh mục
+// Thời gian làm bài tính bằng giây
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,18 +136,19 @@
             </div>
         </div>
 
-        <div class="time">
-            <div class="timer-text">
+        <div class="countdown">
+            <div class=" countdown-text">
                 Thời gian còn lại:
-                <div class="timer-value">
-                    15:58
+                <div class="countdown-value">
+                    19 : 00
                 </div>
             </div>
         </div>
 
         <div class="submit-buttons">
-            <button class="submit-btn" style="text-transform: uppercase;">
-                Kết thúc bài thi
+            <button class="submit-btn" style="text-transform: uppercase;"
+                onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
+                Nộp Bài
             </button>
         </div>
     </div>
@@ -178,6 +199,8 @@
             © 2025 Trung Tâm Đào Tạo Lái Xe. Tất cả quyền được bảo lưu.
         </div>
     </footer>
+
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

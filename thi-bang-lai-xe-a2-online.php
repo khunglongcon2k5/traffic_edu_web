@@ -1,3 +1,14 @@
+<?php
+require_once('./includes/config.php');
+$category_id = 3;
+$sql_sets = "SELECT * FROM `exam_sets` WHERE `category_id` = $category_id";
+$result_sets = $conn->query($sql_sets);
+
+$sql_category = "SELECT * FROM `exam_categories` WHERE `category_id` = $category_id";
+$result_category = $conn->query($sql_category);
+$category = $result_category->fetch_assoc();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +19,6 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
-    <style>
-    :root {}
-    </style>
 </head>
 
 <body>
@@ -142,24 +150,19 @@
                 </div>
 
                 <div class="exam-grid">
-                    <a href="#" class="exam-btn">Đề 1</a>
-                    <a href="#" class="exam-btn">Đề 2</a>
-                    <a href="#" class="exam-btn">Đề 3</a>
-                    <a href="#" class="exam-btn">Đề 4</a>
-                    <a href="#" class="exam-btn">Đề 5</a>
-                    <a href="#" class="exam-btn">Đề 6</a>
-                    <a href="#" class="exam-btn">Đề 7</a>
-                    <a href="#" class="exam-btn">Đề 8</a>
-                    <a href="#" class="exam-btn">Đề 9</a>
-                    <a href="#" class="exam-btn">Đề 10</a>
-                    <a href="#" class="exam-btn">Đề 11</a>
-                    <a href="#" class="exam-btn">Đề 12</a>
-                    <a href="#" class="exam-btn">Đề 13</a>
-                    <a href="#" class="exam-btn">Đề 14</a>
-                    <a href="#" class="exam-btn">Đề 15</a>
-                    <a href="#" class="exam-btn">Đề 16</a>
-                    <a href="#" class="exam-btn">Đề 17</a>
-                    <a href="#" class="exam-btn">Đề 18</a>
+                    <?php
+                    $count = 1;
+                    if ($result_sets->num_rows > 0) {
+                        while ($row = $result_sets->fetch_assoc()) {
+                            if ($count <= 18) {
+                                echo '<a href="./pages/thi-thu-bang-lai-xe-may-a2.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
+                                $count++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    ?>
                 </div>
 
                 <div style="border-top: 2px solid #374151; margin-top: 15px;"></div>
@@ -180,12 +183,13 @@
                                 Ôn lý thuyết với 450 câu hỏi chuẩn
                             </span>, các bạn có thể
                             <span>
-                                <a href="" style="text-decoration: none; color: blue;">
+                                <a href="https://drive.google.com/file/d/1FGJ6cBkFUjKEZfovH7HUWgfZQpJG_iJJ/edit"
+                                    style="text-decoration: none; color: blue; font-weight: 700;">
                                     tải file PDF
                                 </a>
                             </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
                             <span>
-                                <a href="#" style="text-decoration: none; color: blue;">
+                                <a href="#" style="text-decoration: none; color: blue; font-weight: 700;">
                                     450 câu A2 Online
                                 </a>
                             </span> . Đây là bước nền tảng giúp
@@ -197,7 +201,8 @@
                                 Bước 2:
                             </span> Xem
                             <span>
-                                <a href="#" style="color: blue; text-decoration: none;">
+                                <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                                    style="color: blue; text-decoration: none; font-weight: 700;">
                                     12 video mẹo thi A2 để dễ nhớ – dễ đậu
                                 </a>
                             </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
@@ -209,12 +214,14 @@
                                 Bước 3:
                             </span> Làm thử
                             <span">
-                                <a href="#" style="color: blue; text-decoration: none;">
+                                <a href="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
+                                    style="color: blue; text-decoration: none; font-weight: 700;">
                                     50 câu điểm liệt A2
                                 </a>
                                 </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
                                 trượt vì 1
-                                <span style="color: blue;">câu điểm liệt</span> thì cũng rất tiếc, nên đừng bỏ qua phần
+                                <span style="color: blue; font-weight: 700;">câu điểm liệt</span> thì cũng rất tiếc, nên
+                                đừng bỏ qua phần
                                 này
                                 nhé!
                         </li>
@@ -232,7 +239,7 @@
                             </span> Xem video
                             <span>
                                 <a href="https://www.youtube.com/watch?v=nN8yp86xYzQ"
-                                    style="color: blue; text-decoration: none;">
+                                    style="color: blue; text-decoration: none; font-weight: 700;">
                                     hướng dẫn thi thực hành A2
                                 </a>
                             </span>
@@ -246,7 +253,7 @@
                                 Bước 6:
                             </span> Thư giãn trước ngày thi
                             Tránh học dồn, nhồi nhét vào phút cuối. Thay vào đó,
-                            <span style="color: blue;">
+                            <span style="color: blue; font-weight: 700;">
                                 hãy nghỉ ngơi, ngủ đủ giấc để đầu óc
                                 tỉnh táo, giữ tâm lý thoải mái
                                 trước giờ thi.
@@ -352,7 +359,7 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container footer-content">
+        <div class="container footer-content" style="text-align: center;">
             <div class="footer-section">
                 <h3 class="footer-title">Về Chúng Tôi</h3>
                 <p>

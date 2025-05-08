@@ -1,12 +1,8 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
-$db = "driving_test_db";
 
-$con = new mysqli($host, $username, $password, $db);
+$conn = new mysqli("localhost", "root", "", "driving_test_db");
 
-if ($con->connect_error) {
-    die("Kết nối không thành công" . $con->connect_error);
+if ($conn->connect_error) {
+    die("Kết nối không thành công" . $conn->connect_error);
 }
 ?>

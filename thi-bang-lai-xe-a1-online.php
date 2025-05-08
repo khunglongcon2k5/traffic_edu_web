@@ -1,3 +1,52 @@
+<?php
+require_once './includes/config.php';
+// Lấy danh sách đề thi
+$category_id = 1;
+$category_cau_diem_liet_A1 = 3;
+$limit_8 = 8;
+$limit_20 = 20;
+// Lấy 8 đề chính A1
+$stmt_8   = $conn->prepare(
+    "SELECT * FROM `exam_sets` 
+     WHERE `category_id` = ? 
+     ORDER BY `set_id` 
+     LIMIT ?"
+);
+$stmt_8->bind_param("ii", $category_id, $limit_8);
+$stmt_8->execute();
+$result_8 = $stmt_8->get_result();
+
+// Lấy 20 đề để ôn A1
+$stmt_20  = $conn->prepare(
+    "SELECT * FROM `exam_sets` 
+     WHERE `category_id` = ?
+     ORDER BY `set_id` 
+     LIMIT ?"
+);
+$stmt_20->bind_param("ii", $category_id, $limit_20);
+$stmt_20->execute();
+$result_20 = $stmt_20->get_result();
+
+// Lấy đề điểm liệt A1
+$stmt_bo_de_diem_liet = $conn->prepare(
+    "SELECT * FROM `exam_sets` 
+     WHERE `category_id` = ?"
+);
+$stmt_bo_de_diem_liet->bind_param("i", $category_cau_diem_liet_A1);
+$stmt_bo_de_diem_liet->execute();
+$result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
+
+// Lấy thông tin category
+$stmt_category    = $conn->prepare(
+    "SELECT * FROM `exam_categories` 
+     WHERE `category_id` = ?"
+);
+$stmt_category->bind_param("i", $category_id);
+$stmt_category->execute();
+$result_category = $stmt_category->get_result();
+$category = $result_category->fetch_assoc();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +57,6 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
-    <style>
-    :root {}
-    </style>
 </head>
 
 <body>
@@ -117,7 +163,7 @@
 
                     <p>
                         Khởi Động Cùng 20 Câu Hỏi Điểm Liệt A1 -
-                        <a href="#" style="text-decoration: none">
+                        <a href="./pages/thi-thu-20-cau-diem-liet-a1.php" style="text-decoration: none">
                             <span style="color: red; font-weight: 700">Cùng Thử Sức Ngay! 🚗💥</span>
                         </a>
                     </p>
@@ -140,20 +186,30 @@
             <div>
                 <h3 style="margin-bottom: 15px;">Chọn đề thi:</h3>
                 <div>
-                    <a href="./pages/thi-thu-20-cau-diem-liet-a1.php" class="exam-btn"
-                        style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu
-                        Hỏi Điểm Liệt</a>
+                    <?php
+                    if ($result_bo_de_diem_liet->num_rows > 0) {
+                        $row = $result_bo_de_diem_liet->fetch_assoc();
+                        echo '<a href="./pages/thi-thu-20-cau-diem-liet-a1.php?set_id='
+                            . $row['set_id']
+                            . '" class="exam-btn">20 Câu hỏi điểm liệt </a>';
+                    }
+                    ?>
                 </div>
 
                 <div class="exam-grid">
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 1</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 2</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 3</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 4</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 5</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 6</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 7</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 8</a>
+                    <?php
+                    $count = 1;
+                    if ($result_8->num_rows > 0) {
+                        while ($row = $result_8->fetch_assoc()) {
+                            if ($count <= 8) {
+                                echo '<a href="./pages/thi-thu-bang-lai-xe-may-a1.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
+                                $count++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    ?>
                 </div>
 
                 <p style="margin: 20px 0; color: #ef4444;">
@@ -166,205 +222,213 @@
                 </p>
 
                 <div class="exam-grid">
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 1</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 2</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 3</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 4</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 5</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 6</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 7</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 8</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 9</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 10</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 11</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 12</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 13</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 14</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 15</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 16</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 17</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 18</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 19</a>
-                    <a href="./pages/thi-thu-bang-lai-xe-may-a1.php" class="exam-btn">Đề 20</a>
+                    <?php
+                    $count = 0;
+                    if ($result_20->num_rows > 0) {
+                        while ($row = $result_20->fetch_assoc()) {
+                            $count++;
+                            if ($count <= 20) {
+                                echo '<a href="./pages/thi-thu-bang-lai-xe-may-a1.php?set_id='
+                                    . $row['set_id']
+                                    . '" class="exam-btn">Đề '
+                                    . $count
+                                    . '</a>';
+                            }
+                        }
+                    }
+                    ?>
                 </div>
-            </div>
 
-            <div>
-                <h4 style="margin-bottom: 20px; margin-top: 20px; font-weight: 600; color: #ef4444; font-size: 20px;">
-                    <span>Các bước học
-                        và ôn thi bằng lái A1 hiệu
-                        quả:</span>
-                </h4>
-                <ul class="study-steps">
-                    <li>
-                        <span style="color: blue;">
-                            Bước 1:
-                        </span>
-                        <span style="color: red;">
-                            Ôn lý thuyết với 200 câu hỏi chuẩn
-                        </span>, các bạn có thể
-                        <span>
-                            <a href="" style="text-decoration: none; color: blue;">
-                                tải file PDF
-                            </a>
-                        </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
-                        <span>
-                            <a href="#" style="text-decoration: none; color: blue;">
-                                200 câu A1 online
-                            </a>
-                        </span> . Đây là bước nền tảng giúp
-                        bạn nắm vững kiến thức cơ bản.
-                    </li>
+                <div>
+                    <h4
+                        style="margin-bottom: 20px; margin-top: 20px; font-weight: 600; color: #ef4444; font-size: 20px;">
+                        <span>Các bước học
+                            và ôn thi bằng lái A1 hiệu
+                            quả:</span>
+                    </h4>
+                    <ul class="study-steps">
+                        <li>
+                            <span style="color: blue;">
+                                Bước 1:
+                            </span>
+                            <span style="color: red; font-weight: 700;">
+                                Ôn lý thuyết với 200 câu hỏi chuẩn
+                            </span>, các bạn có thể
+                            <span>
+                                <a href="https://drive.google.com/file/d/1zcde1gq6Is2JePlqto3RUAPOo6InLvSg/view"
+                                    style="text-decoration: none; color: blue; font-weight: 700;">
+                                    tải file PDF
+                                </a>
+                            </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
+                            <span>
+                                <a href="#" style="text-decoration: none; color: blue; font-weight: 700;">
+                                    200 câu A1 online
+                                </a>
+                            </span> . Đây là bước nền tảng giúp
+                            bạn nắm vững kiến thức cơ bản.
+                        </li>
 
-                    <li>
-                        <span style="color: blue;">
-                            Bước 2:
-                        </span> Xem
-                        <span>
-                            <a href="#" style="color: blue; text-decoration: none;">
-                                5 video mẹo thi A1 để dễ nhớ – dễ đậu
-                            </a>
-                        </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
-                        không bị rối với những câu hỏi lý thuyết tưởng dễ mà dễ sai.
-                    </li>
+                        <li>
+                            <span style="color: blue;">
+                                Bước 2:
+                            </span> Xem
+                            <span>
+                                <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLN7VV6_DLShPo4I6foTBLiE2q6XSFeZpW"
+                                    style="color: blue; text-decoration: none; font-weight: 700;">
+                                    5 video mẹo thi A1 để dễ nhớ – dễ đậu
+                                </a>
+                            </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
+                            không bị rối với những câu hỏi lý thuyết tưởng dễ mà dễ sai.
+                        </li>
 
-                    <li>
-                        <span style="color: blue;">
-                            Bước 3:
-                        </span> Làm thử
-                        <span">
-                            <a href="#" style="color: blue; text-decoration: none;">
-                                20 câu điểm liệt A1
-                            </a>
-                            </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
-                            trượt vì 1
-                            <span style="color: blue;">câu điểm liệt</span> thì cũng rất tiếc, nên đừng bỏ qua phần này.
-                    </li>
+                        <li>
+                            <span style="color: blue;">
+                                Bước 3:
+                            </span> Làm thử
+                            <span">
+                                <a href="./pages/thi-thu-20-cau-diem-liet-a1.php"
+                                    style="color: blue; text-decoration: none; font-weight: 700;">
+                                    20 câu điểm liệt A1
+                                </a>
+                                </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
+                                trượt vì 1
+                                <span style="color: blue; font-weight: 700;">câu điểm liệt</span> thì cũng rất tiếc, nên
+                                đừng bỏ qua phần
+                                này.
+                        </li>
 
-                    <li>
-                        <span style="color: blue;">
-                            Bước 4:
-                        </span> Luyện đề sát hạch theo chuẩn
-                        Hệ thống gồm 8 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật. Nếu vẫn còn
-                        chưa tự tin, có thể luyện thêm
-                        <span style="color: blue;">
-                            20 đề A1
-                        </span> bám sát cấu trúc thực tế.
-                    </li>
+                        <li>
+                            <span style="color: blue;">
+                                Bước 4:
+                            </span> Luyện đề sát hạch theo chuẩn
+                            Hệ thống gồm 8 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật. Nếu vẫn còn
+                            chưa tự tin, có thể luyện thêm
+                            <span style="color: blue; font-weight: 700;">
+                                20 đề A1
+                            </span> bám sát cấu trúc thực tế.
+                        </li>
 
-                    <li>
-                        <span style="color: blue;">
-                            Bước 5:
-                        </span> Xem video
-                        <span>
-                            <a href="" style="color: blue; text-decoration: none;">
-                                hướng dẫn thi thực hành A1
-                            </a>
-                        </span>
-                        Nắm trước các bước khi lên xe, cách xử lý tình huống, cảm nhận khi thi trên xe cảm biến –
-                        rất hữu ích nếu bạn chưa từng
-                        thi thực hành.
-                    </li>
+                        <li>
+                            <span style="color: blue;">
+                                Bước 5:
+                            </span> Xem video
+                            <span>
+                                <a href="https://www.youtube.com/embed/R8bNv861OUs?si=dzzlfrz3Styk4zkj"
+                                    style=" color: blue; text-decoration: none; font-weight: 700;">
+                                    hướng dẫn thi thực hành A1
+                                </a>
+                            </span>
+                            Nắm trước các bước khi lên xe, cách xử lý tình huống, cảm nhận khi thi trên xe cảm biến –
+                            rất hữu ích nếu bạn chưa từng
+                            thi thực hành.
+                        </li>
 
-                    <li>
-                        <span style="color: blue;">
-                            Bước 6:
-                        </span> Thư giãn trước ngày thi
-                        Tránh học dồn, nhồi nhét vào phút cuối. Thay vào đó,
-                        <span style="color: blue;">
-                            hãy nghỉ ngơi, ngủ đủ giấc để đầu óc
-                            tỉnh táo, giữ tâm lý thoải mái
-                            trước giờ thi.
-                        </span>
-                    </li>
-                </ul>
-                <p class="exam-note">
-                    📌 Nhớ xem lại mẹo học lý thuyết A1 một lượt trước khi vào phòng thi – gọn nhẹ mà cực kỳ hữu
-                    ích.
-                </p>
-            </div>
-
-            <div>
-                <div class="description">
-                    <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A1</h2>
-                    <p>
-                        <span style="text-transform: uppercase; color: red; font-weight: 700;">
-                            Video hướng dẫn mẹo làm bài thi A1 dễ nhớ – dễ áp dụng:
-                        </span>
-                        5 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
-                        loại biển báo và xử lý chính xác
-                        phần sa hình. Tất cả đều đã cập nhật theo bộ 200 câu hỏi mới nhất – học một lần, nhớ lâu, thi
-                        đâu trúng đó!
+                        <li>
+                            <span style="color: blue;">
+                                Bước 6:
+                            </span> Thư giãn trước ngày thi
+                            Tránh học dồn, nhồi nhét vào phút cuối. Thay vào đó,
+                            <span style="color: blue; font-weight: 700;">
+                                hãy nghỉ ngơi, ngủ đủ giấc để đầu óc
+                                tỉnh táo, giữ tâm lý thoải mái
+                                trước giờ thi.
+                            </span>
+                        </li>
+                    </ul>
+                    <p class="exam-note">
+                        📌 Nhớ xem lại mẹo học lý thuyết A1 một lượt trước khi vào phòng thi – gọn nhẹ mà cực kỳ hữu
+                        ích.
                     </p>
                 </div>
 
-                <div class="video-wrapper">
-                    <iframe width="560" height="315"
-                        src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLN7VV6_DLShPo4I6foTBLiE2q6XSFeZpW"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+                <div>
+                    <div class="description">
+                        <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A1</h2>
+                        <p>
+                            <span style="text-transform: uppercase; color: red; font-weight: 700;">
+                                Video hướng dẫn mẹo làm bài thi A1 dễ nhớ – dễ áp dụng:
+                            </span>
+                            5 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
+                            loại biển báo và xử lý chính xác
+                            phần sa hình. Tất cả đều đã cập nhật theo bộ 200 câu hỏi mới nhất – học một lần, nhớ lâu,
+                            thi
+                            đâu trúng đó!
+                        </p>
+                    </div>
 
-            <div>
-                <div class="description">
-                    <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A1</h2>
-                    <p>
-                        <span style="text-transform: uppercase; color: red; font-weight: 700;">
-                            Video hướng dẫn chạy vòng số 8:
-                        </span>
-                        Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A1, từ cách giữ tay lái,
-                        điều chỉnh ga, tư thế ngồi
-                        đến mẹo xử lý góc hẹp không bị chạm vạch. Nội dung dễ hiểu, phù hợp cho người mới bắt đầu, giúp
-                        bạn tự tin vượt qua bài
-                        thi ngay từ lần đầu tiên.
+                    <div class="video-wrapper">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLN7VV6_DLShPo4I6foTBLiE2q6XSFeZpW"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="description">
+                        <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A1</h2>
+                        <p>
+                            <span style="text-transform: uppercase; color: red; font-weight: 700;">
+                                Video hướng dẫn chạy vòng số 8:
+                            </span>
+                            Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A1, từ cách giữ tay
+                            lái,
+                            điều chỉnh ga, tư thế ngồi
+                            đến mẹo xử lý góc hẹp không bị chạm vạch. Nội dung dễ hiểu, phù hợp cho người mới bắt đầu,
+                            giúp
+                            bạn tự tin vượt qua bài
+                            thi ngay từ lần đầu tiên.
+                        </p>
+                    </div>
+
+
+                    <div class="video-wrapper">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/R8bNv861OUs?si=dzzlfrz3Styk4zkj"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="address-section">
+                    <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy
+                        Nhơn:
                     </p>
+                    <ul>
+                        <li>
+                            <span style="color: blue;">
+                                Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
+                                <a href="https://www.facebook.com/vieclamsinhvienqn"
+                                    style="text-decoration: none; color: red; font-weight: 700;">
+                                    Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung,
+                                TP
+                                Quy Nhơn, Bình Định</strong>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào
+                                tạo
+                                NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
+                        </li>
+
+                        <li>
+                            <span style="color: blue;">Google Maps: </span>
+                            <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
+                                style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
+                                Tại Đây
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
-
-                <div class="video-wrapper">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/R8bNv861OUs?si=dzzlfrz3Styk4zkj"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="address-section">
-                <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy Nhơn:
-                </p>
-                <ul>
-                    <li>
-                        <span style="color: blue;">
-                            Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
-                            <a href="https://www.facebook.com/vieclamsinhvienqn"
-                                style="text-decoration: none; color: red; font-weight: 700;">
-                                Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
-                        </span>
-                    </li>
-
-                    <li>
-                        <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung, TP
-                            Quy Nhơn, Bình Định</strong>
-                    </li>
-
-                    <li>
-                        <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào tạo
-                            NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
-                    </li>
-
-                    <li>
-                        <span style="color: blue;">Google Maps: </span>
-                        <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
-                            style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
-                            Tại Đây
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </main>
     </div>
 
@@ -417,3 +481,8 @@
 </body>
 
 </html>
+
+<?php
+
+$conn->close();
+?>

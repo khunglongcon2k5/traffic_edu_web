@@ -1,3 +1,17 @@
+<?php
+require_once './includes/config.php';
+
+$category_id = 2;
+$stmt = $conn->prepare(
+    "SELECT * FROM `exam_sets`
+     WHERE `category_id` = ?"
+);
+$stmt->bind_param("i", $category_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +22,6 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
-    <style>
-    :root {}
-    </style>
 </head>
 
 <body>
@@ -131,9 +142,14 @@
                 <h3 style="margin-bottom: 15px;">Khám phá ngay bộ đề 20 câu điểm liệt, giúp bạn tự tin chinh phục kỳ
                     thi! 📲🔥:</h3>
                 <div style="text-align: center;">
-                    <a href="#" class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">
-                        20 Câu Hỏi Điểm Liệt
-                    </a>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        echo '<a href="./pages/thi-thu-20-cau-diem-liet-a1.php?set_id='
+                            . $row['set_id']
+                            . '"class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu hỏi điểm liệt A1 </a>';
+                    }
+                    ?>
                 </div>
 
                 <div class="address-section">

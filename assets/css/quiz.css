@@ -278,13 +278,8 @@ nav li:hover a {
     color: var(--primary);
 }
 
-/* ----- TIMER ----- */
-.timer-container {
-    display: grid;
-    grid-template-columns: 1.5fr 3fr;
-}
-
-.time {
+/* ----- COUNTDOWN ----- */
+.countdown {
     background-color: var(--white);
     border-radius: var(--radius);
     padding: 20px;
@@ -297,13 +292,13 @@ nav li:hover a {
     gap: 16px;
 }
 
-.timer-text {
+.countdown-text {
     font-size: 16px;
     font-weight: 500;
     color: var(--gray);
 }
 
-.timer-value {
+.countdown-value {
     font-size: 28px;
     font-weight: 700;
     color: transparent;
@@ -349,6 +344,7 @@ footer {
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+    text-align: center;
 }
 
 .footer-section {

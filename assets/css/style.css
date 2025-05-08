@@ -297,6 +297,7 @@ footer {
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+    text-align: center;
 }
 
 .footer-section {

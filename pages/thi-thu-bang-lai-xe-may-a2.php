@@ -46,7 +46,7 @@
             <div class="question-nav-header">
                 <h4>
                     <span style=" color: #1d4ed8;">Câu hỏi | Đề số:</span>
-                    <span style="color: #dc2626;">01 - 200</span>
+                    <span style="color: #dc2626;">01 - 450</span>
                     Câu Hỏi Thi A2
                 </h4>
             </div>
@@ -116,18 +116,19 @@
             </div>
         </div>
 
-        <div class="time">
-            <div class="timer-text">
+        <div class="countdown">
+            <div class="countdonw-text">
                 Thời gian còn lại:
-                <div class="timer-value">
-                    15:58
+                <div class="countdown-value">
+                    19 : 00
                 </div>
             </div>
         </div>
 
         <div class="submit-buttons">
-            <button class="submit-btn" style="text-transform: uppercase;">
-                Kết thúc bài thi
+            <button class="submit-btn" style="text-transform: uppercase;"
+                onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
+                Nộp Bài
             </button>
         </div>
     </div>
@@ -178,6 +179,8 @@
             © 2025 Trung Tâm Đào Tạo Lái Xe. Tất cả quyền được bảo lưu.
         </div>
     </footer>
+
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>
