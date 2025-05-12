@@ -7,9 +7,9 @@ $limit_8 = 8;
 $limit_20 = 20;
 // Lấy 8 đề chính A1
 $stmt_8   = $conn->prepare(
-    "SELECT * FROM `exam_sets` 
-     WHERE `category_id` = ? 
-     ORDER BY `set_id` 
+    "SELECT * FROM exam_sets 
+     WHERE category_id = ? 
+     ORDER BY set_id 
      LIMIT ?"
 );
 $stmt_8->bind_param("ii", $category_id, $limit_8);
@@ -18,9 +18,9 @@ $result_8 = $stmt_8->get_result();
 
 // Lấy 20 đề để ôn A1
 $stmt_20  = $conn->prepare(
-    "SELECT * FROM `exam_sets` 
-     WHERE `category_id` = ?
-     ORDER BY `set_id` 
+    "SELECT * FROM exam_sets 
+     WHERE category_id = ?
+     ORDER BY set_id 
      LIMIT ?"
 );
 $stmt_20->bind_param("ii", $category_id, $limit_20);
@@ -29,8 +29,8 @@ $result_20 = $stmt_20->get_result();
 
 // Lấy đề điểm liệt A1
 $stmt_bo_de_diem_liet = $conn->prepare(
-    "SELECT * FROM `exam_sets` 
-     WHERE `category_id` = ?"
+    "SELECT * FROM exam_sets 
+     WHERE category_id = ?"
 );
 $stmt_bo_de_diem_liet->bind_param("i", $category_cau_diem_liet_A1);
 $stmt_bo_de_diem_liet->execute();
@@ -38,8 +38,8 @@ $result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
 
 // Lấy thông tin category
 $stmt_category    = $conn->prepare(
-    "SELECT * FROM `exam_categories` 
-     WHERE `category_id` = ?"
+    "SELECT * FROM exam_categories 
+     WHERE category_id = ?"
 );
 $stmt_category->bind_param("i", $category_id);
 $stmt_category->execute();
@@ -54,15 +54,20 @@ $category = $result_category->fetch_assoc();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="icon" href="./assets/img/logo.svg" type="image.jpg">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
     <div class="banner header-content">
         <div class="logo">
-            <img src="./assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <a href="">
+                <img src="./assets/img/logo.svg" width="150" height="100"
+                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            </a>
             <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
         </div>
         <div class="contact-info">
@@ -206,33 +211,6 @@ $category = $result_category->fetch_assoc();
                                 $count++;
                             } else {
                                 break;
-                            }
-                        }
-                    }
-                    ?>
-                </div>
-
-                <p style="margin: 20px 0; color: #ef4444;">
-                    Lưu ý: Sau khi “cày” xong 8 bộ đề (8 × 25 = 200 câu), bạn đã thuần thục toàn bộ ngân hàng A1. Để
-                    nâng cao bản lĩnh và làm chủ cấu trúc sát hạch, hãy tiếp tục chinh phục 20 đề mô phỏng chuẩn: mỗi đề
-                    25 câu – trong đó có 1 câu điểm liệt –
-                    bố cục y như đề thật nhưng câu hỏi được chọn ngẫu nhiên, không trùng lặp. Mỗi đề đều kèm đáp án
-                    phân tích chi tiết, giúp bạn nhanh chóng nhận diện lỗ hổng, bứt phá điểm số và tự tin 100% khi bước
-                    vào phòng thi!
-                </p>
-
-                <div class="exam-grid">
-                    <?php
-                    $count = 0;
-                    if ($result_20->num_rows > 0) {
-                        while ($row = $result_20->fetch_assoc()) {
-                            $count++;
-                            if ($count <= 20) {
-                                echo '<a href="./pages/thi-thu-bang-lai-xe-may-a1.php?set_id='
-                                    . $row['set_id']
-                                    . '" class="exam-btn">Đề '
-                                    . $count
-                                    . '</a>';
                             }
                         }
                     }

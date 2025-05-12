@@ -5,15 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>20 Câu Hỏi Điểm Liệt Thi Bằng Lái Xe Máy A1 2025</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/quiz.css" />
-    <link rel="icon" href="../assets/img/logo.svg" type="image.jpg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
+    <!-- Favicon-->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>
     <div class="banner header-content">
         <div class="logo">
-            <img src="../assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <a href="">
+                <img src="../assets/img/logo.svg" width="150" height="100"
+                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            </a>
             <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
         </div>
         <div class="contact-info">
@@ -112,7 +117,7 @@
         </div>
 
         <div class="countdown">
-            <div class="countdonw-text">
+            <div class="countdown-text">
                 Thời gian còn lại:
                 <div class="countdown-value">
                     15 : 00

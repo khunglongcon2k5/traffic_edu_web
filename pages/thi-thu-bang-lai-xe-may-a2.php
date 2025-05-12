@@ -5,15 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/quiz.css" />
-    <link rel="icon" href="../assets/img/logo.svg" type="image.jpg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
+    <!-- Favicon-->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>
     <div class="banner header-content">
         <div class="logo">
-            <img src="../assets/img/logo.svg" width="150" height="100" alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            <a href="">
+                <img src="../assets/img/logo.svg" width="150" height="100"
+                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            </a>
             <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
         </div>
         <div class="contact-info">
@@ -28,8 +33,8 @@
                     <li><a href="">Chọn Phần Thi</a></li>
                     <li><a href="../thi-bang-lai-xe-a1-online.php">Thi Thử A1</a></li>
                     <li><a href="../thi-bang-lai-xe-a2-online.php" class="active">Thi Thử A2</a></li>
-                    <li><a href="./thi-thu-20-cau-diem-liet-a1.php">Thi 20 Câu Điểm Liệt A1</a></li>
-                    <li><a href="./thi-thu-50-cau-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
+                    <li><a href="../20-cau-hoi-diem-liet-a1.php">Thi 20 Câu Điểm Liệt A1</a></li>
+                    <li><a href="../50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
                 </ul>
             </nav>
         </div>
@@ -117,7 +122,7 @@
         </div>
 
         <div class="countdown">
-            <div class="countdonw-text">
+            <div class="countdown-text">
                 Thời gian còn lại:
                 <div class="countdown-value">
                     19 : 00

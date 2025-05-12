@@ -18,7 +18,7 @@ html {
     --secondary-dark: #059669;
     --secondary-light: #d1fae5;
     --accent: #f97316;
-    --dark: #1f2937;
+    --dark: #011640;
     --gray: #6b7280;
     --light-gray: #f3f4f6;
     --white: #ffffff;
@@ -99,6 +99,7 @@ nav li a {
     padding: 0 15px;
     display: inline-block;
     border-radius: var(--radius);
+    font-weight: 700;
 }
 
 nav li:hover a {
@@ -203,6 +204,17 @@ nav li:hover a {
 
 .question-nav-header {
     margin-bottom: 20px;
+}
+
+.question-image {
+    text-align: center;
+}
+
+.question-image img {
+    max-width: 570px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ----- ANSWER OPTIONS ----- */
