@@ -1,3 +1,110 @@
+<?php
+require_once '../includes/config.php';
+// Lấy câu hỏi theo bộ đề
+function getQuestionsBySet($conn, $set_id, $limit = 25)
+{
+    $critical_questions_by_set = [
+        1 => [202, 203, 206, 208],
+        2 => [227, 234],
+        3 => [252, 255, 256, 258, 260],
+        4 => [277, 278],
+        5 => [302, 310, 325],
+        6 => [327],
+        7 => [352, 353, 356],
+        8 => [377],
+        9 => [402, 403, 410],
+        10 => [427, 428, 430, 435],
+        11 => [452, 453],
+        12 => [477, 482, 484],
+        13 => [503, 509],
+        14 => [528, 529, 532],
+        15 => [552, 553],
+        16 => [578, 580, 582],
+        17 => [601, 602, 603, 609],
+        18 => [626, 627],
+    ];
+
+    $question_ranges = [
+        1 => [201, 225],
+        2 => [226, 250],
+        3 => [251, 275],
+        4 => [276, 300],
+        5 => [301, 325],
+        6 => [326, 350],
+        7 => [351, 375],
+        8 => [376, 400],
+        9 => [401, 425],
+        10 => [426, 450],
+        11 => [451, 475],
+        12 => [476, 500],
+        13 => [501, 525],
+        14 => [526, 550],
+        15 => [551, 575],
+        16 => [576, 600],
+        17 => [601, 625],
+        18 => [626, 650],
+    ];
+
+    if (!isset($question_ranges[$set_id]))
+        return [];
+
+    list($start_id, $end_id) = $question_ranges[$set_id];
+
+    $stmt = $conn->prepare("SELECT * FROM question WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
+    $stmt->bind_param("iii", $start_id, $end_id, $limit);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $question = [];
+
+    if (isset($critical_questions_by_set["set_id"]))
+        $critical_ids = $critical_questions_by_set[$set_id];
+    else
+        $critical_ids = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $row['is_critical'] = in_array($critical_questions_by_set[$set_id], $critical_ids) ? 1 : 0;
+        $question[] = $row;
+    }
+
+    $stmt->close();
+    return $question;
+}
+// Lấy câu trả lời theo câu hỏi
+function getAnswersForQuestion($conn, $question_id)
+{
+    $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
+    $stmt->bind_param("i", $question_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $answer = [];
+    while ($row = $result->fetch_assoc()) {
+        $answer[] = $row;
+    }
+    $stmt->close();
+    return $answer;
+}
+// Lấy danh sách đề thi
+function getExamSets($conn, $category_id = null)
+{
+    if ($category_id === null)
+        return [];
+
+    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+    $stmt->bind_param("i", $category_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $exam_sets = [];
+    while ($row = $result->fetch_assoc()) {
+        $exam_sets[] = $row;
+    }
+    $stmt->close();
+    return $exam_sets;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -185,7 +292,7 @@
         </div>
     </footer>
 
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/exam.js"></script>
 </body>
 
 </html>

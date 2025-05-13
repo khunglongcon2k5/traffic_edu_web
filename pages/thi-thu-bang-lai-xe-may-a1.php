@@ -1,97 +1,56 @@
 <?php
 require_once '../includes/config.php';
-// Lấy danh sách câu hỏi theo đề thi
+
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
-    // Mảng định nghĩa câu hỏi cho từng đề thi (đề 1 đến đề 8)
-    $exam_definitions = [
-        1 => [
-            'normal_questions' => [1, 2, 4, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
-            'critical_questions' => [3, 5, 12]
-        ],
-        2 => [
-            'normal_questions' => [26, 27, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
-            'critical_questions' => [28, 29, 30, 33]
-        ],
-        3 => [
-            'normal_questions' => [51, 52, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75],
-            'critical_questions' => [53, 54]
-        ],
-        4 => [
-            'normal_questions' => [76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
-            'critical_questions' => [79]
-        ],
-        5 => [
-            'normal_questions' => [101, 102, 103, 105, 106, 107, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125],
-            'critical_questions' => [104, 108]
-        ],
-        6 => [
-            'normal_questions' => [126, 127, 128, 130, 131, 132, 133, 134, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150],
-            'critical_questions' => [129, 135]
-        ],
-        7 => [
-            'normal_questions' => [151, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
-            'critical_questions' => [152, 153, 154]
-        ],
-        8 => [
-            'normal_questions' => [176, 178, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
-            'critical_questions' => [177, 179]
-        ]
+    $critical_questions_by_set = [
+        1 => [3, 5, 12],
+        2 => [28, 29, 30, 33],
+        3 => [53, 54],
+        4 => [79],
+        5 => [104, 108],
+        6 => [129, 135],
+        7 => [152, 153, 154],
+        8 => [177, 179]
     ];
 
-    // Kiểm tra set_id có tồn tại key nào trùng với $exam_definitions hay k
-    if (!isset($exam_definitions[$set_id])) {
-        // Nếu không có key cho set_id này, trả về mảng rỗng
+    $question_ranges = [
+        1 => [1, 25],
+        2 => [26, 50],
+        3 => [51, 75],
+        4 => [76, 100],
+        5 => [101, 125],
+        6 => [126, 150],
+        7 => [151, 175],
+        8 => [176, 200]
+    ];
+
+    if (!isset($question_ranges[$set_id]))
         return [];
+
+    list($start_id, $end_id) = $question_ranges[$set_id];
+
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
+    $stmt->bind_param("iii", $start_id, $end_id, $limit);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $questions = [];
+
+    if (isset($critical_questions_by_set[$set_id]))
+        $critical_ids = $critical_questions_by_set[$set_id];
+    else
+        $critical_ids = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $row['is_critical'] = in_array($row['question_id'], $critical_ids) ? 1 : 0;
+        $questions[] = $row;
     }
 
-    $definition = $exam_definitions[$set_id];
-    $normal_ids = $definition['normal_questions'];
-    $critical_ids = $definition['critical_questions'];
-
-    // Lấy câu hỏi thường
-    $normal_questions = [];
-    if (!empty($normal_ids)) {
-        $normal_placeholders = implode(',', array_fill(0, count($normal_ids), '?'));
-        $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($normal_placeholders)");
-
-        // Bind các tham số
-        $param_types = str_repeat('i', count($normal_ids));
-        $stmt->bind_param($param_types, ...$normal_ids);
-
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        while ($row = $result->fetch_assoc()) {
-            $normal_questions[] = $row;
-        }
-        $stmt->close();
-    }
-
-    // Lấy câu hỏi điểm liệt
-    $critical_questions = [];
-    if (!empty($critical_ids)) {
-        $critical_placeholders = implode(',', array_fill(0, count($critical_ids), '?'));
-        $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($critical_placeholders)");
-
-        // Bind các tham số
-        $param_types = str_repeat('i', count($critical_ids));
-        $stmt->bind_param($param_types, ...$critical_ids);
-
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        while ($row = $result->fetch_assoc()) {
-            // Đảm bảo câu hỏi được đánh dấu là điểm liệt
-            $row['is_critical'] = 1;
-            $critical_questions[] = $row;
-        }
-        $stmt->close();
-    }
-    $all_questions = array_merge($normal_questions, $critical_questions);
-
-    return array_slice($all_questions, 0, $limit);
+    $stmt->close();
+    return $questions;
 }
+
 // Lấy câu trả lời cho câu hỏi
 function getAnswersForQuestion($conn, $question_id)
 {
@@ -107,15 +66,15 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->close();
     return $answers;
 }
+
 // Lấy danh sách đề thi
 function getExamSets($conn, $category_id = null)
 {
-    if ($category_id !== null) {
-        $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-        $stmt->bind_param("i", $category_id);
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM exam_sets");
-    }
+    if ($category_id === null)
+        return [];
+
+    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+    $stmt->bind_param("i", $category_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -126,14 +85,18 @@ function getExamSets($conn, $category_id = null)
     $stmt->close();
     return $exam_sets;
 }
+
 // Hiển thị đề thi
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 1;
+
 // Kiểm tra set_id có hợp lệ không (1-8)
 if ($set_id < 1 || $set_id > 8) {
     $set_id = 1; // Mặc định là đề 1 nếu không hợp lệ
 }
+
 // Lấy 25 câu hỏi cho đề thi
 $questions = getQuestionsBySet($conn, $set_id, 25);
+
 // Lấy thông tin đề thi
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit
