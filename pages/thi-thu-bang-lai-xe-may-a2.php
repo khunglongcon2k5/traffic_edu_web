@@ -4,45 +4,45 @@ require_once '../includes/config.php';
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
     $critical_questions_by_set = [
-        1 => [202, 203, 206, 208],
-        2 => [227, 234],
-        3 => [252, 255, 256, 258, 260],
-        4 => [277, 278],
-        5 => [302, 310, 325],
-        6 => [327],
-        7 => [352, 353, 356],
-        8 => [377],
-        9 => [402, 403, 410],
-        10 => [427, 428, 430, 435],
-        11 => [452, 453],
-        12 => [477, 482, 484],
-        13 => [503, 509],
-        14 => [528, 529, 532],
-        15 => [552, 553],
-        16 => [578, 580, 582],
-        17 => [601, 602, 603, 609],
-        18 => [626, 627],
+        22 => [202, 203, 206, 208],
+        23 => [227, 234],
+        24 => [252, 255, 256, 258, 260],
+        25 => [277, 278],
+        26 => [302, 310, 325],
+        27 => [327],
+        28 => [352, 353, 356],
+        29 => [377],
+        30 => [402, 403, 410],
+        31 => [427, 428, 430, 435],
+        32 => [452, 453],
+        33 => [477, 482, 484],
+        34 => [503, 509],
+        35 => [528, 529, 532],
+        36 => [552, 553],
+        37 => [578, 580, 582],
+        38 => [601, 602, 603, 609],
+        39 => [626, 627],
     ];
 
     $question_ranges = [
-        1 => [201, 225],
-        2 => [226, 250],
-        3 => [251, 275],
-        4 => [276, 300],
-        5 => [301, 325],
-        6 => [326, 350],
-        7 => [351, 375],
-        8 => [376, 400],
-        9 => [401, 425],
-        10 => [426, 450],
-        11 => [451, 475],
-        12 => [476, 500],
-        13 => [501, 525],
-        14 => [526, 550],
-        15 => [551, 575],
-        16 => [576, 600],
-        17 => [601, 625],
-        18 => [626, 650],
+        22 => [201, 225],
+        23 => [226, 250],
+        24 => [251, 275],
+        25 => [276, 300],
+        26 => [301, 325],
+        27 => [326, 350],
+        28 => [351, 375],
+        29 => [376, 400],
+        30 => [401, 425],
+        31 => [426, 450],
+        32 => [451, 475],
+        33 => [476, 500],
+        34 => [501, 525],
+        35 => [526, 550],
+        36 => [551, 575],
+        37 => [576, 600],
+        38 => [601, 625],
+        39 => [626, 650],
     ];
 
     if (!isset($question_ranges[$set_id]))
@@ -50,20 +50,20 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
 
     list($start_id, $end_id) = $question_ranges[$set_id];
 
-    $stmt = $conn->prepare("SELECT * FROM question WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
     $stmt->bind_param("iii", $start_id, $end_id, $limit);
     $stmt->execute();
     $result = $stmt->get_result();
 
     $question = [];
 
-    if (isset($critical_questions_by_set["set_id"]))
+    if (isset($critical_questions_by_set[$set_id]))
         $critical_ids = $critical_questions_by_set[$set_id];
     else
         $critical_ids = [];
 
     while ($row = $result->fetch_assoc()) {
-        $row['is_critical'] = in_array($critical_questions_by_set[$set_id], $critical_ids) ? 1 : 0;
+        $row['is_critical'] = in_array($row['question_id'], $critical_ids) ? 1 : 0;
         $question[] = $row;
     }
 
@@ -103,6 +103,25 @@ function getExamSets($conn, $category_id = null)
     $stmt->close();
     return $exam_sets;
 }
+
+$set_id = isset($_GET['set_id']) ? (int)($_GET['set_id']) : 1;
+
+if ($set_id < 22 || $set_id > 39) {
+    $set_id = 22;
+}
+
+$questions = getQuestionsBySet($conn, $set_id, 25);
+
+$stmt = $conn->prepare(
+    "SELECT es.set_name, ec.category_name, ec.time_limit 
+     FROM exam_sets es 
+     JOIN exam_categories ec ON es.category_id = ec.category_id 
+     WHERE es.set_id = ?"
+);
+$stmt->bind_param("i", $set_id);
+$stmt->execute();
+$exam_info = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +130,7 @@ function getExamSets($conn, $category_id = null)
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
+    <title>Thi Thử Bằng Lái Xe Máy A2 Online 2025 - Bộ Đề 450 Câu Hỏi Mới</title>
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/quiz.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
@@ -120,6 +139,7 @@ function getExamSets($conn, $category_id = null)
 </head>
 
 <body>
+    <!-- MAIN HEADER -->
     <div class="banner header-content">
         <div class="logo">
             <a href="">
@@ -132,7 +152,7 @@ function getExamSets($conn, $category_id = null)
             <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
         </div>
     </div>
-    <!-- Header chính -->
+
     <header>
         <div class="container-header">
             <nav>
@@ -149,7 +169,7 @@ function getExamSets($conn, $category_id = null)
 
     <div class="text" style="background: var(--gradient);">
         <h1 class="text-center" style="text-transform: uppercase;">
-            Đề thi thử bằng lái xe A2 450 câu hỏi mới nhất 2025
+            <?php echo htmlspecialchars($exam_info['set_name']) ?>
         </h1>
     </div>
 
@@ -157,75 +177,85 @@ function getExamSets($conn, $category_id = null)
         <div class="question-nav">
             <div class="question-nav-header">
                 <h4>
-                    <span style=" color: #1d4ed8;">Câu hỏi | Đề số:</span>
-                    <span style="color: #dc2626;">01 - 450</span>
-                    Câu Hỏi Thi A2
+                    <span style=" color: #1d4ed8;">25 Câu hỏi | Đề:</span>
+                    <span style="color: #dc2626;">450 Câu Hỏi Thi A2</span>
                 </h4>
             </div>
-            <div class=" question-grid">
-                <button class="question-btn active">1</button>
-                <button class="question-btn">2</button>
-                <button class="question-btn">3</button>
-                <button class="question-btn">4</button>
-                <button class="question-btn">5</button>
-                <button class="question-btn">6</button>
-                <button class="question-btn">7</button>
-                <button class="question-btn">8</button>
-                <button class="question-btn">9</button>
-                <button class="question-btn">10</button>
-                <button class="question-btn">11</button>
-                <button class="question-btn">12</button>
-                <button class="question-btn">13</button>
-                <button class="question-btn">14</button>
-                <button class="question-btn">15</button>
-                <button class="question-btn">16</button>
-                <button class="question-btn">17</button>
-                <button class="question-btn">18</button>
-                <button class="question-btn">19</button>
-                <button class="question-btn">20</button>
-                <button class="question-btn">21</button>
-                <button class="question-btn">22</button>
-                <button class="question-btn">23</button>
-                <button class="question-btn">24</button>
-                <button class="question-btn">25</button>
+            <div class="question-grid">
+                <?php
+                $total_questions = count($questions);
+                for ($i = 1; $i <= $total_questions; $i++) {
+                    $active_class = ($i === 1) ? 'active' : '';
+                    echo "<button class='question-btn $active_class' data-question='$i'>$i</button>";
+                }
+                ?>
             </div>
         </div>
-        <div class="question-content">
-            <div class="question-number" style="margin-bottom: 8px;">
-                Câu hỏi 1
-            </div>
 
-            <div class="question-text" style="margin-bottom: 12px;">
-                Phần của đường bộ được sử dụng cho các phương tiện giao thông qua lại là gì?
-            </div>
+        <!-- QUESTION CONTENT -->
+        <div class="question-content" id="question-content">
+            <?php
+            if (!empty($questions)) {
+                foreach ($questions as $index => $question) {
+                    $question_number = $index + 1;
+                    $answers = getAnswersForQuestion($conn, $question['question_id']);
+                    $display_style = ($question_number === 1) ? 'block' : 'none';
+                    $critical_class = ($question['is_critical']) ? 'critical-question' : '';
 
-            <div class="options">
-                <div class="option">
-                    <input type="radio" id="option1" name="answer">
-                    <label for="option1">1- Phần mặt đường và lề đường</label>
-                </div>
-                <div class="option">
-                    <input type="radio" id="option2" name="answer">
-                    <label for="option2">2- Phần đường xe chạy</label>
-                </div>
-                <div class="option">
-                    <input type="radio" id="option3" name="answer">
-                    <label for="option3">3- Phần đường xe cơ giới</label>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button class="nav-btn">
-                    <div class="previous-question">
-                        Câu trước
-                    </div>
-                </button>
+                    echo "<div class='question-panel $critical_class' id='question-$question_number' style='display: $display_style;'>";
+                    echo "<div class='question-number' style='margin-bottom: 8px'>Câu hỏi $question_number";
+                    if ($question['is_critical']) {
+                        echo "<span style='color: red; font-weight: 700'> (Câu Điểm Liệt)</span>";
+                    }
+                    echo "</div>";
 
-                <button class="nav-btn next">
-                    <div class="next-question">
-                        Câu tiếp theo
-                    </div>
-                </button>
-            </div>
+                    echo "<div class='question-text' style='margin-bottom: 12px;'>";
+                    echo htmlspecialchars($question['question_text']);
+                    echo "</div>";
+
+                    if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
+                        echo "<div class='question-image'>";
+                        echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='thi-ly-thuyet-a2-450-cau-hoi'>";
+                        echo "</div>";
+                    }
+
+                    echo "<div class='options'>";
+                    foreach ($answers as $answer_index => $answer) {
+                        $option_number = $answer_index + 1;
+                        echo "<label class='option'>";
+                        echo "<input type='radio' id='q{$question_number}_option{$option_number}' name='question{$question['question_id']} value='{$answer['answer_id']}'>";
+                        echo "<label for='q{$question_number}_option{$option_number}'>{$option_number}- " . htmlspecialchars($answer['answer_text']) . "</label>";
+                        echo "</label>";
+                    }
+                    echo "</div>";
+
+                    echo "<div class='navigation-buttons'>";
+                    if ($question_number > 1) {
+                        echo "<button class='nav-btn prev-btn' data-target='" . ($question_number - 1) . "'>";
+                        echo "<div class='previous-question'>Câu trước</div>";
+                        echo "</button>";
+                    } else {
+                        echo "<button class='nav-btn disabled'>";
+                        echo "<div class='previous-question'>Câu trước</div>";
+                        echo "</button>";
+                    }
+
+                    if ($question_number < $total_questions) {
+                        echo "<button class='nav-btn next-btn next' data-target='" . ($question_number + 1) . "'>";
+                        echo "<div class='next-question'>Câu tiếp theo</div>";
+                        echo "</button>";
+                    } else {
+                        echo "<button class='nav-btn disabled next'>";
+                        echo "<div class='next-question'>Câu tiếp theo</div>";
+                        echo "</button>";
+                    }
+                    echo "</div>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<div class='no-questions'>Đề thi này chưa có câu hỏi</div>";
+            }
+            ?>
         </div>
 
         <div class="countdown">
@@ -238,10 +268,13 @@ function getExamSets($conn, $category_id = null)
         </div>
 
         <div class="submit-buttons">
-            <button class="submit-btn" style="text-transform: uppercase;"
-                onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
-                Nộp Bài
-            </button>
+            <form id="exam-form" method="post" action="../check-answers.php">
+                <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
+                <button class="submit-btn" style="text-transform: uppercase;"
+                    onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
+                    Nộp Bài
+                </button>
+            </form>
         </div>
     </div>
 
@@ -258,7 +291,9 @@ function getExamSets($conn, $category_id = null)
             <div class="footer-section">
                 <h3 class="footer-title">Liên Hệ</h3>
                 <ul class="footer-links">
-                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    <a href="https://maps.app.goo.gl/gqZhvDsBJWca9f9cA">
+                        <li> Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    </a>
                     <li>Điện thoại: 0256 3646373</li>
                     <li>Email: trafficedu@qn.com.vn</li>
                 </ul>
@@ -266,8 +301,12 @@ function getExamSets($conn, $category_id = null)
             <div class="footer-section">
                 <h3 class="footer-title">Khóa Học</h3>
                 <ul class="footer-links">
-                    <li>Bằng Lái Xe A1</li>
-                    <li>Bằng Lái Xe A2</li>
+                    <a href="../thi-bang-lai-xe-a1-online.php">
+                        <li>Bằng Lái Xe A1</li>
+                    </a>
+                    <a href="../thi-bang-lai-xe-a2-online.php">
+                        <li>Bằng Lái Xe A2</li>
+                    </a>
                 </ul>
             </div>
             <div class="footer-section">

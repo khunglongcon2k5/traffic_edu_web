@@ -23,7 +23,7 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
@@ -158,6 +158,11 @@ $result = $stmt->get_result();
                 </div>
 
                 <div class="address-section">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.2120340408314!2d109.19560007474969!3d13.766083186627293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6cb7c3c5685f%3A0x3df59a1674b81b54!2zMzYxIFTDonkgU8ahbiwgUXVhbmcgVHJ1bmcsIFF1eSBOaMahbiwgQsOsbmggxJDhu4tuaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1747291617983!5m2!1svi!2s"
+                        width="800" height="400" style="border:0; margin-top: 10px;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                     <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy
                         Nhơn:
                     </p>
@@ -208,7 +213,9 @@ $result = $stmt->get_result();
             <div class="footer-section">
                 <h3 class="footer-title">Liên Hệ</h3>
                 <ul class="footer-links">
-                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    <a href="https://maps.app.goo.gl/gqZhvDsBJWca9f9cA">
+                        <li> Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    </a>
                     <li>Điện thoại: 0256 3646373</li>
                     <li>Email: trafficedu@qn.com.vn</li>
                 </ul>
@@ -216,8 +223,12 @@ $result = $stmt->get_result();
             <div class="footer-section">
                 <h3 class="footer-title">Khóa Học</h3>
                 <ul class="footer-links">
-                    <li>Bằng Lái Xe A1</li>
-                    <li>Bằng Lái Xe A2</li>
+                    <a href="thi-bang-lai-xe-a1-online.php">
+                        <li>Bằng Lái Xe A1</li>
+                    </a>
+                    <a href="thi-bang-lai-xe-a2-online.php">
+                        <li>Bằng Lái Xe A2</li>
+                    </a>
                 </ul>
             </div>
             <div class="footer-section">

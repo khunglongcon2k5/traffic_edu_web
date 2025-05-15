@@ -59,12 +59,12 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $answers = [];
+    $answersForQuestion = [];
     while ($row = $result->fetch_assoc()) {
-        $answers[] = $row;
+        $answersForQuestion[] = $row;
     }
     $stmt->close();
-    return $answers;
+    return $answersForQuestion;
 }
 
 // Lấy danh sách đề thi
@@ -116,7 +116,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 25/200 Câu Hỏi Mới</title>
+    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/quiz.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
@@ -154,7 +154,7 @@ $stmt->close();
 
     <div class="text" style="background: var(--gradient);">
         <h1 class="text-center" style="text-transform: uppercase;">
-            <?php echo htmlspecialchars($exam_info['set_name'] ?? 'Đề thi thử bằng lái xe A1 25 câu hỏi mới nhất 2025'); ?>
+            <?php echo htmlspecialchars($exam_info['set_name']) ?>
         </h1>
     </div>
 
@@ -162,9 +162,8 @@ $stmt->close();
         <div class="question-nav">
             <div class="question-nav-header">
                 <h4>
-                    <span style=" color: #1d4ed8;">Câu hỏi | Đề số:</span>
-                    <span style="color: #dc2626;"><?php echo htmlspecialchars($set_id); ?></span>
-                    - 200 Câu hỏi thi A1
+                    <span style=" color: #1d4ed8;">25 Câu hỏi | Đề:</span>
+                    <span style="color: #dc2626;"> 200 Câu hỏi thi A1</span>
                 </h4>
             </div>
             <div class="question-grid">
@@ -178,8 +177,8 @@ $stmt->close();
             </div>
         </div>
 
-        <!-- Phần hiển thị nội dung câu hỏi -->
-        <div class="question-content" id="question-container">
+        <!-- QUESTION CONTENT -->
+        <div class="question-content" id="question-content">
             <?php
             if (!empty($questions)) {
                 foreach ($questions as $index => $question) {
@@ -191,7 +190,7 @@ $stmt->close();
                     echo "<div class='question-panel $critical_class' id='question-$question_number' style='display: $display_style;'>";
                     echo "<div class='question-number' style='margin-bottom: 8px;'>Câu hỏi $question_number";
                     if ($question['is_critical']) {
-                        echo " <span class='critical-label'>(Câu điểm liệt)</span>";
+                        echo "<span style='color: red; font-weight: 700;'> (Câu Điểm Liệt)</span>";
                     }
                     echo "</div>";
 
@@ -199,25 +198,25 @@ $stmt->close();
                     echo htmlspecialchars($question['question_text']);
                     echo "</div>";
 
-                    // Hiển thị hình ảnh nếu có
-                    if ($question['question_image'] && $question['question_image'] != '../assets/img/0.jpg') {
+                    // Display Img
+                    if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
                         echo "<div class='question-image'>";
-                        echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Hình ảnh câu hỏi'>";
+                        echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='thi-ly-thuyet-lai-xe-a1-200-cau-hoi'>";
                         echo "</div>";
                     }
 
-                    // Hiển thị các câu trả lời
+                    // Display Answers
                     echo "<div class='options'>";
                     foreach ($answers as $answer_index => $answer) {
                         $option_number = $answer_index + 1;
-                        echo "<div class='option'>";
+                        echo "<label class='option'>";
                         echo "<input type='radio' id='q{$question_number}_option{$option_number}' name='question_{$question['question_id']}' value='{$answer['answer_id']}'>";
                         echo "<label for='q{$question_number}_option{$option_number}'>{$option_number}- " . htmlspecialchars($answer['answer_text']) . "</label>";
-                        echo "</div>";
+                        echo "</label>";
                     }
                     echo "</div>";
 
-                    // Nút điều hướng
+                    // điều hướng
                     echo "<div class='navigation-buttons'>";
                     if ($question_number > 1) {
                         echo "<button class='nav-btn prev-btn' data-target='" . ($question_number - 1) . "'>";
@@ -243,7 +242,7 @@ $stmt->close();
                     echo "</div>"; // đóng question-panel
                 }
             } else {
-                echo "<div class='no-questions'>Đề thi này chưa có câu hỏi</div>";
+                echo "<div class='no-questions'>Chưa có bộ câu hỏi cho đề thi này.</div>";
             }
             ?>
         </div>
@@ -258,7 +257,7 @@ $stmt->close();
         </div>
 
         <div class="submit-buttons">
-            <form id="exam-form" method="post" action="check_answers.php">
+            <form id="exam-form" method="post" action="../check-answers.php">
                 <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
                 <button type="submit" class="submit-btn" style="text-transform: uppercase;"
                     onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
@@ -281,7 +280,9 @@ $stmt->close();
             <div class="footer-section">
                 <h3 class="footer-title">Liên Hệ</h3>
                 <ul class="footer-links">
-                    <li>Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    <a href="https://maps.app.goo.gl/gqZhvDsBJWca9f9cA">
+                        <li> Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
+                    </a>
                     <li>Điện thoại: 0256 3646373</li>
                     <li>Email: trafficedu@qn.com.vn</li>
                 </ul>
@@ -289,8 +290,12 @@ $stmt->close();
             <div class="footer-section">
                 <h3 class="footer-title">Khóa Học</h3>
                 <ul class="footer-links">
-                    <li>Bằng Lái Xe A1</li>
-                    <li>Bằng Lái Xe A2</li>
+                    <a href="../thi-bang-lai-xe-a1-online.php">
+                        <li>Bằng Lái Xe A1</li>
+                    </a>
+                    <a href="../thi-bang-lai-xe-a2-online.php">
+                        <li>Bằng Lái Xe A2</li>
+                    </a>
                 </ul>
             </div>
             <div class="footer-section">
