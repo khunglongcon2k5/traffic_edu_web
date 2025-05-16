@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2025 lúc 06:19 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: May 16, 2025 at 06:40 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `driving_test_db`
+-- Database: `driving_test_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `answers`
+-- Table structure for table `answers`
 --
 
 CREATE TABLE `answers` (
-  `answer_id` int(11) NOT NULL,
-  `question_id` int(11) NOT NULL,
-  `answer_text` text NOT NULL,
-  `explanation` text DEFAULT NULL,
-  `is_correct` tinyint(1) DEFAULT 0
+  `answer_id` int NOT NULL,
+  `question_id` int NOT NULL,
+  `answer_text` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `explanation` text COLLATE utf8mb4_unicode_ci,
+  `is_correct` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `answers`
+-- Dumping data for table `answers`
 --
 
 INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`, `is_correct`) VALUES
@@ -77,7 +77,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (35, 11, 'Ra tín hiệu bằng tay rồi cho xe vượt qua.', 'Tín hiệu tay không phải cách báo hiệu chính.', 0),
 (36, 11, 'Tăng ga mạnh để gây sự chú ý rồi cho xe vượt qua.', 'Tăng ga không phải tín hiệu báo hiệu.', 0),
 (37, 11, 'Bạn phải có tín hiệu bằng đèn hoặc còi.', 'Đèn hoặc còi là tín hiệu hợp lệ để báo vượt.', 1),
-(38, 12, 'Giữ tay ga ở mức độ phù hợp, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Giữ tay ga không an toàn khi xuống dốc dài.', 0),
+(38, 12, 'Giữ tay ga ở mức độ phù hợp, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Giữ tay ga không an toàn khi xuống dốc dài.', 1),
 (39, 12, 'Nhả hết tay ga, tắt động cơ, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Tắt động cơ là không an toàn.', 0),
 (40, 12, 'Sử dụng phanh trước để giảm tốc độ kết hợp với tắt chìa khóa điện của xe.', 'Tắt chìa khóa là không an toàn.', 0),
 (41, 13, 'Để điều khiển xe chạy về phía trước.', 'Tay ga điều khiển tốc độ, không chỉ chạy về phía trước.', 0),
@@ -152,7 +152,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (110, 34, 'Nếu đủ điều kiện an toàn, người lái xe phải giảm tốc độ, đi sát về bên phải của phần đường xe chạy cho đến khi xe sau đã vượt qua, không được gây trở ngại đối với xe xin vượt.', 'Giảm tốc độ và nhường đường là đúng quy tắc.', 1),
 (111, 34, 'Lái xe vào lề đường bên trái và giảm tốc độ để xe phía sau vượt qua, không được gây trở ngại đối với xe xin vượt.', 'Tránh bên trái là sai quy tắc.', 0),
 (112, 34, 'Nếu đủ điều kiện an toàn, người lái xe phải tăng tốc độ, đi sát về bên phải của phần đường xe chạy cho đến khi xe sau đã vượt qua.', 'Tăng tốc độ gây nguy hiểm.', 0),
-(113, 35, 'Gặp biển báo nguy hiểm trên đường.', 'Cần giảm tốc độ khi gặp biển báo nguy hiểm.', 0),
+(113, 35, 'Gặp biển báo nguy hiểm trên đường.', 'Cần giảm tốc độ khi gặp biển báo nguy hiểm.', 1),
 (114, 35, 'Gặp biển chỉ dẫn trên đường.', 'Biển chỉ dẫn không yêu cầu giảm tốc độ.', 0),
 (115, 35, 'Gặp biển báo hết mọi lệnh cấm.', 'Biển hết lệnh cấm không yêu cầu giảm tốc độ.', 0),
 (116, 35, 'Gặp biển báo hết hạn chế tốc độ tối đa cho phép.', 'Cần chú ý nhưng không phải luôn giảm tốc độ.', 0),
@@ -371,7 +371,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (329, 100, 'Xe của bạn, mô tô, xe con.', 'Thứ tự đúng theo quy tắc giao thông.', 1),
 (330, 100, 'Xe con, xe của bạn, mô tô.', 'Thứ tự ưu tiên sai.', 0),
 (331, 100, 'Mô tô, xe con, xe của bạn.', 'Thứ tự ưu tiên sai.', 0),
-(332, 101, 'Là người điều khiển xe cơ giới.', 'Chỉ một phần của khái niệm người lái xe.', 0),
+(332, 101, 'Là người điều khiển xe cơ giới.', 'Chỉ một phần của khái niệm người lái xe.', 1),
 (333, 101, 'Là người điều khiển xe thô sơ.', 'Chỉ một phần của khái niệm người lái xe.', 0),
 (334, 101, 'Là người điều khiển xe có súc vật kéo.', 'Chỉ một phần của khái niệm người lái xe.', 0),
 (335, 102, 'Là trạng thái đứng yên của phương tiện giao thông không giới hạn thời gian để cho người lên, xuống phương tiện, xếp dỡ hàng hóa hoặc thực hiện công việc khác.', 'Dừng xe có giới hạn thời gian.', 0),
@@ -1516,7 +1516,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (1472, 463, 'Biển 2 và 3.', 'Sai, cả ba biển đều có hiệu lực.', 0),
 (1473, 463, 'Biển 1 và 3.', 'Sai, cả ba biển đều có hiệu lực.', 0),
 (1474, 463, 'Cả ba biển.', 'Đúng, cả ba biển đều có hiệu lực đối với ô tô tải không kéo moóc.', 1),
-(1475, 464, 'Biển 1.', 'Sai, không có biển báo tốc độ tối đa về ban đêm riêng biệt.', 0),
+(1475, 464, 'Biển 1.', 'Sai, không có biển báo tốc độ tối đa về ban đêm riêng biệt.', 1),
 (1476, 464, 'Biển 2.', 'Sai, không có biển báo tốc độ tối đa về ban đêm riêng biệt.', 0),
 (1477, 464, 'Cả 2 biển.', 'Sai, không có biển báo tốc độ tối đa về ban đêm riêng biệt.', 0),
 (1478, 465, 'Biển 1.', 'Đúng, biển 1 báo hiệu nơi đường sắt giao vuông góc với đường bộ.', 1),
@@ -2175,7 +2175,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (2257, 670, 'Xâm phạm tính mạng, sức khỏe, tài sản của người bị nạn và người gây tai nạn.', 'Hành vi này bị cấm vì vi phạm quyền lợi của các bên liên quan.', 1),
 (2258, 670, 'Sơ cứu người bị nạn khi cơ quan có thẩm quyền chưa cho phép.', 'Sơ cứu là trách nhiệm đạo đức, không bị cấm nếu nhằm cứu người.', 0),
 (2259, 670, 'Sơ cứu người gây tai nạn khi cơ quan có thẩm quyền chưa cho phép.', 'Sơ cứu người gây tai nạn cũng không bị cấm, đặc biệt trong tình huống khẩn cấp.', 0),
-(2260, 671, 'Giữ tay ga ở mức độ phù hợp, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Giữ tay ga khi xuống dốc có thể làm xe tăng tốc, không an toàn.', 0),
+(2260, 671, 'Giữ tay ga ở mức độ phù hợp, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Giữ tay ga khi xuống dốc có thể làm xe tăng tốc, không an toàn.', 1),
 (2261, 671, 'Nhả hết tay ga, tắt động cơ, sử dụng phanh trước và phanh sau để giảm tốc độ.', 'Tắt động cơ làm mất khả năng kiểm soát, không phù hợp khi xuống dốc.', 0),
 (2262, 671, 'Sử dụng phanh trước để giảm tốc độ kết hợp với tắt chìa khóa điện của xe.', 'Nhả tay ga, sử dụng cả phanh trước và sau, không tắt động cơ là cách đúng để kiểm soát tốc độ.', 0),
 (2263, 672, 'Khi có chuông báo hoặc thanh chắn đã hạ xuống, người lái xe phải dừng xe tạm thời đúng khoảng cách an toàn, kéo phanh tay nếu đường dốc hoặc phải chờ lâu.', 'Dừng xe khi có tín hiệu là đúng để đảm bảo an toàn (Điều 22).', 0),
@@ -2274,23 +2274,27 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 (2356, 700, 'Được mang, vác tùy trường hợp cụ thể.', 'Mang, vác vật cồng kềnh là nguy hiểm và bị cấm trong mọi trường hợp.', 0),
 (2357, 700, 'Không được mang, vác.', 'Điều 6 cấm mang, vác vật cồng kềnh khi ngồi trên xe mô tô.', 1),
 (2358, 700, 'Được mang, vác nhưng phải đảm bảo an toàn.', 'Dù đảm bảo an toàn, mang vật cồng kềnh vẫn bị cấm vì ảnh hưởng kiểm soát xe.', 0),
-(2359, 700, 'Được mang, vác tùy theo sức khỏe của bản thân.', 'Sức khỏe không phải tiêu chí cho phép mang vật cồng kềnh, hành vi này bị cấm.', 0);
+(2359, 700, 'Được mang, vác tùy theo sức khỏe của bản thân.', 'Sức khỏe không phải tiêu chí cho phép mang vật cồng kềnh, hành vi này bị cấm.', 0),
+(2360, 701, 'Giảm tốc độ để đảm bảo an toàn với xe phía trước và sử dụng điện thoại để liên lạc.', 'Không an toàn, vì sử dụng điện thoại khi lái xe bị cấm.', 0),
+(2361, 701, 'Giảm tốc độ để dừng xe ở nơi cho phép dừng xe sau đó sử dụng điện thoại để liên lạc.', 'Đúng, phải dừng xe ở nơi an toàn để dùng điện thoại.', 1),
+(2362, 701, 'Tăng tốc độ để cách xa xe phía sau và sử dụng điện thoại để liên lạc.', 'Sai, vì dùng điện thoại khi lái xe gây mất an toàn.', 0),
+(2363, 231, 'Cả ý 1 và ý 2', 'Cả ý 1 và ý 2 đều là những tình huống nguy hiểm tiềm ẩn, yêu cầu người lái xe giảm tốc độ để đảm bảo an toàn và kịp thời xử lý khi có sự cố xảy ra.', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `exam_categories`
+-- Table structure for table `exam_categories`
 --
 
 CREATE TABLE `exam_categories` (
-  `category_id` int(11) NOT NULL,
-  `category_name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `time_limit` int(11) NOT NULL DEFAULT 1140
+  `category_id` int NOT NULL,
+  `category_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `time_limit` int NOT NULL DEFAULT '1140'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `exam_categories`
+-- Dumping data for table `exam_categories`
 --
 
 INSERT INTO `exam_categories` (`category_id`, `category_name`, `description`, `time_limit`) VALUES
@@ -2302,17 +2306,17 @@ INSERT INTO `exam_categories` (`category_id`, `category_name`, `description`, `t
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `exam_sets`
+-- Table structure for table `exam_sets`
 --
 
 CREATE TABLE `exam_sets` (
-  `set_id` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `set_name` varchar(100) NOT NULL
+  `set_id` int NOT NULL,
+  `category_id` int DEFAULT NULL,
+  `set_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `exam_sets`
+-- Dumping data for table `exam_sets`
 --
 
 INSERT INTO `exam_sets` (`set_id`, `category_id`, `set_name`) VALUES
@@ -2360,19 +2364,19 @@ INSERT INTO `exam_sets` (`set_id`, `category_id`, `set_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `questions`
+-- Table structure for table `questions`
 --
 
 CREATE TABLE `questions` (
-  `question_id` int(11) NOT NULL,
-  `set_id` int(11) DEFAULT NULL,
-  `question_text` text DEFAULT NULL,
-  `question_image` varchar(255) DEFAULT NULL,
-  `is_critical` tinyint(4) DEFAULT NULL
+  `question_id` int NOT NULL,
+  `set_id` int DEFAULT NULL,
+  `question_text` text COLLATE utf8mb4_unicode_ci,
+  `question_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_critical` tinyint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `questions`
+-- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`question_id`, `set_id`, `question_text`, `question_image`, `is_critical`) VALUES
@@ -3076,112 +3080,113 @@ INSERT INTO `questions` (`question_id`, `set_id`, `question_text`, `question_ima
 (697, 4, 'Người điều khiển xe mô tô hai bánh, ba bánh, xe gắn máy có được phép sử dụng xe để kéo hoặc đẩy các phương tiện khác khi tham gia giao thông không?', '../assets/img/cau-liet-21-b2.jpg', 1),
 (698, 4, 'Khi điều khiển xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy, những hành vi buông cả hai tay; sử dụng xe để kéo, đẩy xe khác, vật khác; sử dụng chân chống của xe quệt xuống đường khi xe đang chạy có được phép hay không?', '../assets/img/cauliet8.jpg', 1),
 (699, 4, 'Khi điều khiển xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy, những hành vi nào không được phép?', '../assets/img/cauliet9.jpg', 1),
-(700, 4, 'Người ngồi trên xe mô tô hai bánh, ba bánh, xe gắn máy khi tham gia giao thông có được mang, vác vật cồng kềnh hay không?', '../assets/img/cau-liet-24-b2.jpg', 1);
+(700, 4, 'Người ngồi trên xe mô tô hai bánh, ba bánh, xe gắn máy khi tham gia giao thông có được mang, vác vật cồng kềnh hay không?', '../assets/img/cau-liet-24-b2.jpg', 1),
+(701, 2, 'Khi đang lái xe mô tô và ô tô, nếu có nhu cầu sử dụng điện thoại để nhắn tin hoặc gọi điện, người lái xe phải thực hiện như thế nào trong các tình huống nêu dưới đây?', '../assets/img/cauliet20.jpg', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('hocvien','giaovien') DEFAULT 'hocvien'
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('hocvien','giaovien') COLLATE utf8mb4_unicode_ci DEFAULT 'hocvien'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `answers`
+-- Indexes for table `answers`
 --
 ALTER TABLE `answers`
   ADD PRIMARY KEY (`answer_id`),
   ADD KEY `answers_ibfk_1` (`question_id`);
 
 --
--- Chỉ mục cho bảng `exam_categories`
+-- Indexes for table `exam_categories`
 --
 ALTER TABLE `exam_categories`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Chỉ mục cho bảng `exam_sets`
+-- Indexes for table `exam_sets`
 --
 ALTER TABLE `exam_sets`
   ADD PRIMARY KEY (`set_id`),
   ADD KEY `category_id` (`category_id`);
 
 --
--- Chỉ mục cho bảng `questions`
+-- Indexes for table `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`question_id`),
   ADD KEY `questions_ibfk_1` (`set_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `answers`
+-- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2360;
+  MODIFY `answer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2364;
 
 --
--- AUTO_INCREMENT cho bảng `exam_categories`
+-- AUTO_INCREMENT for table `exam_categories`
 --
 ALTER TABLE `exam_categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `exam_sets`
+-- AUTO_INCREMENT for table `exam_sets`
 --
 ALTER TABLE `exam_sets`
-  MODIFY `set_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `set_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT cho bảng `questions`
+-- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=701;
+  MODIFY `question_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `answers`
+-- Constraints for table `answers`
 --
 ALTER TABLE `answers`
   ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `exam_sets`
+-- Constraints for table `exam_sets`
 --
 ALTER TABLE `exam_sets`
   ADD CONSTRAINT `exam_sets_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `exam_categories` (`category_id`);
 
 --
--- Các ràng buộc cho bảng `questions`
+-- Constraints for table `questions`
 --
 ALTER TABLE `questions`
   ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`set_id`) REFERENCES `exam_sets` (`set_id`);

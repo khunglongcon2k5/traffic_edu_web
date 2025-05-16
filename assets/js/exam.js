@@ -13,7 +13,43 @@ document.addEventListener('DOMContentLoaded', function () {
     // Xử lý chuyển câu hỏi khi click vào số câu
     const questionBtns = document.querySelectorAll('.question-btn');
     const questionPanels = document.querySelectorAll('.question-panel');
+    const submitBtn = document.querySelector('.submit-btn');
+    const examForm = document.getElementById('exam-form');
+    let hasSelectedAnswer = false;
 
+    // Vô hiệu hóa nút Nộp Bài ban đầu
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.5';
+    submitBtn.style.cursor = 'not-allowed';
+
+    // Theo dõi việc chọn đáp án
+    const radioInputs = document.querySelectorAll('input[type="radio"]');
+    radioInputs.forEach(input => {
+        input.addEventListener('change', function () {
+            hasSelectedAnswer = Array.from(radioInputs).some(radio => radio.checked);
+            if (hasSelectedAnswer) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+        });
+    });
+
+    // Xử lý gửi biểu mẫu
+    examForm.addEventListener('submit', function (e) {
+        if (!hasSelectedAnswer) {
+            e.preventDefault();
+            alert('Vui lòng chọn ít nhất một đáp án trước khi nộp bài.');
+            return false;
+        }
+        return confirm('Bạn có chắc chắn muốn nộp bài hay không?');
+    });
+
+    // Xử lý chuyển câu hỏi
     questionBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             const questionNumber = this.dataset.question;
@@ -39,16 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
     prevBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             const targetQuestion = this.dataset.target;
-            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`)
-                .click();
+            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
         });
     });
 
     nextBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             const targetQuestion = this.dataset.target;
-            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`)
-                .click();
+            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
         });
     });
 });
