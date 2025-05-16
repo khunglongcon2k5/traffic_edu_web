@@ -1,243 +1,28 @@
+<?php
+require_once './includes/config.php';
+?>
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết Quả Bài Thi A1</title>
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --danger-color: #F44336;
-            --warning-color: #FFC107;
-            --light-color: #f5f5f5;
-            --dark-color: #333;
-            --border-color: #ddd;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f0f2f5;
-            color: var(--dark-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .header {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .result-summary {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .result-box {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .stat-box {
-            background-color: white;
-            flex: 1;
-            min-width: 180px;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .fail {
-            color: var(--danger-color);
-        }
-
-        .pass {
-            color: var(--primary-color);
-        }
-
-        .warning {
-            color: var(--warning-color);
-        }
-
-        .result-status {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .status-fail {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: var(--danger-color);
-        }
-
-        .status-pass {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: var(--primary-color);
-        }
-
-        .questions-container {
-            margin-top: 30px;
-        }
-
-        .question-item {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .question-header {
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .incorrect .question-header {
-            background-color: rgba(244, 67, 54, 0.05);
-        }
-
-        .correct .question-header {
-            background-color: rgba(76, 175, 80, 0.05);
-        }
-
-        .question-content {
-            padding: 15px;
-        }
-
-        .question-text {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .question-image {
-            max-width: 100%;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-
-        .answer-options {
-            margin-top: 15px;
-        }
-
-        .answer-option {
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .correct-answer {
-            background-color: rgba(76, 175, 80, 0.1);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .incorrect-answer {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
-
-        .explanation {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #fffde7;
-            border-left: 4px solid var(--warning-color);
-            border-radius: 4px;
-        }
-
-        .explanation-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #795548;
-        }
-
-        .critical-question {
-            border-left: 4px solid var(--danger-color);
-        }
-
-        .retry-button {
-            display: block;
-            width: 100%;
-            max-width: 200px;
-            margin: 30px auto;
-            padding: 12px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .retry-button:hover {
-            background-color: #2980b9;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .stat-box {
-                min-width: 140px;
-            }
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kết Quả</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/resutl.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
+    <!-- Favicon-->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
+            <a href="">
+                <img src="./assets/img/logo.svg" width="150" height="100"
+                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
+            </a>
             <h1>Kết Quả Bài Thi Lái Xe</h1>
             <p>Đề số: <strong>01 - 200 Câu Hỏi Thi A1</strong></p>
         </div>
