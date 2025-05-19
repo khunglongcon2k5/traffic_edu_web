@@ -270,8 +270,7 @@ $stmt->close();
         <div class="submit-buttons">
             <form id="exam-form" method="post" action="../check-answers.php">
                 <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
-                <button class="submit-btn" style="text-transform: uppercase;"
-                    onclick="return confirm('Bạn có chắc chắn muốn nộp bài hay không?');">
+                <button class="submit-btn" style="text-transform: uppercase;">
                     Nộp Bài
                 </button>
             </form>
@@ -331,7 +330,7 @@ $stmt->close();
         </div>
     </footer>
 
-    <script src="../assets/js/exam.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

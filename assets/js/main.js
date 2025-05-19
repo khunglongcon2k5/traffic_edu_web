@@ -1,13 +1,33 @@
-var currentTime = 19;
-var time = currentTime * 60; // số giây => đổi phút sang giây 19 * 60
-var itemCountDown = document.querySelector('.countdown-value');
+document.addEventListener('DOMContentLoaded', function () {
+    var countdownElement = document.querySelector('.countdown-value');
 
-setInterval(function () {
-    time--;
-    let second = time % 60;
-    let minutes = Math.floor(time / 60);
-    itemCountDown.innerHTML = `${String(minutes).padStart(2, '0')} : ${String(second).padStart(2, '0')}`;
-}, 1000);
+    if (!countdownElement) {
+        alert('Không tìm thấy .countdown-value');
+        return;
+    }
+
+    var timeText = countdownElement.innerText;
+    var parts = timeText.split(':');
+
+    var minutes = parseInt(parts[0]);
+    var seconds = parseInt(parts[1]);
+    var totalSeconds = minutes * 60 + seconds;
+
+    var timer = setInterval(function () {
+        totalSeconds--;
+
+        var mins = Math.floor(totalSeconds / 60);
+        var secs = totalSeconds % 60;
+
+        var display = (mins < 10 ? '0' : '') + mins + ' : ' + (secs < 10 ? '0' : '') + secs;
+        countdownElement.innerText = display;
+
+        if (totalSeconds <= 0) {
+            clearInterval(timer);
+            alert('Hết thời gian!');
+        }
+    }, 1000);
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     // Xử lý chuyển câu hỏi khi click vào số câu
@@ -15,37 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const questionPanels = document.querySelectorAll('.question-panel');
     const submitBtn = document.querySelector('.submit-btn');
     const examForm = document.getElementById('exam-form');
-    let hasSelectedAnswer = false;
-
-    // Vô hiệu hóa nút Nộp Bài ban đầu
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = '0.5';
-    submitBtn.style.cursor = 'not-allowed';
-
-    // Theo dõi việc chọn đáp án
-    const radioInputs = document.querySelectorAll('input[type="radio"]');
-    radioInputs.forEach(input => {
-        input.addEventListener('change', function () {
-            hasSelectedAnswer = Array.from(radioInputs).some(radio => radio.checked);
-            if (hasSelectedAnswer) {
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.cursor = 'pointer';
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.5';
-                submitBtn.style.cursor = 'not-allowed';
-            }
-        });
-    });
 
     // Xử lý gửi biểu mẫu
     examForm.addEventListener('submit', function (e) {
-        if (!hasSelectedAnswer) {
-            e.preventDefault();
-            alert('Vui lòng chọn ít nhất một đáp án trước khi nộp bài.');
-            return false;
-        }
         return confirm('Bạn có chắc chắn muốn nộp bài hay không?');
     });
 

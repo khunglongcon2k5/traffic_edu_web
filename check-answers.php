@@ -1,5 +1,18 @@
 <?php
 require_once './includes/config.php';
+
+$set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
+
+$stmt = $conn->prepare(
+    "SELECT es.set_name, ec.category_name, ec.time_limit 
+     FROM exam_sets es 
+     JOIN exam_categories ec ON es.category_id = ec.category_id
+     WHERE es.set_id = ?"
+);
+$stmt->bind_param("i", $set_id);
+$stmt->execute();
+$exam_info = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +37,7 @@ require_once './includes/config.php';
                     alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             </a>
             <h1>Kết Quả Bài Thi Lái Xe</h1>
-            <p>Đề số: <strong>01 - 200 Câu Hỏi Thi A1</strong></p>
+            <p><strong><?php echo htmlspecialchars($exam_info['set_name']) ?></strong></p>
         </div>
 
         <div class="result-summary">

@@ -2,49 +2,19 @@
 require_once './includes/config.php';
 // Lấy danh sách đề thi
 $category_id = 1;
-$category_cau_diem_liet_A1 = 3;
+$category_critical_id = 2;
 $limit_8 = 8;
-$limit_20 = 20;
-// Lấy 8 đề chính A1
-$stmt_8   = $conn->prepare(
-    "SELECT * FROM exam_sets 
-     WHERE category_id = ? 
-     ORDER BY set_id 
-     LIMIT ?"
-);
+
+$stmt_8   = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ? ORDER BY set_id LIMIT ?");
 $stmt_8->bind_param("ii", $category_id, $limit_8);
 $stmt_8->execute();
 $result_8 = $stmt_8->get_result();
 
-// Lấy 20 đề để ôn A1
-$stmt_20  = $conn->prepare(
-    "SELECT * FROM exam_sets 
-     WHERE category_id = ?
-     ORDER BY set_id 
-     LIMIT ?"
-);
-$stmt_20->bind_param("ii", $category_id, $limit_20);
-$stmt_20->execute();
-$result_20 = $stmt_20->get_result();
-
 // Lấy đề điểm liệt A1
-$stmt_bo_de_diem_liet = $conn->prepare(
-    "SELECT * FROM exam_sets 
-     WHERE category_id = ?"
-);
-$stmt_bo_de_diem_liet->bind_param("i", $category_cau_diem_liet_A1);
+$stmt_bo_de_diem_liet = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+$stmt_bo_de_diem_liet->bind_param("i", $category_critical_id);
 $stmt_bo_de_diem_liet->execute();
 $result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
-
-// Lấy thông tin category
-$stmt_category    = $conn->prepare(
-    "SELECT * FROM exam_categories 
-     WHERE category_id = ?"
-);
-$stmt_category->bind_param("i", $category_id);
-$stmt_category->execute();
-$result_category = $stmt_category->get_result();
-$category = $result_category->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
