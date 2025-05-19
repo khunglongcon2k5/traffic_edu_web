@@ -97,7 +97,7 @@ if ($set_id < 1 || $set_id > 8) {
 // Lấy 25 câu hỏi cho đề thi
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
-// Lấy thông tin đề thi
+// Get exam info
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit
      FROM exam_sets es

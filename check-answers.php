@@ -1,8 +1,16 @@
 <?php
+session_start();
 require_once './includes/config.php';
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
+// Get exam info
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit 
      FROM exam_sets es 
@@ -13,6 +21,17 @@ $stmt->bind_param("i", $set_id);
 $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();
 $stmt->close();
+
+// Get a list of questions
+$quesions = [];
+if ($set_id >= 1 && $set_id <= 8) {
+    list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
+} elseif ($set_id == 21) {
+} elseif ($set_id >= 22 && $set_id <= 39) {
+} elseif ($set_id == 40) {
+} else {
+    $quesions = [];
+}
 ?>
 
 <!DOCTYPE html>
