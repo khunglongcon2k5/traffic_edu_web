@@ -26,12 +26,90 @@ $stmt->close();
 $quesions = [];
 if ($set_id >= 1 && $set_id <= 8) {
     list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT 25");
+    $stmt->bind_param("ii", $start_id, $end_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $quesions[$row['question_id']] = $row;
+    }
+    $stmt->close();
 } elseif ($set_id == 21) {
+    $critical_ids = [3, 5, 12, 28, 29, 30, 33, 53, 54, 79, 104, 108, 129, 135, 152, 153, 154, 177, 179, 701];
+    $stmt = $conn->prepare(
+        "SELECT * 
+         FROM questions 
+         WHERE question_id IN (" . implode(',', array_fill(0, count($critical_ids), '?')) . ") LIMIT 20"
+    );
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $quesions[$row['question_id']] = $row;
+    }
+    $stmt->close();
 } elseif ($set_id >= 22 && $set_id <= 39) {
+    $set_offset = $set_id - 22;
+    list($start_id, $end_id) = [201 + ($set_offset * 25), 200 + (($set_offset + 1) * 25)];
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT 25");
+    $stmt->bind_param("ii", $start_id, $end_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $quesions[$row['question_id']] = $row;
+    }
+    $stmt->close();
 } elseif ($set_id == 40) {
+    $critical_ids_a2 = range(651, 700);
+    $stmt = $conn->prepare(
+        "SELECT * 
+         FROM questions 
+         WHERE question_id IN (" . implode(',', array_fill(0, count($critical_ids), '?')) . ") LIMIT 50"
+    );
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $quesions[$row['question_id']] = $row;
+    }
+    $stmt->close();
 } else {
     $quesions = [];
 }
+
+// Handle scoring
+$total_questions = count($quesions);
+$correct_count = 0;
+$wrong_count = 0;
+$has_critical_error = false;
+
+foreach ($quesions as $quesions_id => $quesion) {
+    $user_answer_id = isset($_POST["question_{$question_id}"]) ? (int)$_POST["question_{$quesions_id}"] : 0;
+    $answers = getAnswersForQuestion($conn, $quesions_id);
+    $correct_answer_id = null;
+
+    foreach ($answers as $answer) {
+        if ($answer['is_correct']) {
+            $correct_answer_id = $answer['answer_id'];
+            break;
+        }
+    }
+
+    $is_correct = ($user_answer_id == $correct_answer_id);
+    if ($is_correct) {
+        $correct_count++;
+    } else {
+        $wrong_count++;
+        if ($quesion['is_critical']) {
+            $has_critical_error = true;
+        }
+    }
+}
+
+// Save overall result to exam_results
+$pass = ($wrong_count == 0 || (!$has_critical_error && $correct_count / $total_questions >= 0.8));
+$stmt = $conn->prepare("INSERT INTO exam_results (user_id, set_id, total_questions, correct_count, wrong_count, has_critical_error, passed) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error ? 1 : 0, $pass ? 1 : 0);
+$stmt->execute();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -64,139 +142,92 @@ if ($set_id >= 1 && $set_id <= 8) {
             <div class="result-box">
                 <div class="stat-box">
                     <div class="stat-label">Tổng số câu</div>
-                    <div class="stat-value">25</div>
+                    <div class="stat-value"><?php echo $total_questions; ?></div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">Số câu đúng</div>
-                    <div class="stat-value">0</div>
+                    <div class="stat-value"><?php echo $correct_count; ?></div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">Số câu sai</div>
-                    <div class="stat-value fail">25</div>
+                    <div class="stat-value fail"><?php echo $wrong_count; ?></div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">Điểm liệt</div>
-                    <div class="stat-value fail">Có</div>
+                    <div class="stat-value <?php echo $has_critical_error ? 'fail' : ''; ?>">
+                        <?php echo $has_critical_error ? 'Có' : 'Không'; ?>
+                    </div>
                 </div>
             </div>
 
-            <div class="result-status status-fail">
-                KHÔNG ĐẠT - Sai câu điểm liệt - Hãy thử lại nhé
+            <div class="result-status <?php echo $pass ? 'status-pass' : 'status-fail'; ?>">
+                <?php echo $pass ? 'ĐẠT - Chúc mừng bạn đã vượt qua bài thi!' : 'KHÔNG ĐẠT - Bạn bị sai câu điểm liệt - Hãy thử lại vào lần sau!'; ?>
             </div>
         </div>
 
         <div class="questions-container">
-            <h2>Chi Tiết Bài Làm</h2>
+            <h2>Chi Tiết Bài Thi</h2>
+            <?php
+            $index = 0;
+            foreach ($questions as $questions_id => $question) {
+                $index++;
+                $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
+                $answers = getAnswersForQuestion($conn, $questions_id);
+                $is_correct = false;
+                $selected_answer = '';
+                $explanation = '';
 
-            <!-- Mẫu câu hỏi sai và có điểm liệt -->
-            <div class="question-item incorrect critical-question">
-                <div class="question-header">
-                    <span>Câu 1</span>
-                    <span class="fail">Sai - Điểm liệt</span>
-                </div>
-                <div class="question-content">
-                    <div class="question-text">
-                        Người điều khiển phương tiện giao thông đường bộ phải có những hành vi nào dưới đây?
-                    </div>
+                foreach ($answers as $answer) {
+                    if ($answer['answer_id'] == $user_answer_id) {
+                        $selected_answer = $answer['answer_text'];
+                        $is_correct = $answer['is_correct'];
+                    }
+                    if ($answer['is_correct']) {
+                        $explanation = $answer['explanation'];
+                    }
+                }
 
-                    <!-- Có thể thêm hình ảnh nếu cần -->
-                    <!-- <img src="/api/placeholder/400/300" alt="Hình ảnh câu hỏi" class="question-image"> -->
-
-                    <div class="answer-options">
-                        <div class="answer-option incorrect-answer">
-                            A. Điều khiển phương tiện đi bên phải chiều đi của mình.
-                        </div>
-                        <div class="answer-option">
-                            B. Điều khiển phương tiện đi trên phần đường, làn đường có ít phương tiện tham gia giao
-                            thông.
-                        </div>
-                        <div class="answer-option correct-answer">
-                            C. Chấp hành quy tắc giao thông đường bộ.
-                        </div>
-                    </div>
-
-                    <div class="explanation">
-                        <div class="explanation-title">Giải thích:</div>
-                        <p>Theo Luật Giao thông đường bộ, người điều khiển phương tiện phải chấp hành quy tắc giao thông
-                            đường bộ. Đáp án C là đúng nhất vì nó bao quát các quy định khác, bao gồm cả việc đi bên
-                            phải chiều đi.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mẫu câu hỏi sai -->
-            <div class="question-item incorrect">
-                <div class="question-header">
-                    <span>Câu 2</span>
-                    <span class="fail">Sai</span>
-                </div>
-                <div class="question-content">
-                    <div class="question-text">
-                        Khi gặp hiệu lệnh của người điều khiển giao thông trái với hiệu lệnh của đèn hoặc biển báo hiệu
-                        thì người tham gia giao thông phải chấp hành theo hiệu lệnh nào?
-                    </div>
-
-                    <div class="answer-options">
-                        <div class="answer-option">
-                            A. Hiệu lệnh của đèn giao thông.
-                        </div>
-                        <div class="answer-option incorrect-answer">
-                            B. Hiệu lệnh của biển báo hiệu đường bộ.
-                        </div>
-                        <div class="answer-option correct-answer">
-                            C. Hiệu lệnh của người điều khiển giao thông.
-                        </div>
-                    </div>
-
-                    <div class="explanation">
-                        <div class="explanation-title">Giải thích:</div>
-                        <p>Theo quy định, khi có người điều khiển giao thông tại hiện trường, người tham gia giao thông
-                            phải tuân theo hiệu lệnh của người điều khiển giao thông, ngay cả khi hiệu lệnh đó trái với
-                            hiệu lệnh của đèn hoặc biển báo hiệu.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mẫu câu hỏi đúng -->
-            <div class="question-item correct">
-                <div class="question-header">
-                    <span>Câu 3</span>
-                    <span class="pass">Đúng</span>
-                </div>
-                <div class="question-content">
-                    <div class="question-text">
-                        Người điều khiển phương tiện tham gia giao thông đường bộ phải đủ bao nhiêu tuổi trở lên?
-                    </div>
-
-                    <div class="answer-options">
-                        <div class="answer-option">
-                            A. 14 tuổi.
-                        </div>
-                        <div class="answer-option correct-answer">
-                            B. 16 tuổi.
-                        </div>
-                        <div class="answer-option">
-                            C. 18 tuổi.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Có thể thêm nhiều câu hỏi khác tương tự -->
-
+                echo "<div class='question-item " . ($is_correct ? 'correct' : 'incorrect') . ($question['is_critical'] ? '$critical_question' : '') . "'>";
+                echo "<div class='question-header'>";
+                echo "<span>Câu $index</span>";
+                echo "<span class='" . ($is_correct ? 'pass' : 'fail') . "'>" . ($is_correct ? 'Đúng' : 'Sai' . ($question['is_critical'] ? ' - Điểm liệt' : '')) . "</span>";
+                echo "</div>";
+                echo "<div class='question-content'>";
+                echo "<div class='question-text'>" . htmlspecialchars($question['question_text']) . "</div>";
+                if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
+                    echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Câu hỏi bài thi' class='question_image'>";
+                }
+                echo "<div class='answer-options'>";
+                foreach ($answers as $answer) {
+                    echo "<div class='answer-option " . ($answer['answer_id'] == $user_answer_id ? 'incorrect_answer' : '') . ($answer['is_correct'] ? 'correct_answer' : '') . "'>";
+                    echo htmlspecialchars($answer['answer_text']);
+                    echo "</div>";
+                }
+                echo "</div>";
+                echo "<div class='explanation'>";
+                echo "<div class='explanation-title'>Giải thích:</div>";
+                echo "<p>" . htmlspecialchars($explanation_text) . "</p>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
         </div>
 
-        <a href="#" class="retry-button">Làm Lại Bài Thi</a>
+        <a href="<?php
+                    if ($set_id >= 1 && $set_id <= 8) {
+                        echo './pages/thi-thu-bang-lai-xe-may-a1.php?set_id=' . $set_id;
+                    } elseif ($set_id >= 22 && $set_id <= 39) {
+                        echo './pages/thi-thu-bang-lai-xe-may-a2.php?set_id=' . $set_id;
+                    } elseif ($set_id == 21) {
+                        echo './pages/thi-thu-20-cau-diem-liet-a1.php?set_id=' . $set_id;
+                    } elseif ($set_id == 40) {
+                        echo './pages/thi-thu-50-cau-diem-liet-a2.php?set_id=' . $set_id;
+                    }
+                    ?>" class="retry-button">Làm Lại Bài Thi</a>
     </div>
 
-    <!-- Phần dành cho JavaScript -->
-    <script>
-        // Phần JavaScript sẽ được thêm sau này
-        // Có thể thêm các chức năng như:
-        // - Tính toán kết quả tự động
-        // - Hiển thị câu hỏi đúng/sai
-        // - Tương tác với PHP để lấy dữ liệu đề thi
-    </script>
+    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 16, 2025 at 07:50 PM
+-- Generation Time: May 21, 2025 at 01:23 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -2306,6 +2306,23 @@ INSERT INTO `exam_categories` (`category_id`, `category_name`, `description`, `t
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `exam_results`
+--
+
+CREATE TABLE `exam_results` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `set_id` int NOT NULL,
+  `total_questions` int NOT NULL,
+  `correct_count` int NOT NULL,
+  `wrong_count` int NOT NULL,
+  `has_critical_error` tinyint(1) DEFAULT '0',
+  `passed` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `exam_sets`
 --
 
@@ -3094,8 +3111,15 @@ CREATE TABLE `users` (
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `re_pass` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `re_pass` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `re_pass`) VALUES
+(3, 'Nguyễn Hùng', 'arigatouu123@gmail.com', '$2y$10$Y6wl71mo.xJg7MkeRYHyZ.9czIBWUbq9H.mQnAjeWJjInBzSP9vji', NULL);
 
 --
 -- Indexes for dumped tables
@@ -3113,6 +3137,14 @@ ALTER TABLE `answers`
 --
 ALTER TABLE `exam_categories`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `exam_results`
+--
+ALTER TABLE `exam_results`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `set_id` (`set_id`);
 
 --
 -- Indexes for table `exam_sets`
@@ -3152,6 +3184,12 @@ ALTER TABLE `exam_categories`
   MODIFY `category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `exam_results`
+--
+ALTER TABLE `exam_results`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `exam_sets`
 --
 ALTER TABLE `exam_sets`
@@ -3167,7 +3205,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -3178,6 +3216,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `answers`
   ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `exam_results`
+--
+ALTER TABLE `exam_results`
+  ADD CONSTRAINT `exam_results_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `exam_results_ibfk_2` FOREIGN KEY (`set_id`) REFERENCES `exam_sets` (`set_id`);
 
 --
 -- Constraints for table `exam_sets`

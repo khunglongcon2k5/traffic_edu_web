@@ -86,7 +86,7 @@ function getExamSets($conn, $category_id = null)
     return $exam_sets;
 }
 
-// Hiển thị đề thi
+// Display exam
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 1;
 
 // Kiểm tra set_id có hợp lệ không (1-8)
@@ -259,6 +259,29 @@ $stmt->close();
         <div class="submit-buttons">
             <form id="exam-form" method="post" action="../check-answers.php">
                 <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
+                <?php
+                foreach ($questions as $index => $question) {
+                    $question_number = $index + 1;
+                    $answers = getAnswersForQuestion($conn, $question['question_id']);
+                    echo "<div class='question-item'>";
+                    echo "<div class='question-header'><span>Câu $question_number </span></div>";
+                    echo "<div class='question-content'>";
+                    echo "<div class='question-text'>" . htmlspecialchars($question['question_text']) . "</div>";
+                    if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
+                        echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Hình ảnh câu hỏi' class='question-image'>";
+                    }
+                    echo "<div class='answer-options'>";
+                    foreach ($answers as $answer) {
+                        echo "<div class='answer-option'>";
+                        echo "<input type='radio' name='question_{$question['question_id']}' value='{$answer['answer_id']}' required0>";
+                        echo htmlspecialchars($answer['answer_text']);
+                        echo "</div>";
+                    }
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+                ?>
                 <button type="submit" class="submit-btn" style="text-transform: uppercase;">
                     Nộp Bài
                 </button>
