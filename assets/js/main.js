@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (totalSeconds <= 0) {
             clearInterval(timer);
-            alert('Hết thời gian!');
+            alert('Hết thời gian! Bài thi sẽ được nộp tự động.');
+            document.getElementById('exam-form').submit();
         }
     }, 1000);
 });
@@ -43,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Xử lý chuyển câu hỏi
     questionBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
             const questionNumber = this.dataset.question;
 
             // Ẩn tất cả câu hỏi
@@ -65,14 +67,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextBtns = document.querySelectorAll('.next-btn');
 
     prevBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
             const targetQuestion = this.dataset.target;
             document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
         });
     });
 
     nextBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
             const targetQuestion = this.dataset.target;
             document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
         });

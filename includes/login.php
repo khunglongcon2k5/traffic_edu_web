@@ -20,6 +20,7 @@ if (isset($_POST['btn-log'])) {
     if ($result->num_rows === 1) {
         $data = $result->fetch_assoc();
         if (password_verify($password, $data['password'])) {
+            $_SESSION['user_id'] = $data['id'];
             $_SESSION['name'] = $data['name'];
             $_SESSION['email'] = $data['email'];
             header("Location: ../index.php");

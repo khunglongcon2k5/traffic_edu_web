@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('./includes/config.php');
 $category_id = 3;
 $sql_sets = "SELECT * FROM exam_sets WHERE category_id = $category_id";

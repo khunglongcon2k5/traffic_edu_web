@@ -113,6 +113,12 @@ nav li:hover a {
     background-color: #0ac389;
 }
 
+nav .user-info {
+    padding: 0 15px;
+    color: white;
+}
+
+
 /* SIDEBAR STYLES */
 .side-bar {
     padding: 20px;

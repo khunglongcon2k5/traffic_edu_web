@@ -10,6 +10,21 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
+function getAnswersForQuestion($conn, $question_id)
+{
+    $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
+    $stmt->bind_param("i", $question_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $answersForQuestion = [];
+    while ($row = $result->fetch_assoc()) {
+        $answersForQuestion[] = $row;
+    }
+    $stmt->close();
+    return $answersForQuestion;
+}
+
 // Get exam info
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit 
@@ -23,7 +38,7 @@ $exam_info = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
 // Get a list of questions
-$quesions = [];
+$questions = [];
 if ($set_id >= 1 && $set_id <= 8) {
     list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
     $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT 25");
@@ -31,7 +46,7 @@ if ($set_id >= 1 && $set_id <= 8) {
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        $quesions[$row['question_id']] = $row;
+        $questions[$row['question_id']] = $row;
     }
     $stmt->close();
 } elseif ($set_id == 21) {
@@ -44,7 +59,7 @@ if ($set_id >= 1 && $set_id <= 8) {
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        $quesions[$row['question_id']] = $row;
+        $questions[$row['question_id']] = $row;
     }
     $stmt->close();
 } elseif ($set_id >= 22 && $set_id <= 39) {
@@ -55,35 +70,34 @@ if ($set_id >= 1 && $set_id <= 8) {
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        $quesions[$row['question_id']] = $row;
+        $questions[$row['question_id']] = $row;
     }
     $stmt->close();
 } elseif ($set_id == 40) {
     $critical_ids_a2 = range(651, 700);
-    $stmt = $conn->prepare(
-        "SELECT * 
-         FROM questions 
-         WHERE question_id IN (" . implode(',', array_fill(0, count($critical_ids), '?')) . ") LIMIT 50"
-    );
+    $placeholders = implode(',', array_fill(0, count($critical_ids_a2), '?'));
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT 50");
+    $types = str_repeat('i', count($critical_ids_a2));
+    $stmt->bind_param($types, ...$critical_ids_a2);
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        $quesions[$row['question_id']] = $row;
+        $questions[$row['question_id']] = $row;
     }
     $stmt->close();
 } else {
-    $quesions = [];
+    $questions = [];
 }
 
 // Handle scoring
-$total_questions = count($quesions);
+$total_questions = count($questions);
 $correct_count = 0;
 $wrong_count = 0;
 $has_critical_error = false;
 
-foreach ($quesions as $quesions_id => $quesion) {
-    $user_answer_id = isset($_POST["question_{$question_id}"]) ? (int)$_POST["question_{$quesions_id}"] : 0;
-    $answers = getAnswersForQuestion($conn, $quesions_id);
+foreach ($questions as $questions_id => $question) {
+    $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
+    $answers = getAnswersForQuestion($conn, $questions_id);
     $correct_answer_id = null;
 
     foreach ($answers as $answer) {
@@ -98,16 +112,18 @@ foreach ($quesions as $quesions_id => $quesion) {
         $correct_count++;
     } else {
         $wrong_count++;
-        if ($quesion['is_critical']) {
+        if ($question['is_critical']) {
             $has_critical_error = true;
         }
     }
 }
 
 // Save overall result to exam_results
-$pass = ($wrong_count == 0 || (!$has_critical_error && $correct_count / $total_questions >= 0.8));
+$pass = (!$has_critical_error && $correct_count >= 21);
+$has_critical_error = $has_critical_error ? 1 : 0;
+$pass_value = $pass ? 1 : 0;
 $stmt = $conn->prepare("INSERT INTO exam_results (user_id, set_id, total_questions, correct_count, wrong_count, has_critical_error, passed) VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error ? 1 : 0, $pass ? 1 : 0);
+$stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error, $pass_value);
 $stmt->execute();
 $stmt->close();
 ?>
@@ -120,7 +136,7 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kết Quả</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/resutl.css" />
+    <link rel="stylesheet" href="./assets/css/result.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
@@ -187,7 +203,7 @@ $stmt->close();
                     }
                 }
 
-                echo "<div class='question-item " . ($is_correct ? 'correct' : 'incorrect') . ($question['is_critical'] ? '$critical_question' : '') . "'>";
+                echo "<div class='question-item " . ($is_correct ? 'correct' : 'incorrect') . ($question['is_critical'] ? 'critical_question' : '') . "'>";
                 echo "<div class='question-header'>";
                 echo "<span>Câu $index</span>";
                 echo "<span class='" . ($is_correct ? 'pass' : 'fail') . "'>" . ($is_correct ? 'Đúng' : 'Sai' . ($question['is_critical'] ? ' - Điểm liệt' : '')) . "</span>";
@@ -206,7 +222,7 @@ $stmt->close();
                 echo "</div>";
                 echo "<div class='explanation'>";
                 echo "<div class='explanation-title'>Giải thích:</div>";
-                echo "<p>" . htmlspecialchars($explanation_text) . "</p>";
+                echo "<p>" . htmlspecialchars($explanation) . "</p>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
