@@ -88,20 +88,8 @@ $stmt->close();
 </head>
 
 <body>
-    <form id="exam-form" method="post" action="../check-answers.php">
+    <form id="exam-form" method="post" action="check-answers.php">
         <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
-        <div class="banner header-content">
-            <div class="logo">
-                <a href="">
-                    <img src="../assets/img/logo.svg" width="150" height="100"
-                        alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
-                </a>
-                <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
-            </div>
-            <div class="contact-info">
-                <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
-            </div>
-        </div>
         <!-- Header chính -->
         <header>
             <div class="container-header">
@@ -112,12 +100,23 @@ $stmt->close();
                         <li><a href="../thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
                         <li><a href="../20-cau-hoi-diem-liet-a1.php" class="active">Thi 20 Câu Điểm Liệt A1</a></li>
                         <li><a href="../50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
+                        <li><?php
+                            if (isset($_SESSION['name'])) {
+                            ?>
+                            <div class="user-info">
+                                👤<?php echo htmlspecialchars($_SESSION['name']); ?>
+                                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </header>
 
-        <div class="text" style="background: var(--gradient);">
+        <div class="text" style="background: var(--gradient); margin-top: 100px;">
             <h1 class="text-center" style="text-transform: uppercase;">
                 <?php echo htmlspecialchars($exam_info['set_name']) ?>
             </h1>
@@ -272,7 +271,7 @@ $stmt->close();
             </div>
         </footer>
 
-        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/quiz.js"></script>
     </form>
 </body>
 

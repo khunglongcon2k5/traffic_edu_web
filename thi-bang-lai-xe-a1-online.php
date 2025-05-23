@@ -26,25 +26,13 @@ $result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/page.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
-    <div class="banner header-content">
-        <div class="logo">
-            <a href="">
-                <img src="./assets/img/logo.svg" width="150" height="100"
-                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
-            </a>
-            <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
-        </div>
-        <div class="contact-info">
-            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
-        </div>
-    </div>
     <!-- Header chính -->
     <header>
         <div class="container-header">

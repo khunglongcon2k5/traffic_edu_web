@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once './includes/config.php';
+require_once '../includes/config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -136,17 +136,17 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kết Quả</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/result.css" />
+    <link rel="stylesheet" href="../assets/css/result.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <a href="">
-                <img src="./assets/img/logo.svg" width="150" height="100"
+            <a href="#">
+                <img src="../assets/img/logo.svg" width="150" height="100"
                     alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             </a>
             <h1>Kết Quả Bài Thi Lái Xe</h1>
@@ -211,11 +211,15 @@ $stmt->close();
                 echo "<div class='question-content'>";
                 echo "<div class='question-text'>" . htmlspecialchars($question['question_text']) . "</div>";
                 if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
-                    echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Câu hỏi bài thi' class='question_image'>";
+                    echo "<div style='text-align: center'>";
+                    echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Câu hỏi bài thi' class='question_image' style='width: 400px;'>";
+                    echo "</div>";
                 }
                 echo "<div class='answer-options'>";
                 foreach ($answers as $answer) {
-                    echo "<div class='answer-option " . ($answer['answer_id'] == $user_answer_id ? 'incorrect_answer' : '') . ($answer['is_correct'] ? 'correct_answer' : '') . "'>";
+                    echo "<div class='answer-option " .
+                        ($answer['answer_id'] == $user_answer_id && !$answer['is_correct'] ? 'incorrect_answer ' : '') .
+                        ($answer['is_correct'] ? 'correct_answer' : '') . "'>";
                     echo htmlspecialchars($answer['answer_text']);
                     echo "</div>";
                 }
@@ -232,18 +236,16 @@ $stmt->close();
 
         <a href="<?php
                     if ($set_id >= 1 && $set_id <= 8) {
-                        echo './pages/thi-thu-bang-lai-xe-may-a1.php?set_id=' . $set_id;
+                        echo 'thi-thu-bang-lai-xe-may-a1.php?set_id=' . $set_id;
                     } elseif ($set_id >= 22 && $set_id <= 39) {
-                        echo './pages/thi-thu-bang-lai-xe-may-a2.php?set_id=' . $set_id;
+                        echo 'thi-thu-bang-lai-xe-may-a2.php?set_id=' . $set_id;
                     } elseif ($set_id == 21) {
-                        echo './pages/thi-thu-20-cau-diem-liet-a1.php?set_id=' . $set_id;
+                        echo 'thi-thu-20-cau-diem-liet-a1.php?set_id=' . $set_id;
                     } elseif ($set_id == 40) {
-                        echo './pages/thi-thu-50-cau-diem-liet-a2.php?set_id=' . $set_id;
+                        echo 'thi-thu-50-cau-diem-liet-a2.php?set_id=' . $set_id;
                     }
                     ?>" class="retry-button">Làm Lại Bài Thi</a>
     </div>
-
-    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>

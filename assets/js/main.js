@@ -1,84 +1,63 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var countdownElement = document.querySelector('.countdown-value');
+// Modal functionality
+const loginModal = document.getElementById('loginModal');
+const registerModal = document.getElementById('registerModal');
+const showLoginBtn = document.getElementById('showLogin');
+const showRegisterBtn = document.getElementById('showRegister');
+const closeLoginBtn = document.getElementById('closeLogin');
+const closeRegisterBtn = document.getElementById('closeRegister');
+const switchToRegisterBtn = document.getElementById('switchToRegister');
+const switchToLoginBtn = document.getElementById('switchToLogin');
+const startExamBtn = document.getElementById('startExam');
+const protectedLinks = document.querySelectorAll('.required-login');
 
-    if (!countdownElement) {
-        alert('Không tìm thấy .countdown-value');
-        return;
-    }
-
-    var timeText = countdownElement.innerText;
-    var parts = timeText.split(':');
-
-    var minutes = parseInt(parts[0]);
-    var seconds = parseInt(parts[1]);
-    var totalSeconds = minutes * 60 + seconds;
-
-    var timer = setInterval(function () {
-        totalSeconds--;
-
-        var mins = Math.floor(totalSeconds / 60);
-        var secs = totalSeconds % 60;
-
-        var display = (mins < 10 ? '0' : '') + mins + ' : ' + (secs < 10 ? '0' : '') + secs;
-        countdownElement.innerText = display;
-
-        if (totalSeconds <= 0) {
-            clearInterval(timer);
-            alert('Hết thời gian! Bài thi sẽ được nộp tự động.');
-            document.getElementById('exam-form').submit();
-        }
-    }, 1000);
+// Show modals
+showLoginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'flex';
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Xử lý chuyển câu hỏi khi click vào số câu
-    const questionBtns = document.querySelectorAll('.question-btn');
-    const questionPanels = document.querySelectorAll('.question-panel');
-    const submitBtn = document.querySelector('.submit-btn');
-    const examForm = document.getElementById('exam-form');
+showRegisterBtn.addEventListener('click', () => {
+    registerModal.style.display = 'flex';
+});
 
-    // Xử lý gửi biểu mẫu
-    examForm.addEventListener('submit', function (e) {
-        return confirm('Bạn có chắc chắn muốn nộp bài hay không?');
-    });
+// Close modals
+closeLoginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
 
-    // Xử lý chuyển câu hỏi
-    questionBtns.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const questionNumber = this.dataset.question;
+closeRegisterBtn.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+});
 
-            // Ẩn tất cả câu hỏi
-            questionPanels.forEach(panel => {
-                panel.style.display = 'none';
-            });
+// Switch between modals
+switchToRegisterBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+    registerModal.style.display = 'flex';
+});
 
-            // Hiển thị câu hỏi được chọn
-            document.getElementById('question-' + questionNumber).style.display = 'block';
+switchToLoginBtn.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+    loginModal.style.display = 'flex';
+});
 
-            // Cập nhật trạng thái active cho nút
-            questionBtns.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
+// Start exam button (shows login if not authenticated)
+startExamBtn.addEventListener('click', () => {
+    // For demo purposes, always show login modal
+    loginModal.style.display = 'flex';
+});
 
-    // Xử lý nút Câu trước/Câu tiếp theo
-    const prevBtns = document.querySelectorAll('.prev-btn');
-    const nextBtns = document.querySelectorAll('.next-btn');
+protectedLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'flex';
+    })
+});
 
-    prevBtns.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetQuestion = this.dataset.target;
-            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
-        });
-    });
-
-    nextBtns.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetQuestion = this.dataset.target;
-            document.querySelector(`.question-btn[data-question="${targetQuestion}"]`).click();
-        });
-    });
+// Close modals when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+    if (e.target === registerModal) {
+        registerModal.style.display = 'none';
+    }
 });

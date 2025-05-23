@@ -2,16 +2,17 @@
 session_start();
 require_once 'config.php';
 
+$message = '';
+
 if (isset($_POST['btn-reg'])) {
     $name = $_POST['registerName'];
     $email = $_POST['registerEmail'];
     $password = $_POST['registerPassword'];
     $re_pass =  $_POST['confirmPassword'];
 
-    if (!empty($username) && !empty($email) && !empty($password)) {
+    if (!empty($name) && !empty($email) && !empty($password)) {
         if ($password != $re_pass) {
-            echo "<script>alert('Mật khẩu nhập lại không khớp!!!')</script>";
-            return;
+            $message = 'Mật khẩu nhập lại không khớp!';
         }
         $hash_pass = password_hash($password, PASSWORD_DEFAULT);
 
@@ -20,12 +21,12 @@ if (isset($_POST['btn-reg'])) {
         $stmt->execute();
 
         if ($stmt->affected_rows > 0)
-            echo "<script>alert('Đăng ký thành công')</script>";
+            $message = 'Đăng ký thành công.';
         else
-            echo "<script>alert('Đăng ký thất bại. Sai tên tài khoản hoặc mật khẩu!')</script>";
+            $message = 'Đăng ký thất bại. Email đã được sử dụng?';
 
         $stmt->close();
     } else {
-        echo "<script>alert('Vui lòng nhập đầy đủ thông tin!!!')</script>";
+        $message = 'Vui lòng nhập đầy đủ thông tin.';
     }
 }

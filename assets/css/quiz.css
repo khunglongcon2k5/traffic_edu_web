@@ -55,7 +55,7 @@ body {
 .header-content {
     display: flex;
     height: 140px;
-    background: var(--gradient);
+    background: linear-gradient(135deg, #0a2540 0%, #4a90e2 100%);
     color: var(--white);
     text-align: center;
     justify-content: space-between;
@@ -81,35 +81,73 @@ body {
 }
 
 header {
-    background: var(--dark);
+    background-color: #121212;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .container-header {
-    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-nav li {
-    display: inline-block;
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
 }
 
 nav li a {
-    color: var(--white);
+    color: #fff;
     text-decoration: none;
-    line-height: 85.6px;
-    padding: 0 15px;
-    display: inline-block;
-    border-radius: var(--radius);
-    font-weight: 700;
+    padding: 12px 20px;
+    display: block;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
 nav li:hover a {
-    color: #000;
-    background-color: #ccc;
+    color: #fff;
+    background-color: #01f4a3e4;
+    transform: translateY(-2px);
 }
 
-.nav-menu li a:hover,
-.nav-menu li a.active {
-    background-color: var(--secondary);
+nav li a.active {
+    background-color: #01f4a3e4;
+    color: #fff;
+}
+
+nav .user-info {
+    padding: 12px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav .user-info .btn-logout {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #ef4444;
+    transition: all 0.3s ease;
+}
+
+nav .btn-logout:hover {
+    background-color: #ff0000;
 }
 
 /* ----- PAGE TITLE ----- */
@@ -123,7 +161,6 @@ nav li:hover a {
     border-radius: 5px;
     width: 1158px;
 }
-
 
 /* ----- QUIZ/TEST CONTAINER ----- */
 .test-container {
@@ -335,6 +372,7 @@ nav li:hover a {
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s ease;
+    width: 150px;
 }
 
 .submit-btn:hover {
@@ -346,7 +384,7 @@ nav li:hover a {
 /* ----- FOOTER ----- */
 footer {
     padding: 30px 0;
-    background: var(--dark);
+    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
     margin-top: 50px;
     color: var(--white);
 }

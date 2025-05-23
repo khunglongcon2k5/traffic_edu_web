@@ -21,25 +21,13 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>20 Câu Hỏi Điểm Liệt Thi Bằng Lái Xe Máy A1 2025</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/page.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
-    <div class="banner header-content">
-        <div class="logo">
-            <a href="">
-                <img src="./assets/img/logo.svg" width="150" height="100"
-                    alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
-            </a>
-            <h1>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h1>
-        </div>
-        <div class="contact-info">
-            <span style="font-weight: 700; margin-right: 150px;">HOTLINE: 0256.38.46.911</span>
-        </div>
-    </div>
     <!-- HEADER -->
     <header>
         <div class="container-header">
@@ -50,6 +38,18 @@ $result = $stmt->get_result();
                     <li><a href="./thi-bang-lai-xe-a2-online.php">Thi Thử A2</a></li>
                     <li><a href="./20-cau-hoi-diem-liet-a1.php" class="active">Thi 20 Câu Điểm Liệt A1</a></li>
                     <li><a href="./50-cau-hoi-diem-liet-a2.php">Thi 50 Câu Điểm Liệt A2</a></li>
+                    <li>
+                        <?php
+                        if (isset($_SESSION['name'])) {
+                        ?>
+                            <div class="user-info">
+                                👤<?php echo htmlspecialchars($_SESSION['name']); ?>
+                                <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </li>
                 </ul>
             </nav>
         </div>
