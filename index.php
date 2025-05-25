@@ -25,6 +25,7 @@ session_start();
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#" class="nav-link active">Trang chủ</a></li>
                 <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Học lý thuyết</a></li>
+                <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Ôn tập</a></li>
                 <li class="nav-item" id="nav-item"><a href="./pages/thi-bang-lai-xe-a1-online.php"
                         class="nav-link required-login">Thi thử</a>
                 </li>

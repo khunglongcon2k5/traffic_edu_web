@@ -2,7 +2,7 @@
     <div class="container-header">
         <nav>
             <ul class="nav-menu">
-                <li><a href="#">Chọn Phần Thi</a></li>
+                <li><a href="../index.php">Chọn Phần Thi</a></li>
                 <li><a href="thi-bang-lai-xe-a1-online.php"
                         <?php if ($current_page == 'thi-bang-lai-xe-a1-online.php') echo 'class="active"'; ?>>Thi Thử
                         A1</a></li>
@@ -18,7 +18,7 @@
                 <li>
                     <?php if (isset($_SESSION['name'])): ?> <div class="user-info">
                             <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['name']); ?>
-                            <a href="logout.php" class="btn btn-logout">Đăng xuất</a>
+                            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                         </div>
                     <?php endif; ?>
                 </li>

@@ -51,11 +51,14 @@ if ($set_id >= 1 && $set_id <= 8) {
     $stmt->close();
 } elseif ($set_id == 21) {
     $critical_ids = [3, 5, 12, 28, 29, 30, 33, 53, 54, 79, 104, 108, 129, 135, 152, 153, 154, 177, 179, 701];
+    $placeholders = implode(',', array_fill(0, count($critical_ids), '?'));
     $stmt = $conn->prepare(
         "SELECT * 
          FROM questions 
-         WHERE question_id IN (" . implode(',', array_fill(0, count($critical_ids), '?')) . ") LIMIT 20"
+         WHERE question_id IN ($placeholders) LIMIT 20"
     );
+    $types = str_repeat('i', count($critical_ids));
+    $stmt->bind_param($types, ...$critical_ids);
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
