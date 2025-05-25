@@ -44,44 +44,9 @@ body {
     margin-bottom: 30px;
 }
 
-/* HEADER STYLES */
-.banner {
-    height: 140px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.header-content {
-    display: flex;
-    height: 140px;
-    background: linear-gradient(135deg, #0a2540 0%, #4a90e2 100%);
-    color: white;
-    text-align: center;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: 250px;
-}
-
-.logo h1 {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.logo img {
-    border-radius: 10px;
-    height: 60px;
-    width: auto;
-}
-
 /* NAVIGATION */
 header {
-    background-color: #121212;
+    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;

@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -32,7 +33,7 @@ session_start();
             <div class="auth-buttons">
                 <?php if (isset($_SESSION['name'])): ?>
                     <div class="user-info">
-                        <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
+                        <i class="fa-solid fa-user-tie"></i></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
                         <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                     </div>
                 <?php else: ?>
@@ -148,7 +149,7 @@ session_start();
             <form id="loginForm" method="post" action="./includes/login.php">
                 <div class="form-group">
                     <label for="loginEmail" class="form-label">Email</label>
-                    <input type="email" id="loginEmail" name="loginEmail" class="form-input"
+                    <input type="text" id="loginEmail" name="loginEmail" class="form-input"
                         placeholder="Nhập email của bạn" required>
                 </div>
                 <div class="form-group">

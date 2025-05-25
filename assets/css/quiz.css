@@ -46,42 +46,8 @@ body {
 }
 
 /* ----- HEADER & NAVIGATION ----- */
-.banner {
-    height: 300px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.header-content {
-    display: flex;
-    height: 140px;
-    background: linear-gradient(135deg, #0a2540 0%, #4a90e2 100%);
-    color: var(--white);
-    text-align: center;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: 250px;
-}
-
-.logo h1 {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.logo img {
-    border-radius: var(--radius);
-    height: 60px;
-    width: auto;
-}
-
 header {
-    background-color: #121212;
+    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -91,7 +57,7 @@ header {
 .container-header {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 10px 20px;
 }
 
 nav {
