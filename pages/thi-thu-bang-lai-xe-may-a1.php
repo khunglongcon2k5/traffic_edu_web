@@ -272,6 +272,7 @@ $stmt->close();
         <!-- Footer -->
         <?php include '../includes/footer.php'; ?>
 
+        <!-- JS -->
         <script src="../assets/js/quiz.js"></script>
     </form>
 </body>
