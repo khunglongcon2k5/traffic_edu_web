@@ -1,8 +1,10 @@
 <?php
 session_start();
-require_once './includes/config.php';
+require_once '../includes/config.php';
 
-$category_id = 4;
+$current_page = basename($_SERVER['PHP_SELF']);
+
+$category_id = 2;
 $stmt = $conn->prepare(
     "SELECT * FROM exam_sets
      WHERE category_id = ?"
@@ -19,12 +21,12 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>50 Câu Hỏi Điểm Liệt Thi Bằng Lái Xe Máy A2 2025</title>
+    <title>20 Câu Hỏi Điểm Liệt Thi Bằng Lái Xe Máy A1 2025</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/page.css" />
+    <link rel="stylesheet" href="../assets/css/page.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -32,82 +34,81 @@ $result = $stmt->get_result();
 
 <body>
     <!-- Header -->
-    <?php include './includes/header.php' ?>
+    <?php include '../includes/header.php' ?>
 
     <!-- CONTENT -->
     <div class="container main-content">
         <aside class="side-bar">
-            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A2!</h3>
+            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A1!</h3>
             <p style="font-weight: 800; color: #ef4444;">
-                Ôn tập câu điểm liệt bằng lái xe A2 – Học dễ, nhớ lâu, thi là đậu!
+                Ôn tập câu điểm liệt bằng lái xe A1 – Học dễ, nhớ lâu, thi là đậu!
             </p>
 
             <p>
-                Chúng tôi xin giới thiệu phần mềm ôn luyện 50 câu điểm liệt A2 – chính thức ra mắt từ 18/06/2025! Bạn có
-                thể luyện tập mọi lúc mọi nơi, hoàn toàn miễn phí, trên mọi thiết bị: từ smartphone, laptop, tablet đến
-                cả những “dế” Nokia cổ điển – chỉ cần có mạng (Wifi, 3G/4G/5G) là xong.
+                Để giúp bạn chuẩn bị cho kỳ thi bằng lái xe A1 dễ dàng và hiệu quả hơn, Trung Tâm đã phát triển phần mềm
+                thi thử 20 câu hỏi điểm liệt, chính thức áp dụng từ <span
+                    style="color:#ef4444; font-weight: 700;">18/06/2025</span> . Với
+                bộ công cụ này, bạn sẽ có cơ hội ôn tập và kiểm tra kiến thức lý thuyết mọi lúc, mọi nơi, hoàn toàn miễn
+                phí!
             </p>
 
             <p>
-                Chỉ với vài cú chạm, bạn đã sẵn sàng thử sức 50 câu hỏi “khó nhằn” nhất, giúp bạn làm chủ kiến thức và
-                loại bỏ nỗi lo “câu bẫy” trong đề thi chính thức. Khi hoàn thành bộ đề này, bạn sẽ tự tin bước vào kỳ
-                thi lý thuyết A2 (450 câu) mà không còn “lạc lối” trước những tình huống hóc búa.
+                Đặc biệt, phần mềm này được tối ưu hóa để sử dụng trên nhiều thiết bị khác nhau như điện thoại, laptop,
+                máy tính bảng, iPhone, iPad, điện thoại Android, thậm chí cả điện thoại Nokia, miễn là bạn có kết nối
+                mạng (Wifi, 3G, 4G, 5G). Chỉ cần vài bước đơn giản, bạn có thể trải nghiệm và ôn luyện ngay lập tức.
             </p>
 
             <p>
-                Giao diện thân thiện, thao tác nhanh gọn, phù hợp cho mọi lứa tuổi – từ tân binh lái xe đến “lão làng”
-                muốn ôn lại kiến thức. Không tốn một đồng nào, không cần cài đặt rườm rà, chỉ cần vào app và bấm “BẮT
-                ĐẦU” là xong
+                Khi bạn hoàn thành 20 câu hỏi này, bạn sẽ tự tin hơn rất nhiều, vì đây chính là phần thi quan trọng giúp
+                bạn “tránh được việc bị loại” khi bước vào kỳ thi lý thuyết 200 câu hỏi. Đây là một công cụ cực kỳ hữu
+                ích, giúp bạn làm quen với những câu hỏi thường gặp và chuẩn bị tinh thần sẵn sàng cho kỳ thi chính
+                thức.
             </p>
 
             <p>
-                👉 <span>
-                    <a href="#" style="color: #1340ef; text-decoration: none; font-weight: 700;">
-                        Thử ngay
-                    </a>
-                </span> hôm nay để chinh phục kỳ thi A2 với tâm lý vững vàng và kết quả “bao đậu”!
+                Không cần lo lắng hay tốn kém chi phí, phần mềm 20 câu hỏi điểm liệt này hoàn toàn miễn phí, dễ sử dụng
+                và giúp bạn nâng cao khả năng thi đạt điểm cao một cách nhanh chóng. Vậy thì còn chờ gì nữa? Hãy thử
+                ngay hôm nay và chinh phục kỳ thi lái xe A1 với sự tự tin tuyệt đối!
             </p>
 
-            <div style=" margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
+            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
             </div>
         </aside>
 
         <main class="content">
-            <h2 class="content-title">ĐỀ THI THỬ 50 CÂU HỎI ĐIỂM LIỆT A2 MỚI NHẤT 2025</h2>
+            <h2 class="content-title">ĐỀ THI THỬ 20 CÂU HỎI ĐIỂM LIỆT A1 MỚI NHẤT 2025</h2>
 
             <div class="sub-content">
                 <div>
-                    <h2 style="font-size: 18px; margin-bottom: 15px; text-align: center;">PHẦN MỀM LUYỆN THI 50 CÂU HỎI
-                        ĐIỂM LIỆT A2</h2>
-                    <img src="./assets/img/50-cau-hoi-diem-liet-A2.png"
-                        alt=" thi bằng lái xe máy a2 2025 50 câu hỏi điểm liệt A2" class="ad-image" />
+                    <h2 style="font-size: 18px; margin-bottom: 15px; text-align: center;">PHẦN MỀM LUYỆN THI 20 CÂU HỎI
+                        ĐIỂM LIỆT A1</h2>
+                    <img src="../assets/img/20-cau-hoi-diem-liet-A1.png"
+                        alt=" thi bằng lái xe máy a1 2025 20 câu hỏi điểm liệt A1" class="ad-image" />
                 </div>
                 <div>
-                    <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ 50 CÂU HỎI ĐIỂM LIỆT A2 CHÍNH THỨC
+                    <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ 20 CÂU HỎI ĐIỂM LIỆT A1 CHÍNH THỨC
                         TỪ 01/08/2020
                     </h2>
                     <p>
-                        Cấu trúc bộ đề luyện thi 50 câu hỏi liệt A2 theo luật mới chính thức áp dụng từ 01/08/2020 sẽ
-                        bao gồm 25 câu hỏi, mỗi câu có 1 đáp án duy nhất đúng, giúp bạn ôn luyện một cách dễ dàng và
-                        hiệu quả.
+                        Cấu trúc bộ đề thi câu điểm liệt hạng A1 mới sẽ bao gồm 20 câu hỏi, mỗi câu hỏi có 1 đáp án duy
+                        nhất phản ánh chính xác bản chất của kỳ thi trắc nghiệm. Điều này khác hoàn toàn với bộ đề thi
+                        luật cũ, nơi mỗi câu hỏi lại có 2 đáp án để bạn phải lựa chọn.
 
-                        Khác biệt hoàn toàn với các bộ đề thi cũ, bộ đề mới này tập trung vào sự chính xác và rõ ràng.
-                        Mỗi câu hỏi chỉ có một đáp án đúng, giúp bạn dễ dàng lựa chọn và tránh những sự phân vân không
-                        cần thiết. Đây là cơ hội tuyệt vời để bạn làm quen với cấu trúc câu hỏi trong kỳ thi, từ đó nâng
-                        cao khả năng làm bài và tự tin hơn khi bước vào kỳ thi thực tế.
+                        Với bộ đề thi mới này, học viên sẽ dễ dàng hơn trong việc xác định đúng đáp án và tự tin hơn khi
+                        bước vào kỳ thi. Không cần phải phân vân hay lo lắng về những câu hỏi có nhiều đáp án mơ hồ, vì
+                        chỉ có một lựa chọn đúng duy nhất, giúp bạn tập trung ôn luyện và nâng cao khả năng thi đậu.
 
-                        Hãy tận dụng cơ hội này để luyện tập và ôn thi một cách thông minh! Với bộ đề thi này, bạn không
-                        chỉ chuẩn bị cho kỳ thi mà còn rèn luyện phản xạ nhanh chóng và chính xác. Chinh phục kỳ thi A2
-                        ngay hôm nay và bước vào tương lai với tấm bằng lái xe an toàn!
+                        Hãy chuẩn bị thật kỹ càng với bộ đề thi 20 câu hỏi điểm liệt, để khi bước vào kỳ thi thật, bạn
+                        sẽ dễ dàng vượt qua mà không gặp phải bất kỳ trở ngại nào!
                     </p>
 
                     <ul class="exam-info">
                         <li>
-                            <span style="font-weight: 700">Số lượng câu hỏi</span>: 25 câu.
+                            <span style="font-weight: 700">Số lượng câu hỏi</span>: 20 câu.
                         </li>
 
                         <li>
-                            <span style="font-weight: 700">Yêu cầu làm đúng</span>: 25/25 câu.
+                            <span style="font-weight: 700">Yêu cầu làm đúng</span>: 20/20 câu.
                         </li>
 
                         <li><span style="font-weight: 700">Thời gian</span>: 15 phút.</li>
@@ -125,15 +126,15 @@ $result = $stmt->get_result();
             </div>
 
             <div>
-                <h3 style="margin-bottom: 15px;">Vượt qua 50 câu điểm liệt, đậu ngay kỳ thi như một chuyên gia! 🎯🚦💯:
-                </h3>
+                <h3 style="margin-bottom: 15px;">Khám phá ngay bộ đề 20 câu điểm liệt, giúp bạn tự tin chinh phục kỳ
+                    thi! 📲🔥:</h3>
                 <div style="text-align: center;">
                     <?php
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
-                        echo '<a href="./pages/thi-thu-50-cau-diem-liet-a2.php?set_id='
+                        echo '<a href="thi-thu-20-cau-diem-liet-a1.php?set_id='
                             . $row['set_id']
-                            . '"class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">50 Câu hỏi điểm liệt A2 </a>';
+                            . '"class="exam-btn" style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu hỏi điểm liệt A1 </a>';
                     }
                     ?>
                 </div>
@@ -182,7 +183,7 @@ $result = $stmt->get_result();
     </div>
 
     <!-- Footer -->
-    <?php include './includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 </body>
 
 </html>

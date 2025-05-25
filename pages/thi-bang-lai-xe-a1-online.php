@@ -1,13 +1,24 @@
 <?php
 session_start();
-require_once('./includes/config.php');
-$category_id = 3;
-$sql_sets = "SELECT * FROM exam_sets WHERE category_id = $category_id";
-$result_sets = $conn->query($sql_sets);
+require_once '../includes/config.php';
 
-$sql_category = "SELECT * FROM exam_categories WHERE category_id = $category_id";
-$result_category = $conn->query($sql_category);
-$category = $result_category->fetch_assoc();
+$current_page = basename($_SERVER['PHP_SELF']);
+
+// Lấy danh sách đề thi
+$category_id = 1;
+$category_critical_id = 2;
+$limit_8 = 8;
+
+$stmt_8   = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ? ORDER BY set_id LIMIT ?");
+$stmt_8->bind_param("ii", $category_id, $limit_8);
+$stmt_8->execute();
+$result_8 = $stmt_8->get_result();
+
+// Lấy đề điểm liệt A1
+$stmt_bo_de_diem_liet = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+$stmt_bo_de_diem_liet->bind_param("i", $category_critical_id);
+$stmt_bo_de_diem_liet->execute();
+$result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +27,12 @@ $category = $result_category->fetch_assoc();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thi Thử Bằng Lái Xe Máy A2 Online 2025 - Bộ Đề 450 Câu Hỏi Mới</title>
+    <title>Thi Thử Bằng Lái Xe Máy A1 Online 2025 - Bộ Đề 200 Câu Hỏi Mới</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/page.css" />
+    <link rel="stylesheet" href="../assets/css/page.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
-    <!-- Favicon-->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,34 +40,37 @@ $category = $result_category->fetch_assoc();
 
 <body>
     <!-- Header -->
-    <?php include './includes/header.php' ?>
+    <?php include '../includes/header.php' ?>
 
-    <!-- CONTENT -->
+    <!-- Content -->
     <div class="container main-content">
         <aside class="side-bar">
-            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A2!</h3>
+            <h3 class="sidebar-title">Giới Thiệu Ứng Dụng Ôn Tập Lý Thuyết A1!</h3>
             <p style="font-weight: 800; color: #ef4444;">
-                Ôn tập lý thuyết bằng lái xe A2 – Học dễ, nhớ lâu, thi là đậu!
+                Ôn Tập Lý Thuyết A1 – Dễ Hiểu, Dễ Nhớ, Dễ Đậu!
             </p>
 
             <p>
-                Bạn đang chuẩn bị thi bằng lái xe A2? Không cần lo lắng hay áp lực gì đâu, đã có phần mềm ôn tập A2
-                online do chúng tôi phát triển – áp dụng chính thức từ <b style="color: red">18/06/2025.</b>
+                Bạn đang lo lắng cho kỳ thi lý thuyết A1 sắp tới? Đừng lo! Giờ đây, bạn có thể ôn tập mọi lúc mọi nơi
+                với
+                ứng dụng thi thử A1 online do chúng tôi phát triển, được chính thức đưa vào sử dụng từ
+                <b style="color: red">18/06/2025.</b>
             </p>
 
             <p>
-                Phần mềm này chứa trọn bộ 450 câu hỏi chuẩn do Tổng Cục Đường Bộ Việt Nam ban hành. Nội dung sát với đề
-                thi thực tế, giúp bạn luyện tập tự tin và bám sát kiến thức cần thiết.
+                Ứng dụng này tích hợp trọn bộ 200 câu hỏi chuẩn do Tổng Cục Đường Bộ Việt Nam ban hành – sát đề, đúng
+                trọng tâm, giúp bạn ôn nhanh, nắm chắc kiến thức cần thiết.
             </p>
 
             <p>
-                Chỉ cần có kết nối mạng (Wifi, 3G, 4G, 5G) là bạn có thể sử dụng phần mềm mọi lúc mọi nơi, trên mọi
-                thiết bị: điện thoại, laptop, iPad, máy tính bảng, Android, iPhone, Samsung, Nokia – mở web là học ngay,
-                không cần cài đặt rườm rà.
+                Chỉ cần có kết nối mạng (Wifi, 3G, 4G, 5G), bạn có thể truy cập ngay trên mọi thiết bị quen thuộc: điện
+                thoại, máy tính bảng, iPhone, Android, Samsung, Nokia, laptop, iPad... Không cần cài đặt, chỉ cần mở web
+                là học liền!
             </p>
 
             <p>
-                Học dễ, nhớ nhanh, thi tự tin – chúc bạn ôn luyện hiệu quả và vượt qua kỳ thi A2 thật nhẹ nhàng!
+                Vào học thử là mê – học kỹ là đậu! Còn chờ gì nữa, bắt đầu ôn tập ngay hôm nay để tự tin bước vào kỳ thi
+                A1 nhé!
             </p>
 
             <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
@@ -64,24 +78,26 @@ $category = $result_category->fetch_assoc();
         </aside>
 
         <main class="content">
-            <h2 class="content-title">ĐỀ THI THỬ BẰNG LÁI XE A2 450 CÂU HỎI MỚI NHẤT 2025</h2>
+            <h2 class="content-title">ĐỀ THI THỬ BẰNG LÁI XE A1 200 CÂU HỎI MỚI NHẤT 2025</h2>
 
             <div class="sub-content">
                 <div>
                     <h2 style="font-size: 18px; margin-bottom: 15px; text-align: center;">PHẦN MỀM LUYỆN THI LÝ THUYẾT
-                        450 CÂU A2</h2>
-                    <img src="./assets/img/450-cau-hoi-thi-A2.png"
-                        alt=" thi bằng lái xe máy a2 2025 18 bộ đề 450 câu hỏi" class="ad-image" />
+                        200 CÂU A1</h2>
+                    <img src="../assets/img/200-cau-hoi-thi-A1.png"
+                        alt="thi bằng lái xe máy a1 2025 8 bộ đề 200 câu hỏi" width="328" height="474"
+                        class="ad-image" />
                 </div>
                 <div>
-                    <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ BẰNG LÁI XE MÁY A2 CHÍNH THỨC TỪ
+                    <h2 style="font-size: 18px; margin-bottom: 15px;">BỘ ĐỀ THI THỬ BẰNG LÁI XE MÁY A1 CHÍNH THỨC TỪ
                         01/08/2020</h2>
                     <p>
-                        Cấu trúc bộ đề luyện thi sát hạch A2 luật mới áp dụng chính thức từ 01/08/2020 sẽ bao gồm 25 câu
-                        hỏi, mỗi câu hỏi có duy nhất 1 đáp trả lời đúng. Mỗi đề thi A2 bố trí từ 2 - 4 câu hỏi điểm liệt
-                        để học viên có thể làm quen và ghi nhớ, tránh việc làm sai câu hỏi liệt. Trong kỳ thi thật cấu
-                        trúc đề thi sẽ được sắp xếp theo dạng ngẫu nhiên, yêu cầu học viên phải học - hiểu để vượt qua
-                        các câu hỏi, tránh tình trạng học tủ hay học vẹt.
+                        Cấu trúc bộ đề thi sát hạch giấy phép lái xe hạng A1 sẽ bao gồm 25
+                        câu hỏi, mỗi câu hỏi chỉ có <strong>duy nhất 1 đáp án trả lời đúng</strong> phản ánh
+                        đúng bản chất của thi trắc nghiệm. Khác hẳn với bộ đề thi luật cũ
+                        là 2 đáp án. Mỗi đề thi chúng tôi sẽ bố trí từ 2 - 4 câu hỏi điểm
+                        liệt để học viên có thể làm quen và ghi nhớ, tránh việc làm sai
+                        câu hỏi liệt.
                     </p>
 
                     <ul class="exam-info">
@@ -90,7 +106,7 @@ $category = $result_category->fetch_assoc();
                         </li>
 
                         <li>
-                            <span style="font-weight: 700">Yêu cầu làm đúng</span>: 23/25 câu.
+                            <span style="font-weight: 700">Yêu cầu làm đúng</span>: 21/25 câu.
                         </li>
 
                         <li><span style="font-weight: 700">Thời gian</span>: 19 phút.</li>
@@ -105,24 +121,23 @@ $category = $result_category->fetch_assoc();
                     </div>
 
                     <p>
-                        Bắt Đầu Với 50 Câu Hỏi Điểm Liệt A2 –
-                        <a href="#" style="text-decoration: none">
-                            <span style="color: red; font-weight: 700">NÀO TA CÙNG THI NÀO!</span>
+                        Khởi Động Cùng 20 Câu Hỏi Điểm Liệt A1 -
+                        <a href="thi-thu-20-cau-diem-liet-a1.php" style="text-decoration: none">
+                            <span style="color: red; font-weight: 700">Cùng Thử Sức Ngay! 🚗💥</span>
                         </a>
                     </p>
 
                     <p style="margin-top: 10px;">
-                        Thi thử A2 - Cùng thử sức ngay với bộ đề chính thức! 🚗💨
+                        Thi thử A1 – Hãy cùng thử sức ngay với bộ đề thi chính thức! 🏍️ Với nền tảng thi thử A1 của
+                        chúng tôi, bạn sẽ được trải nghiệm những câu hỏi trắc nghiệm chuẩn với đề thi thật, giúp bạn làm
+                        quen với các câu hỏi quan trọng, đặc biệt là các câu điểm liệt. 📝🔑
 
-                        Chào mừng bạn đến với nền tảng thi thử A2 của chúng tôi! 🏍️ Với hệ thống câu hỏi trắc nghiệm
-                        bám sát bộ đề thi chính thức, bạn sẽ được trải nghiệm những câu hỏi thực tế và đầy thử thách,
-                        giúp chuẩn bị tốt nhất cho kỳ thi thật. 📚✨
+                        Chỉ cần đăng nhập và làm bài thi thử, bạn sẽ dễ dàng kiểm tra được trình độ của mình và chuẩn bị
+                        sẵn sàng cho kỳ thi A1. 📚✨ Đừng lo lắng, đây là cơ hội tuyệt vời để bạn luyện tập và tự tin hơn
+                        trong kỳ thi thật!
 
-                        Chỉ cần đăng nhập và làm bài thi trắc nghiệm ngay, bạn sẽ có cơ hội làm quen với các câu hỏi
-                        điểm liệt và các câu hỏi quan trọng, giúp bạn tự tin vượt qua kỳ thi A2. 📝🔑
-
-                        Nhanh tay đăng ký và bắt đầu thi ngay để kiểm tra trình độ của mình! 🏆 Hãy cùng nhau chinh phục
-                        kỳ thi và đạt được bằng lái A2 trong tầm tay! 🏍️💨
+                        Nhanh tay đăng ký và bắt đầu thi thử ngay hôm nay! 🏆 Cùng nhau chinh phục kỳ thi và biến giấc
+                        mơ sở hữu bằng lái A1 thành hiện thực! 💨
                     </p>
                 </div>
             </div>
@@ -130,18 +145,23 @@ $category = $result_category->fetch_assoc();
             <div>
                 <h3 style="margin-bottom: 15px;">Chọn đề thi:</h3>
                 <div>
-                    <a href="./pages/thi-thu-50-cau-diem-liet-a2.php" class="exam-btn"
-                        style="display: inline-block; margin-bottom: 20px; width: auto;">50 Câu
-                        Hỏi Điểm Liệt</a>
+                    <?php
+                    if ($result_bo_de_diem_liet->num_rows > 0) {
+                        $row = $result_bo_de_diem_liet->fetch_assoc();
+                        echo '<a href="thi-thu-20-cau-diem-liet-a1.php?set_id='
+                            . $row['set_id']
+                            . '" class="exam-btn">20 Câu hỏi điểm liệt </a>';
+                    }
+                    ?>
                 </div>
 
                 <div class="exam-grid">
                     <?php
                     $count = 1;
-                    if ($result_sets->num_rows > 0) {
-                        while ($row = $result_sets->fetch_assoc()) {
-                            if ($count <= 18) {
-                                echo '<a href="./pages/thi-thu-bang-lai-xe-may-a2.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
+                    if ($result_8->num_rows > 0) {
+                        while ($row = $result_8->fetch_assoc()) {
+                            if ($count <= 8) {
+                                echo '<a href="thi-thu-bang-lai-xe-may-a1.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
                                 $count++;
                             } else {
                                 break;
@@ -151,13 +171,11 @@ $category = $result_category->fetch_assoc();
                     ?>
                 </div>
 
-                <div style="border-top: 2px solid #374151; margin-top: 15px;"></div>
-
                 <div>
                     <h4
                         style="margin-bottom: 20px; margin-top: 20px; font-weight: 600; color: #ef4444; font-size: 20px;">
                         <span>Các bước học
-                            và ôn thi bằng lái A2 hiệu
+                            và ôn thi bằng lái A1 hiệu
                             quả:</span>
                     </h4>
                     <ul class="study-steps">
@@ -165,18 +183,18 @@ $category = $result_category->fetch_assoc();
                             <span style="color: blue;">
                                 Bước 1:
                             </span>
-                            <span style="color: red;">
-                                Ôn lý thuyết với 450 câu hỏi chuẩn
+                            <span style="color: red; font-weight: 700;">
+                                Ôn lý thuyết với 200 câu hỏi chuẩn
                             </span>, các bạn có thể
                             <span>
-                                <a href="https://drive.google.com/file/d/1FGJ6cBkFUjKEZfovH7HUWgfZQpJG_iJJ/edit"
+                                <a href="https://drive.google.com/file/d/1zcde1gq6Is2JePlqto3RUAPOo6InLvSg/view"
                                     style="text-decoration: none; color: blue; font-weight: 700;">
                                     tải file PDF
                                 </a>
                             </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
                             <span>
                                 <a href="#" style="text-decoration: none; color: blue; font-weight: 700;">
-                                    450 câu A2 Online
+                                    200 câu A1 online
                                 </a>
                             </span> . Đây là bước nền tảng giúp
                             bạn nắm vững kiến thức cơ bản.
@@ -187,9 +205,9 @@ $category = $result_category->fetch_assoc();
                                 Bước 2:
                             </span> Xem
                             <span>
-                                <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                                <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLN7VV6_DLShPo4I6foTBLiE2q6XSFeZpW"
                                     style="color: blue; text-decoration: none; font-weight: 700;">
-                                    12 video mẹo thi A2 để dễ nhớ – dễ đậu
+                                    5 video mẹo thi A1 để dễ nhớ – dễ đậu
                                 </a>
                             </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
                             không bị rối với những câu hỏi lý thuyết tưởng dễ mà dễ sai.
@@ -200,23 +218,26 @@ $category = $result_category->fetch_assoc();
                                 Bước 3:
                             </span> Làm thử
                             <span">
-                                <a href="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
+                                <a href="thi-thu-20-cau-diem-liet-a1.php"
                                     style="color: blue; text-decoration: none; font-weight: 700;">
-                                    50 câu điểm liệt A2
+                                    20 câu điểm liệt A1
                                 </a>
                                 </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
                                 trượt vì 1
                                 <span style="color: blue; font-weight: 700;">câu điểm liệt</span> thì cũng rất tiếc, nên
                                 đừng bỏ qua phần
-                                này
-                                nhé!
+                                này.
                         </li>
 
                         <li>
                             <span style="color: blue;">
                                 Bước 4:
                             </span> Luyện đề sát hạch theo chuẩn
-                            Hệ thống gồm 18 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật.
+                            Hệ thống gồm 8 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật. Nếu vẫn còn
+                            chưa tự tin, có thể luyện thêm
+                            <span style="color: blue; font-weight: 700;">
+                                20 đề A1
+                            </span> bám sát cấu trúc thực tế.
                         </li>
 
                         <li>
@@ -224,9 +245,9 @@ $category = $result_category->fetch_assoc();
                                 Bước 5:
                             </span> Xem video
                             <span>
-                                <a href="https://www.youtube.com/watch?v=nN8yp86xYzQ"
-                                    style="color: blue; text-decoration: none; font-weight: 700;">
-                                    hướng dẫn thi thực hành A2
+                                <a href="https://www.youtube.com/embed/R8bNv861OUs?si=dzzlfrz3Styk4zkj"
+                                    style=" color: blue; text-decoration: none; font-weight: 700;">
+                                    hướng dẫn thi thực hành A1
                                 </a>
                             </span>
                             Nắm trước các bước khi lên xe, cách xử lý tình huống, cảm nhận khi thi trên xe cảm biến –
@@ -247,21 +268,21 @@ $category = $result_category->fetch_assoc();
                         </li>
                     </ul>
                     <p class="exam-note">
-                        📌 Nhớ xem lại mẹo học lý thuyết A2 một lượt trước khi vào phòng thi – vừa gọn nhẹ mà cực kỳ hữu
+                        📌 Nhớ xem lại mẹo học lý thuyết A1 một lượt trước khi vào phòng thi – gọn nhẹ mà cực kỳ hữu
                         ích.
                     </p>
                 </div>
 
                 <div>
                     <div class="description">
-                        <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A2</h2>
+                        <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A1</h2>
                         <p>
                             <span style="text-transform: uppercase; color: red; font-weight: 700;">
-                                Video hướng dẫn mẹo làm bài thi A2 dễ nhớ – dễ áp dụng:
+                                Video hướng dẫn mẹo làm bài thi A1 dễ nhớ – dễ áp dụng:
                             </span>
-                            12 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
+                            5 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
                             loại biển báo và xử lý chính xác
-                            phần sa hình. Tất cả đều đã cập nhật theo bộ 450 câu hỏi mới nhất – học một lần, nhớ lâu,
+                            phần sa hình. Tất cả đều đã cập nhật theo bộ 200 câu hỏi mới nhất – học một lần, nhớ lâu,
                             thi
                             đâu trúng đó!
                         </p>
@@ -269,7 +290,7 @@ $category = $result_category->fetch_assoc();
 
                     <div class="video-wrapper">
                         <iframe width="700" height="400"
-                            src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                            src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLN7VV6_DLShPo4I6foTBLiE2q6XSFeZpW"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
@@ -279,12 +300,12 @@ $category = $result_category->fetch_assoc();
 
                 <div>
                     <div class="description">
-                        <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A2</h2>
+                        <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A1</h2>
                         <p>
                             <span style="text-transform: uppercase; color: red; font-weight: 700;">
                                 Video hướng dẫn chạy vòng số 8:
                             </span>
-                            Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A2, từ cách giữ tay
+                            Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A1, từ cách giữ tay
                             lái,
                             điều chỉnh ga, tư thế ngồi
                             đến mẹo xử lý góc hẹp không bị chạm vạch. Nội dung dễ hiểu, phù hợp cho người mới bắt đầu,
@@ -297,7 +318,7 @@ $category = $result_category->fetch_assoc();
 
                     <div class="video-wrapper">
                         <iframe width="700" height="400"
-                            src="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
+                            src="https://www.youtube.com/embed/R8bNv861OUs?si=dzzlfrz3Styk4zkj"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
@@ -349,7 +370,7 @@ $category = $result_category->fetch_assoc();
     </div>
 
     <!-- Footer -->
-    <?php include './includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 </body>
 
 </html>

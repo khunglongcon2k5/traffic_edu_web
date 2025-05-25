@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+$current_page = basename($_SERVER['PHP_SELF']);
 
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
@@ -134,7 +135,7 @@ $stmt->close();
         <!-- Header -->
         <?php include '../includes/header.php' ?>
 
-        <div class="text" style="background: var(--gradient); margin-top: 100px;">
+        <div class="text">
             <h1 class="text-center" style="text-transform: uppercase;">
                 <?php echo htmlspecialchars($exam_info['set_name']) ?>
             </h1>

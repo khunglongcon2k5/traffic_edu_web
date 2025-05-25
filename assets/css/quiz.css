@@ -118,7 +118,6 @@ nav .btn-logout:hover {
 
 /* ----- PAGE TITLE ----- */
 .text {
-    background-color: var(--primary);
     padding: 15px 20px;
     margin-top: 30px;
     margin-left: auto;
@@ -126,6 +125,8 @@ nav .btn-logout:hover {
     max-width: 1200px;
     border-radius: 5px;
     width: 1158px;
+    background: var(--gradient);
+    margin-top: 110px;
 }
 
 /* ----- QUIZ/TEST CONTAINER ----- */
