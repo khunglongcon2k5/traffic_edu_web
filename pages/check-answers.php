@@ -219,7 +219,7 @@ $stmt->close();
                     }
                 }
 
-                echo "<div class='question-item " . ($is_correct ? 'correct' : 'incorrect') . ($question['is_critical'] ? 'critical_question' : '') . "'>";
+                echo "<div class='question-item " . ($is_correct ? 'correct' : 'incorrect') . ($question['is_critical'] ? ' critical_question' : '') . "'>";
                 echo "<div class='question-header'>";
                 echo "<span>Câu $index</span>";
                 echo "<span class='" . ($is_correct ? 'pass' : 'fail') . "'>" . ($is_correct ? 'Đúng' : 'Sai' . ($question['is_critical'] ? ' - Điểm liệt' : '')) . "</span>";
