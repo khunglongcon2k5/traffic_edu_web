@@ -148,7 +148,7 @@ $stmt->close();
                         foreach ($answers as $answer_index => $answer) {
                             $option_number = $answer_index + 1;
                             echo "<label class='option'>";
-                            echo "<input type='radio' id='q{$question_number}_option{$option_number}' name='question_{$question['question_id']}' value='{$answer['answer_id']}' required>";
+                            echo "<input type='radio' id='q{$question_number}_option{$option_number}' name='question_{$question['question_id']}' value='{$answer['answer_id']}'>";
                             echo "<label for='q{$question_number}_option{$option_number}'>{$option_number}- " . htmlspecialchars($answer['answer_text']) . "</label>";
                             echo "</label>";
                         }

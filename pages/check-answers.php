@@ -7,6 +7,16 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+    echo '
+        <div style="margin-top: 50px; text-align: center; font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;">
+            <h1 style="color: red; text-transform: uppercase;">Admin không thể làm bài thi!</h1>
+            <a href="javascript:history.back()" style="display: inline-block; margin-top: 20px; text-decoration: none; color: blue; font-size: 23px;">⬅ Quay lại</a>
+        </div>
+    ';
+    exit();
+}
+
 $user_id = $_SESSION['user_id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
@@ -143,6 +153,9 @@ $stmt->close();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>

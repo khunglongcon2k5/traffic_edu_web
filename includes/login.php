@@ -13,7 +13,7 @@ if (isset($_POST['btn-log'])) {
 
     if ($email === 'admin' && $password === '123') {
         $_SESSION['user_id'] = 0;
-        $_SESSION['name'] = 'Administrator';
+        $_SESSION['name'] = 'Admin';
         $_SESSION['email'] = 'admin';
         $_SESSION['is_admin'] = true;
         header("Location: ../admin/dashboard.php");

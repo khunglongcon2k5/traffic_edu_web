@@ -53,7 +53,7 @@ if ($set_id > 0) {
     $params_count[] = $set_id;
     $types_count .= "i";
 }
-if ($category_id == 2 || $category_id == 4) { // Lọc câu hỏi điểm liệt
+if ($category_id == 2 || $category_id == 4) {
     $sql_count .= " AND q.is_critical = 1";
 }
 
@@ -85,7 +85,7 @@ if ($set_id > 0) {
     $params[] = $set_id;
     $types .= "i";
 }
-if ($category_id == 4 || $category_id == 5) {
+if ($category_id == 2 || $category_id == 4) {
     $sql .= " AND q.is_critical = 1";
 }
 
@@ -133,13 +133,13 @@ $stmt->close();
                                 mới</span></a></li>
                     <li class="user-information">
                         <?php if (isset($_SESSION['name'])): ?>
-                            <div class="user-info">
-                                <div class="user-name-container">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                    <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
-                                </div>
-                                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                        <div class="user-info">
+                            <div class="user-name-container">
+                                <i class="fa-solid fa-user-tie"></i>
+                                <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
                             </div>
+                            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                        </div>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -155,22 +155,12 @@ $stmt->close();
                 <form method="POST" action="manage_questions.php" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group">
-                        <label for="category_id">Danh mục:</label>
+                        <label for="category_id">Loại đề:</label>
                         <select id="category_id" name="category_id" required>
                             <?php foreach ($categories as $category): ?>
-                                <option value="<?php echo $category['category_id']; ?>">
-                                    <?php echo htmlspecialchars($category['category_name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="set_id">Bộ đề:</label>
-                        <select id="set_id" name="set_id" required>
-                            <?php foreach ($exam_sets as $set): ?>
-                                <option value="<?php echo $set['set_id']; ?>">
-                                    <?php echo htmlspecialchars($set['set_name']); ?>
-                                </option>
+                            <option value="<?php echo $category['category_id']; ?>">
+                                <?php echo htmlspecialchars($category['category_name']); ?>
+                            </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -212,64 +202,66 @@ $stmt->close();
             <div class="question-list">
                 <h2>Danh sách câu hỏi</h2>
                 <?php if (empty($questions)): ?>
-                    <p style="text-align: center; color: red;">Không tìm thấy câu hỏi nào.</p>
+                <p style="text-align: center; color: red;">Không tìm thấy câu hỏi nào.</p>
                 <?php else: ?>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nội dung</th>
-                                <th>Hình ảnh</th>
-                                <th>Câu liệt</th>
-                                <th style="text-align: center;">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($questions as $question): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($question['question_id']); ?></td>
-                                    <td><?php echo htmlspecialchars(substr($question['question_text'], 0, 130)) ?></td>
-                                    <td>
-                                        <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
-                                            <img src="<?php echo htmlspecialchars($question['question_image']); ?>"
-                                                alt="Hình ảnh câu hỏi" width="50">
-                                        <?php else: ?>
-                                            Không có
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
-                                    <td style="text-align: center; width: 40px;">
-                                        <a href="manage_questions.php?action=edit&question_id=<?php echo $question['question_id']; ?>"
-                                            class="edit-btn">Sửa</a>
-                                        <form method="POST" action="manage_questions.php" style="display:inline;">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="question_id"
-                                                value="<?php echo $question['question_id']; ?>">
-                                            <button type="submit" class="delete-btn"
-                                                onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">Xóa</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nội dung</th>
+                            <th>Hình ảnh</th>
+                            <th>Câu liệt</th>
+                            <th>Loại đề</th>
+                            <th style="text-align: center;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($questions as $question): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($question['question_id']); ?></td>
+                            <td><?php echo htmlspecialchars(substr($question['question_text'], 0, 130)) ?></td>
+                            <td>
+                                <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
+                                <img src="<?php echo htmlspecialchars($question['question_image']); ?>"
+                                    alt="Hình ảnh câu hỏi" width="50">
+                                <?php else: ?>
+                                Không có
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
+                            <td><?php echo htmlspecialchars($question['set_id']); ?></td>
+                            <td style="text-align: center; width: 40px;">
+                                <a href="manage_questions.php?action=edit&question_id=<?php echo $question['question_id']; ?>"
+                                    class="edit-btn">Sửa</a>
+                                <form method="POST" action="manage_questions.php" style="display:inline;">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="question_id"
+                                        value="<?php echo $question['question_id']; ?>">
+                                    <button type="submit" class="delete-btn"
+                                        onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
                 <?php endif; ?>
 
                 <!-- Thanh phân trang -->
                 <div class="pagination" style="margin-top: 20px; text-align: center;">
                     <?php if ($total_pages > 1): ?>
-                        <a href="?page=1&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                            class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">« Trang đầu</a>
-                        <a href="?page=<?php echo $page - 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                            class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">Trước</a>
-                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                            <a href="?page=<?php echo $i; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                                class="nav-btn <?php echo $page == $i ? 'active' : ''; ?>"><?php echo $i; ?></a>
-                        <?php endfor; ?>
-                        <a href="?page=<?php echo $page + 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                            class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Sau</a>
-                        <a href="?page=<?php echo $total_pages; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                            class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Trang cuối »</a>
+                    <a href="?page=1&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
+                        class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">« Trang đầu</a>
+                    <a href="?page=<?php echo $page - 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
+                        class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">Trước</a>
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
+                        class="nav-btn <?php echo $page == $i ? 'active' : ''; ?>"><?php echo $i; ?></a>
+                    <?php endfor; ?>
+                    <a href="?page=<?php echo $page + 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
+                        class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Sau</a>
+                    <a href="?page=<?php echo $total_pages; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
+                        class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Trang cuối »</a>
                     <?php endif; ?>
                 </div>
             </div>
