@@ -129,12 +129,23 @@ body {
     justify-content: space-between;
 }
 
-.incorrect .question-header {
+.question-item.incorrect .question-header {
     background-color: rgba(252, 24, 8, 0.05);
+    border-left: 4px solid #F44336;
 }
 
-.correct .question-header {
+.question-item.correct .question-header {
     background-color: rgba(76, 175, 80, 0.05);
+    border-left: 4px solid greenyellow;
+}
+
+.question-item.critical_question .question-header {
+    background-color: rgba(255, 152, 0, 0.1);
+}
+
+.question-item.critical_question .question-header {
+    background-color: rgba(255, 18, 1, 0.388);
+    border-left: 4px solid #F44336;
 }
 
 .question-content {
