@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+// Lấy lỗi và dữ liệu từ session nếu có
+$login_errors = isset($_SESSION['login_errors']) ? $_SESSION['login_errors'] : [];
+$login_data = isset($_SESSION['login_data']) ? $_SESSION['login_data'] : [];
+$register_errors = isset($_SESSION['register_errors']) ? $_SESSION['register_errors'] : [];
+$register_data = isset($_SESSION['register_data']) ? $_SESSION['register_data'] : [];
+$register_success = isset($_SESSION['register_success']) ? $_SESSION['register_success'] : '';
+
+// Xóa lỗi và dữ liệu khỏi session sau khi lấy
+unset($_SESSION['login_errors']);
+unset($_SESSION['login_data']);
+unset($_SESSION['register_errors']);
+unset($_SESSION['register_data']);
+unset($_SESSION['register_success']);
 ?>
 
 <!DOCTYPE html>
@@ -27,19 +41,18 @@ session_start();
                 <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Học lý thuyết</a></li>
                 <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Ôn tập</a></li>
                 <li class="nav-item" id="nav-item"><a href="./pages/thi-bang-lai-xe-a1-online.php"
-                        class="nav-link required-login">Thi thử</a>
-                </li>
+                        class="nav-link required-login">Thi thử</a></li>
                 <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Mẹo thi</a></li>
             </ul>
             <div class="auth-buttons">
                 <?php if (isset($_SESSION['name'])): ?>
-                    <div class="user-info">
-                        <i class="fa-solid fa-user-tie"></i></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
-                        <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                    </div>
+                <div class="user-info">
+                    <i class="fa-solid fa-user-tie"></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
+                    <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                </div>
                 <?php else: ?>
-                    <button class="btn btn-login" id="showLogin">Đăng nhập</button>
-                    <button class="btn btn-register" id="showRegister">Đăng ký</button>
+                <button class="btn btn-login" id="showLogin">Đăng nhập</button>
+                <button class="btn btn-register" id="showRegister">Đăng ký</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -54,8 +67,7 @@ session_start();
             <button class="btn btn-start" id="startExam">
                 <a href="./pages/thi-thu-bang-lai-xe-may-a1.php"
                     style="text-decoration: none; color: var(--primary-color);">Bắt đầu
-                    thi thử
-                    ngay
+                    thi thử ngay
                 </a>
             </button>
         </div>
@@ -145,18 +157,30 @@ session_start();
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
-            <span class="close-modal" id="closeLogin">&times;</span>
+            <span class="close-modal" id="closeLogin">×</span>
             <h2 class="form-title">Đăng nhập</h2>
             <form id="loginForm" method="post" action="./includes/login.php">
                 <div class="form-group">
                     <label for="loginEmail" class="form-label">Email</label>
                     <input type="text" id="loginEmail" name="loginEmail" class="form-input"
-                        placeholder="Nhập email của bạn" required>
+                        placeholder="Nhập email của bạn"
+                        value="<?php echo isset($login_data['email']) ? htmlspecialchars($login_data['email']) : ''; ?>">
+                    <?php if (!empty($login_errors['email'])) : ?>
+                    <div class="has-error">
+                        <span><?php echo $login_errors['email']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
+
                 <div class="form-group">
                     <label for="loginPassword" class="form-label">Mật khẩu</label>
                     <input type="password" id="loginPassword" name="loginPassword" class="form-input"
-                        placeholder="Nhập mật khẩu" required>
+                        placeholder="Nhập mật khẩu">
+                    <?php if (!empty($login_errors['password'])) : ?>
+                    <div class="has-error">
+                        <span><?php echo $login_errors['password']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <button type="submit" class="form-submit" name="btn-log">Đăng nhập</button>
                 <div class="form-footer">
@@ -169,29 +193,61 @@ session_start();
     <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
-            <span class="close-modal" id="closeRegister">&times;</span>
+            <span class="close-modal" id="closeRegister">×</span>
             <h2 class="form-title">Đăng ký tài khoản</h2>
+            <?php if (!empty($register_success)): ?>
+            <div class="has-success">
+                <span><?php echo htmlspecialchars($register_success); ?></span>
+            </div>
+            <?php endif; ?>
             <form id="registerForm" method="post" action="./includes/register.php">
                 <div class="form-group">
                     <label for="registerName" class="form-label">Họ và tên</label>
                     <input type="text" id="registerName" name="registerName" class="form-input"
-                        placeholder="Nhập họ và tên" required>
+                        placeholder="Nhập họ và tên"
+                        value="<?php echo isset($register_data['name']) ? htmlspecialchars($register_data['name']) : ''; ?>">
+                    <?php if (!empty($register_errors['name'])): ?>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['name']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label for="registerEmail" class="form-label">Email</label>
                     <input type="email" id="registerEmail" name="registerEmail" class="form-input"
-                        placeholder="Nhập email của bạn" required>
+                        placeholder="Nhập email của bạn"
+                        value="<?php echo isset($register_data['email']) ? htmlspecialchars($register_data['email']) : ''; ?>">
+                    <?php if (!empty($register_errors['email'])): ?>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['email']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label for="registerPassword" class="form-label">Mật khẩu</label>
                     <input type="password" id="registerPassword" name="registerPassword" class="form-input"
-                        placeholder="Tạo mật khẩu" required>
+                        placeholder="Tạo mật khẩu">
+                    <?php if (!empty($register_errors['password'])): ?>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['password']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
-                        placeholder="Nhập lại mật khẩu" required>
+                        placeholder="Nhập lại mật khẩu">
+                    <?php if (!empty($register_errors['confirmPassword'])): ?>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['confirmPassword']; ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
+                <?php if (!empty($register_errors['general'])): ?>
+                <div class="has-error">
+                    <span><?php echo $register_errors['general']; ?></span>
+                </div>
+                <?php endif; ?>
                 <button type="submit" class="form-submit" name="btn-reg">Đăng ký</button>
                 <div class="form-footer">
                     Đã có tài khoản? <span class="form-link" id="switchToLogin">Đăng nhập</span>
@@ -236,12 +292,20 @@ session_start();
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2025 TrafficEdu. Tất cả các quyền được bảo lưu.
+                © 2025 TrafficEdu. Tất cả các quyền được bảo lưu.
             </div>
         </div>
     </footer>
 
     <script src="./assets/js/main.js"></script>
+    <script>
+    <?php if (!empty($login_errors)): ?>
+    document.getElementById('loginModal').style.display = 'flex';
+    <?php endif; ?>
+    <?php if (!empty($register_errors) || !empty($register_success)): ?>
+    document.getElementById('registerModal').style.display = 'flex';
+    <?php endif; ?>
+    </script>
 </body>
 
 </html>

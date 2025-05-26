@@ -13,24 +13,9 @@ $stmt->execute();
 $categories = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-// Lấy danh sách bộ đề
+// Lấy tham số phân trang và lọc
 $category_id = isset($_GET['category_id']) && is_numeric($_GET['category_id']) && $_GET['category_id'] > 0 ? (int)$_GET['category_id'] : 0;
 $set_id = isset($_GET['set_id']) && is_numeric($_GET['set_id']) ? (int)$_GET['set_id'] : 0;
-$exam_sets = [];
-if ($category_id > 0) {
-    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $exam_sets = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-} else {
-    $stmt = $conn->prepare("SELECT * FROM exam_sets");
-    $stmt->execute();
-    $exam_sets = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-}
-
-// Phân trang
 $per_page = 25;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $per_page;
@@ -53,9 +38,6 @@ if ($set_id > 0) {
     $params_count[] = $set_id;
     $types_count .= "i";
 }
-if ($category_id == 2 || $category_id == 4) {
-    $sql_count .= " AND q.is_critical = 1";
-}
 
 $stmt_count = $conn->prepare($sql_count);
 if (!empty($params_count)) {
@@ -67,7 +49,7 @@ $total_pages = ceil($total_rows / $per_page);
 $stmt_count->close();
 
 // Lấy danh sách câu hỏi theo trang
-$sql = "SELECT q.*, es.set_name, ec.category_name 
+$sql = "SELECT q.* 
         FROM questions q 
         LEFT JOIN exam_sets es ON q.set_id = es.set_id 
         LEFT JOIN exam_categories ec ON es.category_id = ec.category_id 
@@ -84,9 +66,6 @@ if ($set_id > 0) {
     $sql .= " AND q.set_id = ?";
     $params[] = $set_id;
     $types .= "i";
-}
-if ($category_id == 2 || $category_id == 4) {
-    $sql .= " AND q.is_critical = 1";
 }
 
 $sql .= " ORDER BY q.question_id LIMIT ? OFFSET ?";
@@ -129,8 +108,7 @@ $stmt->close();
                                 class="fa-solid fa-list"></i><span style="margin-left: 10px;">Danh sách câu
                                 hỏi</span></a></li>
                     <li><a href="#" class="tab-btn" data-tab="add-question-tab"><i class="fa-solid fa-plus"></i><span
-                                style="margin-left: 10px;">Thêm câu hỏi
-                                mới</span></a></li>
+                                style="margin-left: 10px;">Thêm câu hỏi mới</span></a></li>
                     <li class="user-information">
                         <?php if (isset($_SESSION['name'])): ?>
                         <div class="user-info">
@@ -152,16 +130,15 @@ $stmt->close();
         <div id="add-question-tab" class="tab-content" style="display: none;">
             <div class="form-container">
                 <h2>Thêm câu hỏi mới</h2>
-                <form method="POST" action="manage_questions.php" enctype="multipart/form-data">
+                <form method="POST" action="create_question.php" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group">
-                        <label for="category_id">Loại đề:</label>
-                        <select id="category_id" name="category_id" required>
-                            <?php foreach ($categories as $category): ?>
-                            <option value="<?php echo $category['category_id']; ?>">
-                                <?php echo htmlspecialchars($category['category_name']); ?>
-                            </option>
-                            <?php endforeach; ?>
+                        <label for="set_id">Bộ đề:</label>
+                        <select id="set_id" name="set_id" required>
+                            <option value="1">A1</option>
+                            <option value="2">Câu liệt A1</option>
+                            <option value="3">A2</option>
+                            <option value="4">Câu liệt A2</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -183,11 +160,13 @@ $stmt->close();
                                 <input type="text" name="answer_text[]" placeholder="Đáp án 1" required>
                                 <input type="checkbox" name="is_correct[]" value="1"> Đúng
                                 <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
+                                <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                             </div>
                             <div class="answer-group">
                                 <input type="text" name="answer_text[]" placeholder="Đáp án 2" required>
                                 <input type="checkbox" name="is_correct[]" value="1"> Đúng
                                 <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
+                                <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                             </div>
                         </div>
                         <button type="button" id="add_answer">Thêm đáp án</button>
@@ -204,47 +183,49 @@ $stmt->close();
                 <?php if (empty($questions)): ?>
                 <p style="text-align: center; color: red;">Không tìm thấy câu hỏi nào.</p>
                 <?php else: ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nội dung</th>
-                            <th>Hình ảnh</th>
-                            <th>Câu liệt</th>
-                            <th>Loại đề</th>
-                            <th style="text-align: center;">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($questions as $question): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($question['question_id']); ?></td>
-                            <td><?php echo htmlspecialchars(substr($question['question_text'], 0, 130)) ?></td>
-                            <td>
-                                <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
-                                <img src="<?php echo htmlspecialchars($question['question_image']); ?>"
-                                    alt="Hình ảnh câu hỏi" width="50">
-                                <?php else: ?>
-                                Không có
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
-                            <td><?php echo htmlspecialchars($question['set_id']); ?></td>
-                            <td style="text-align: center; width: 40px;">
-                                <a href="manage_questions.php?action=edit&question_id=<?php echo $question['question_id']; ?>"
-                                    class="edit-btn">Sửa</a>
-                                <form method="POST" action="manage_questions.php" style="display:inline;">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="question_id"
-                                        value="<?php echo $question['question_id']; ?>">
-                                    <button type="submit" class="delete-btn"
-                                        onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">Xóa</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nội dung</th>
+                                <th>Hình ảnh</th>
+                                <th>Câu liệt</th>
+                                <th>Loại đề</th>
+                                <th style="text-align: center;">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($questions as $question): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($question['question_id']); ?></td>
+                                <td><?php echo htmlspecialchars(substr($question['question_text'], 0, 130)) ?></td>
+                                <td>
+                                    <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
+                                    <img src="<?php echo htmlspecialchars($question['question_image']); ?>"
+                                        alt="Hình ảnh câu hỏi" width="50">
+                                    <?php else: ?>
+                                    Không có
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
+                                <td><?php echo htmlspecialchars($question['set_id']); ?></td>
+                                <td style="text-align: center; width: 40px;">
+                                    <a href="edit_question.php?id=<?php echo $question['question_id']; ?>"
+                                        class="edit-btn">Sửa</a>
+                                    <form method="POST" action="delete_question.php" style="display:inline;">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="question_id"
+                                            value="<?php echo $question['question_id']; ?>">
+                                        <button type="submit" class="delete-btn"
+                                            onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 <?php endif; ?>
 
                 <!-- Thanh phân trang -->

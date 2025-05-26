@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newAnswerGroup.classList.add('answer-group');
         newAnswerGroup.innerHTML = `
             <input type="text" name="answer_text[]" placeholder="Đáp án ${answerIndex + 1}" required>
-            <input type="checkbox" name="is_correct[${answerIndex}]" value="1"> Đúng
+            <input type="checkbox" name="is_correct[]" value="1"> Đúng
             <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
             <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
         `;
@@ -36,10 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Form validation for add/edit question forms only
     const questionForms = document.querySelectorAll('form[action="manage_questions.php"]');
     questionForms.forEach(form => {
-        // Only apply validation to forms with question_text (add/edit forms)
         if (form.querySelector('#question_text')) {
             form.addEventListener('submit', function (e) {
-                const correctAnswers = this.querySelectorAll('input[name^="is_correct"]:checked');
+                const correctAnswers = this.querySelectorAll('input[name="is_correct[]"]:checked');
                 if (correctAnswers.length === 0) {
                     e.preventDefault();
                     alert('Vui lòng chọn ít nhất một đáp án đúng!');
