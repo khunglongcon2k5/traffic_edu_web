@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // Lấy danh sách đề thi

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Tab switching
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -17,8 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Add answer functionality
-    let answerIndex = 2; // Start from 2 since we have 2 default answers
+    let answerIndex = 2;
     document.getElementById('add_answer')?.addEventListener('click', function () {
         const answersContainer = document.getElementById('answers');
         const newAnswerGroup = document.createElement('div');
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         answerIndex++;
     });
 
-    // Form validation for add/edit question forms only
     const questionForms = document.querySelectorAll('form[action="manage_questions.php"]');
     questionForms.forEach(form => {
         if (form.querySelector('#question_text')) {
@@ -55,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Image preview
     const imageInputs = document.querySelectorAll('input[type="file"]');
     imageInputs.forEach(input => {
         input.addEventListener('change', function () {

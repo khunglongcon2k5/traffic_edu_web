@@ -1,4 +1,3 @@
-// Modal functionality
 const loginModal = document.getElementById('loginModal');
 const registerModal = document.getElementById('registerModal');
 const showLoginBtn = document.getElementById('showLogin');
@@ -10,7 +9,6 @@ const switchToLoginBtn = document.getElementById('switchToLogin');
 const startExamBtn = document.getElementById('startExam');
 const protectedLinks = document.querySelectorAll('.required-login');
 
-// Show modals
 showLoginBtn.addEventListener('click', () => {
     loginModal.style.display = 'flex';
 });
@@ -19,7 +17,6 @@ showRegisterBtn.addEventListener('click', () => {
     registerModal.style.display = 'flex';
 });
 
-// Close modals
 closeLoginBtn.addEventListener('click', () => {
     loginModal.style.display = 'none';
 });
@@ -28,7 +25,6 @@ closeRegisterBtn.addEventListener('click', () => {
     registerModal.style.display = 'none';
 });
 
-// Switch between modals
 switchToRegisterBtn.addEventListener('click', () => {
     loginModal.style.display = 'none';
     registerModal.style.display = 'flex';
@@ -39,9 +35,7 @@ switchToLoginBtn.addEventListener('click', () => {
     loginModal.style.display = 'flex';
 });
 
-// Start exam button (shows login if not authenticated)
 startExamBtn.addEventListener('click', () => {
-    // For demo purposes, always show login modal
     loginModal.style.display = 'flex';
 });
 
@@ -52,7 +46,6 @@ protectedLinks.forEach(link => {
     })
 });
 
-// Close modals when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === loginModal) {
         loginModal.style.display = 'none';

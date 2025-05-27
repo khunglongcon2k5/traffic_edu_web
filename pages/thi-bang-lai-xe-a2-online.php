@@ -3,6 +3,7 @@ session_start();
 require_once '../includes/config.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 
+// Lấy danh sách đề thi
 $category_id = 3;
 $sql_sets = "SELECT * FROM exam_sets WHERE category_id = $category_id";
 $result_sets = $conn->query($sql_sets);

@@ -126,7 +126,7 @@ $stmt->close();
     </aside>
 
     <div class="container main-content">
-        <!-- Tab: Thêm câu hỏi mới -->
+        <!-- Thêm câu hỏi mới -->
         <div id="add-question-tab" class="tab-content" style="display: none;">
             <div class="form-container">
                 <h2>Thêm câu hỏi mới</h2>
@@ -176,7 +176,7 @@ $stmt->close();
             </div>
         </div>
 
-        <!-- Tab: Danh sách câu hỏi -->
+        <!-- Danh sách câu hỏi -->
         <div id="question-list-tab" class="tab-content">
             <div class="question-list">
                 <h2>Danh sách câu hỏi</h2>

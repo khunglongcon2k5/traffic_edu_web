@@ -1,10 +1,12 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-$current_page = basename($_SERVER['PHP_SELF']);
+$current_page = basename($_SERVER['PHP_SELF']); // Lấy tên file hiện tại
 
+// Lấy câu hỏi theo bộ đề
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
+    // Danh sách câu hỏi điểm liệt theo bộ đề
     $critical_questions_by_set = [
         1 => [3, 5, 12],
         2 => [28, 29, 30, 33],
@@ -15,7 +17,7 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
         7 => [152, 153, 154],
         8 => [177, 179]
     ];
-
+    // Phạm vi ID câu hỏi cho từng bộ đề
     $question_ranges = [
         1 => [1, 25],
         2 => [26, 50],
@@ -88,10 +90,10 @@ function getExamSets($conn, $category_id = null)
     return $exam_sets;
 }
 
-// Display exam
+// Lấy set_id từ URL mặc định là 1
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 1;
 
-// Kiểm tra set_id có hợp lệ không (1-8)
+// Kiểm tra set_id hợp lệ (1-8)
 if ($set_id < 1 || $set_id > 8) {
     $set_id = 1; // Mặc định là đề 1 nếu không hợp lệ
 }
@@ -99,7 +101,7 @@ if ($set_id < 1 || $set_id > 8) {
 // Lấy 25 câu hỏi cho đề thi
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
-// Get exam info
+// Lấy thông tin đề thi
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit
      FROM exam_sets es
@@ -130,7 +132,9 @@ $stmt->close();
 </head>
 
 <body>
+    <!-- Form gửi đáp án -->
     <form id="exam-form" method="post" action="check-answers.php">
+        <!-- Truyền set_id -->
         <input type="hidden" name="set_id" value="<?php echo $set_id; ?>">
         <!-- Header -->
         <?php include '../includes/header.php' ?>
