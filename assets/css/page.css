@@ -46,7 +46,7 @@ body {
 
 /* NAVIGATION */
 header {
-    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
+    background: #0a2540;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
@@ -278,7 +278,7 @@ nav .btn-logout:hover {
 /* FOOTER STYLES */
 footer {
     padding: 30px 0;
-    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
+    background: #0a2540;
     margin-top: 50px;
     color: #fff;
 }
