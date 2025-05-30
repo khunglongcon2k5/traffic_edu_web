@@ -398,3 +398,12 @@ footer {
     margin-left: auto;
     margin-right: auto;
 }
+
+/*  PC  */
+@media (max-width:1024px) {}
+
+/*  Tablet  */
+@media (min-width:740px) and (max-width:1024px) {}
+
+/*  Mobile */
+@media (max-width:740px) {}

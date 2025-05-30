@@ -225,3 +225,12 @@ body {
 .retry-button:hover {
     background-color: #2980b9;
 }
+
+/*  PC  */
+@media (max-width:1024px) {}
+
+/*  Tablet  */
+@media (min-width:740px) and (max-width:1024px) {}
+
+/*  Mobile */
+@media (max-width:740px) {}

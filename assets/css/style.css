@@ -567,17 +567,11 @@ footer {
     margin-top: 5px;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
+/*  PC  */
+@media (max-width:1024px) {}
 
-    .hero-title {
-        font-size: 2rem;
-    }
+/*  Tablet  */
+@media (min-width:740px) and (max-width:1024px) {}
 
-    .feature-card {
-        padding: 20px;
-    }
-}
+/*  Mobile */
+@media (max-width:740px) {}

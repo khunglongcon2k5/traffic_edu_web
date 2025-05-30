@@ -17,7 +17,7 @@ unset($_SESSION['register_success']);
 ?>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -46,13 +46,13 @@ unset($_SESSION['register_success']);
             </ul>
             <div class="auth-buttons">
                 <?php if (isset($_SESSION['name'])): ?>
-                    <div class="user-info">
-                        <i class="fa-solid fa-user-tie"></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
-                        <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                    </div>
+                <div class="user-info">
+                    <i class="fa-solid fa-user-tie"></i> <?php echo htmlspecialchars($_SESSION['name']); ?>
+                    <a href="./includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                </div>
                 <?php else: ?>
-                    <button class="btn btn-login" id="showLogin">Đăng nhập</button>
-                    <button class="btn btn-register" id="showRegister">Đăng ký</button>
+                <button class="btn btn-login" id="showLogin">Đăng nhập</button>
+                <button class="btn btn-register" id="showRegister">Đăng ký</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -166,9 +166,9 @@ unset($_SESSION['register_success']);
                         placeholder="Nhập email của bạn"
                         value="<?php echo isset($login_data['email']) ? htmlspecialchars($login_data['email']) : ''; ?>">
                     <?php if (!empty($login_errors['email'])) : ?>
-                        <div class="has-error">
-                            <span><?php echo $login_errors['email']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $login_errors['email']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
 
@@ -177,9 +177,9 @@ unset($_SESSION['register_success']);
                     <input type="password" id="loginPassword" name="loginPassword" class="form-input"
                         placeholder="Nhập mật khẩu">
                     <?php if (!empty($login_errors['password'])) : ?>
-                        <div class="has-error">
-                            <span><?php echo $login_errors['password']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $login_errors['password']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
                 <button type="submit" class="form-submit" name="btn-log">Đăng nhập</button>
@@ -196,9 +196,9 @@ unset($_SESSION['register_success']);
             <span class="close-modal" id="closeRegister">×</span>
             <h2 class="form-title">Đăng ký tài khoản</h2>
             <?php if (!empty($register_success)): ?>
-                <div class="has-success">
-                    <span><?php echo htmlspecialchars($register_success); ?></span>
-                </div>
+            <div class="has-success">
+                <span><?php echo htmlspecialchars($register_success); ?></span>
+            </div>
             <?php endif; ?>
             <form id="registerForm" method="post" action="./includes/register.php">
                 <div class="form-group">
@@ -207,9 +207,9 @@ unset($_SESSION['register_success']);
                         placeholder="Nhập họ và tên"
                         value="<?php echo isset($register_data['name']) ? htmlspecialchars($register_data['name']) : ''; ?>">
                     <?php if (!empty($register_errors['name'])): ?>
-                        <div class="has-error">
-                            <span><?php echo $register_errors['name']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['name']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
@@ -218,9 +218,9 @@ unset($_SESSION['register_success']);
                         placeholder="Nhập email của bạn"
                         value="<?php echo isset($register_data['email']) ? htmlspecialchars($register_data['email']) : ''; ?>">
                     <?php if (!empty($register_errors['email'])): ?>
-                        <div class="has-error">
-                            <span><?php echo $register_errors['email']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['email']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
@@ -228,9 +228,9 @@ unset($_SESSION['register_success']);
                     <input type="password" id="registerPassword" name="registerPassword" class="form-input"
                         placeholder="Tạo mật khẩu">
                     <?php if (!empty($register_errors['password'])): ?>
-                        <div class="has-error">
-                            <span><?php echo $register_errors['password']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['password']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
@@ -238,15 +238,15 @@ unset($_SESSION['register_success']);
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
                         placeholder="Nhập lại mật khẩu">
                     <?php if (!empty($register_errors['confirmPassword'])): ?>
-                        <div class="has-error">
-                            <span><?php echo $register_errors['confirmPassword']; ?></span>
-                        </div>
+                    <div class="has-error">
+                        <span><?php echo $register_errors['confirmPassword']; ?></span>
+                    </div>
                     <?php endif; ?>
                 </div>
                 <?php if (!empty($register_errors['general'])): ?>
-                    <div class="has-error">
-                        <span><?php echo $register_errors['general']; ?></span>
-                    </div>
+                <div class="has-error">
+                    <span><?php echo $register_errors['general']; ?></span>
+                </div>
                 <?php endif; ?>
                 <button type="submit" class="form-submit" name="btn-reg">Đăng ký</button>
                 <div class="form-footer">
@@ -299,12 +299,12 @@ unset($_SESSION['register_success']);
 
     <script src="./assets/js/main.js"></script>
     <script>
-        <?php if (!empty($login_errors)): ?>
-            document.getElementById('loginModal').style.display = 'flex';
-        <?php endif; ?>
-        <?php if (!empty($register_errors) || !empty($register_success)): ?>
-            document.getElementById('registerModal').style.display = 'flex';
-        <?php endif; ?>
+    <?php if (!empty($login_errors)): ?>
+    document.getElementById('loginModal').style.display = 'flex';
+    <?php endif; ?>
+    <?php if (!empty($register_errors) || !empty($register_success)): ?>
+    document.getElementById('registerModal').style.display = 'flex';
+    <?php endif; ?>
     </script>
 </body>
 
