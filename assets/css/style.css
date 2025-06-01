@@ -568,10 +568,10 @@ footer {
 }
 
 /*  PC  */
-@media (max-width:1024px) {}
+@media (min-width: 992px) {}
 
 /*  Tablet  */
-@media (min-width:740px) and (max-width:1024px) {}
+@media (min-width: 768px) and (max-width: 991px) {}
 
 /*  Mobile */
-@media (max-width:740px) {}
+@media (max-width: 767px) {}
