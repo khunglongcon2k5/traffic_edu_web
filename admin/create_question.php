@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $set_id = isset($_POST['set_id']) ? (int)$_POST['set_id'] : 0;
     $is_critical = isset($_POST['is_critical']) ? 1 : 0;
     $question_image = '';
+    $answer_texts = $_POST['answer_text'] ?? [];
+    $is_corrects = isset($_POST['is_correct']) ? $_POST['is_correct'] : [];
+    $explanations = $_POST['explanation'] ?? [];
 
     // Kiểm tra lỗi nhập
     $errors = [];
@@ -23,9 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($set_id <= 0) {
         $errors[] = "Bộ đề không hợp lệ.";
     }
+    if (count($answer_texts) < 2) {
+        $errors[] = "Phải có ít nhất hai đáp án.";
+    }
+    // Kiểm tra xem có ít nhất một đáp án đúng
+    $has_correct_answer = false;
+    for ($i = 0; $i < count($answer_texts); $i++) {
+        if (in_array($i, $is_corrects)) {
+            $has_correct_answer = true;
+            break;
+        }
+    }
+    if (!$has_correct_answer) {
+        $errors[] = "Phải có ít nhất một đáp án đúng.";
+    }
 
     if (!empty($errors)) {
-        die("Lỗi: " . implode("<br>", $errors));
+        $_SESSION['errors'] = $errors;
+        header("Location: dashboard.php");
+        exit;
     }
 
     // Xử lý upload hình ảnh nếu có
@@ -47,10 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question_id = $conn->insert_id;
 
     // Thêm các đáp án
-    $answer_texts = $_POST['answer_text'] ?? [];
-    $is_corrects = isset($_POST['is_correct']) ? $_POST['is_correct'] : [];
-    $explanations = $_POST['explanation'] ?? [];
-
     for ($i = 0; $i < count($answer_texts); $i++) {
         $answer_text = $answer_texts[$i];
         $is_correct = in_array($i, $is_corrects) ? 1 : 0;

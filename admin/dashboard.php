@@ -17,7 +17,7 @@ $stmt->close();
 $category_id = isset($_GET['category_id']) && is_numeric($_GET['category_id']) && $_GET['category_id'] > 0 ? (int)$_GET['category_id'] : 0;
 $set_id = isset($_GET['set_id']) && is_numeric($_GET['set_id']) ? (int)$_GET['set_id'] : 0;
 $per_page = 25;
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $per_page;
 
 // Lấy tổng số câu hỏi
@@ -88,7 +88,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
@@ -126,6 +126,16 @@ $stmt->close();
     </aside>
 
     <div class="container main-content">
+        <!-- Hiển thị lỗi nếu có -->
+        <?php if (isset($_SESSION['errors'])): ?>
+        <div style="color: red; margin-bottom: 20px;">
+            <?php
+                echo implode("<br>", array_map('htmlspecialchars', $_SESSION['errors']));
+                unset($_SESSION['errors']);
+                ?>
+        </div>
+        <?php endif; ?>
+
         <!-- Thêm câu hỏi mới -->
         <div id="add-question-tab" class="tab-content" style="display: none;">
             <div class="form-container">
@@ -143,7 +153,7 @@ $stmt->close();
                     </div>
                     <div class="form-group">
                         <label for="question_text">Nội dung câu hỏi:</label>
-                        <textarea id="question_text" name="question_text" required></textarea>
+                        <textarea id="question_text" name="question_text"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="question_image">Hình ảnh (nếu có):</label>
@@ -157,13 +167,13 @@ $stmt->close();
                         <label>Đáp án:</label>
                         <div id="answers">
                             <div class="answer-group">
-                                <input type="text" name="answer_text[]" placeholder="Đáp án 1" required>
+                                <input type="text" name="answer_text[]" placeholder="Đáp án 1">
                                 <input type="checkbox" name="is_correct[]" value="1"> Đúng
                                 <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
                                 <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                             </div>
                             <div class="answer-group">
-                                <input type="text" name="answer_text[]" placeholder="Đáp án 2" required>
+                                <input type="text" name="answer_text[]" placeholder="Đáp án 2">
                                 <input type="checkbox" name="is_correct[]" value="1"> Đúng
                                 <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
                                 <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
@@ -231,18 +241,33 @@ $stmt->close();
                 <!-- Thanh phân trang -->
                 <div class="pagination" style="margin-top: 20px; text-align: center;">
                     <?php if ($total_pages > 1): ?>
+                    <!-- Nút Trang đầu và Trước -->
+                    <?php if ($page > 1): ?>
                     <a href="?page=1&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                        class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">« Trang đầu</a>
+                        class="nav-btn">« Trang đầu</a>
                     <a href="?page=<?php echo $page - 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                        class="nav-btn <?php echo $page == 1 ? 'disabled' : ''; ?>">Trước</a>
+                        class="nav-btn">Trước</a>
+                    <?php else: ?>
+                    <span class="nav-btn disabled">« Trang đầu</span>
+                    <span class="nav-btn disabled">Trước</span>
+                    <?php endif; ?>
+
+                    <!-- Số trang -->
                     <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                     <a href="?page=<?php echo $i; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
                         class="nav-btn <?php echo $page == $i ? 'active' : ''; ?>"><?php echo $i; ?></a>
                     <?php endfor; ?>
+
+                    <!-- Nút Sau và Trang cuối -->
+                    <?php if ($page < $total_pages): ?>
                     <a href="?page=<?php echo $page + 1; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                        class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Sau</a>
+                        class="nav-btn">Sau</a>
                     <a href="?page=<?php echo $total_pages; ?>&category_id=<?php echo $category_id; ?>&set_id=<?php echo $set_id; ?>"
-                        class="nav-btn <?php echo $page == $total_pages ? 'disabled' : ''; ?>">Trang cuối »</a>
+                        class="nav-btn">Trang cuối »</a>
+                    <?php else: ?>
+                    <span class="nav-btn disabled">Sau</span>
+                    <span class="nav-btn disabled">Trang cuối »</span>
+                    <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>
