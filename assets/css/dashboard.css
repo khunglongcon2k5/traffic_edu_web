@@ -357,6 +357,14 @@
      margin-top: 10px;
  }
 
+ .remove-answer {
+     background: #ff4444;
+     padding: 8px;
+     color: white;
+     border: none;
+     border-radius: 10px;
+ }
+
  /*  PC  */
  @media (max-width:1024px) {}
 

@@ -7,10 +7,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 $category_id = 3;
 $sql_sets = "SELECT * FROM exam_sets WHERE category_id = $category_id";
 $result_sets = $conn->query($sql_sets);
-
-$sql_category = "SELECT * FROM exam_categories WHERE category_id = $category_id";
-$result_category = $conn->query($sql_category);
-$category = $result_category->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +105,7 @@ $category = $result_category->fetch_assoc();
 
                     <p>
                         Bắt Đầu Với 50 Câu Hỏi Điểm Liệt A2 –
-                        <a href="#" style="text-decoration: none">
+                        <a href="thi-thu-bang-lai-xe-may-a2.php" style="text-decoration: none">
                             <span style="color: red; font-weight: 700">NÀO TA CÙNG THI NÀO!</span>
                         </a>
                     </p>
@@ -154,200 +150,196 @@ $category = $result_category->fetch_assoc();
                     ?>
                 </div>
 
-                <div style="border-top: 2px solid #374151; margin-top: 15px;"></div>
-
-                <div>
-                    <h4
-                        style="margin-bottom: 20px; margin-top: 20px; font-weight: 600; color: #ef4444; font-size: 20px;">
-                        <span>Các bước học
-                            và ôn thi bằng lái A2 hiệu
-                            quả:</span>
-                    </h4>
-                    <ul class="study-steps">
-                        <li>
-                            <span style="color: blue;">
-                                Bước 1:
-                            </span>
-                            <span style="color: red;">
-                                Ôn lý thuyết với 450 câu hỏi chuẩn
-                            </span>, các bạn có thể
-                            <span>
-                                <a href="https://drive.google.com/file/d/1FGJ6cBkFUjKEZfovH7HUWgfZQpJG_iJJ/edit"
-                                    style="text-decoration: none; color: blue; font-weight: 700;">
-                                    tải file PDF
-                                </a>
-                            </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
-                            <span>
-                                <a href="#" style="text-decoration: none; color: blue; font-weight: 700;">
-                                    450 câu A2 Online
-                                </a>
-                            </span> . Đây là bước nền tảng giúp
-                            bạn nắm vững kiến thức cơ bản.
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">
-                                Bước 2:
-                            </span> Xem
-                            <span>
-                                <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
-                                    style="color: blue; text-decoration: none; font-weight: 700;">
-                                    12 video mẹo thi A2 để dễ nhớ – dễ đậu
-                                </a>
-                            </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
-                            không bị rối với những câu hỏi lý thuyết tưởng dễ mà dễ sai.
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">
-                                Bước 3:
-                            </span> Làm thử
-                            <span">
-                                <a href="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
-                                    style="color: blue; text-decoration: none; font-weight: 700;">
-                                    50 câu điểm liệt A2
-                                </a>
-                                </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
-                                trượt vì 1
-                                <span style="color: blue; font-weight: 700;">câu điểm liệt</span> thì cũng rất tiếc, nên
-                                đừng bỏ qua phần
-                                này
-                                nhé!
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">
-                                Bước 4:
-                            </span> Luyện đề sát hạch theo chuẩn
-                            Hệ thống gồm 18 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật.
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">
-                                Bước 5:
-                            </span> Xem video
-                            <span>
-                                <a href="https://www.youtube.com/watch?v=nN8yp86xYzQ"
-                                    style="color: blue; text-decoration: none; font-weight: 700;">
-                                    hướng dẫn thi thực hành A2
-                                </a>
-                            </span>
-                            Nắm trước các bước khi lên xe, cách xử lý tình huống, cảm nhận khi thi trên xe cảm biến –
-                            rất hữu ích nếu bạn chưa từng
-                            thi thực hành.
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">
-                                Bước 6:
-                            </span> Thư giãn trước ngày thi
-                            Tránh học dồn, nhồi nhét vào phút cuối. Thay vào đó,
-                            <span style="color: blue; font-weight: 700;">
-                                hãy nghỉ ngơi, ngủ đủ giấc để đầu óc
-                                tỉnh táo, giữ tâm lý thoải mái
-                                trước giờ thi.
-                            </span>
-                        </li>
-                    </ul>
-                    <p class="exam-note">
-                        📌 Nhớ xem lại mẹo học lý thuyết A2 một lượt trước khi vào phòng thi – vừa gọn nhẹ mà cực kỳ hữu
-                        ích.
-                    </p>
-                </div>
-
-                <div>
-                    <div class="description">
-                        <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A2</h2>
-                        <p>
-                            <span style="text-transform: uppercase; color: red; font-weight: 700;">
-                                Video hướng dẫn mẹo làm bài thi A2 dễ nhớ – dễ áp dụng:
-                            </span>
-                            12 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
-                            loại biển báo và xử lý chính xác
-                            phần sa hình. Tất cả đều đã cập nhật theo bộ 450 câu hỏi mới nhất – học một lần, nhớ lâu,
-                            thi
-                            đâu trúng đó!
-                        </p>
-                    </div>
-
-                    <div class="video-wrapper">
-                        <iframe width="700" height="400"
-                            src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="description">
-                        <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A2</h2>
-                        <p>
-                            <span style="text-transform: uppercase; color: red; font-weight: 700;">
-                                Video hướng dẫn chạy vòng số 8:
-                            </span>
-                            Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A2, từ cách giữ tay
-                            lái,
-                            điều chỉnh ga, tư thế ngồi
-                            đến mẹo xử lý góc hẹp không bị chạm vạch. Nội dung dễ hiểu, phù hợp cho người mới bắt đầu,
-                            giúp
-                            bạn tự tin vượt qua bài
-                            thi ngay từ lần đầu tiên.
-                        </p>
-                    </div>
-
-
-                    <div class="video-wrapper">
-                        <iframe width="700" height="400"
-                            src="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="address-section">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.2120340408314!2d109.19560007474969!3d13.766083186627293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6cb7c3c5685f%3A0x3df59a1674b81b54!2zMzYxIFTDonkgU8ahbiwgUXVhbmcgVHJ1bmcsIFF1eSBOaMahbiwgQsOsbmggxJDhu4tuaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1747291617983!5m2!1svi!2s"
-                        width="800" height="400" style="border:0; margin-top: 10px;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                    <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy
-                        Nhơn:
-                    </p>
-                    <ul>
-                        <li>
-                            <span style="color: blue;">
-                                Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
-                                <a href="https://www.facebook.com/vieclamsinhvienqn"
-                                    style="text-decoration: none; color: red; font-weight: 700;">
-                                    Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
-                            </span>
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung,
-                                TP
-                                Quy Nhơn, Bình Định</strong>
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào
-                                tạo
-                                NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
-                        </li>
-
-                        <li>
-                            <span style="color: blue;">Google Maps: </span>
-                            <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
-                                style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
-                                Tại Đây
+                <h4 style="margin-bottom: 20px; margin-top: 20px; font-weight: 600; color: #ef4444; font-size: 20px;">
+                    <span>Các bước học
+                        và ôn thi bằng lái A2 hiệu
+                        quả:</span>
+                </h4>
+                <ul class="study-steps">
+                    <li>
+                        <span style="color: blue;">
+                            Bước 1:
+                        </span>
+                        <span style="color: red;">
+                            Ôn lý thuyết với 450 câu hỏi chuẩn
+                        </span>, các bạn có thể
+                        <span>
+                            <a href="https://drive.google.com/file/d/1FGJ6cBkFUjKEZfovH7HUWgfZQpJG_iJJ/edit"
+                                style="text-decoration: none; color: blue; font-weight: 700;">
+                                tải file PDF
                             </a>
-                        </li>
-                    </ul>
+                        </span>để ôn offline mọi lúc mọi nơi, hoặc luyện trực tiếp trên bộ đề
+                        <span>
+                            <a href="thi-thu-bang-lai-xe-may-a2.php"
+                                style="text-decoration: none; color: blue; font-weight: 700;">
+                                450 câu A2 Online
+                            </a>
+                        </span> . Đây là bước nền tảng giúp
+                        bạn nắm vững kiến thức cơ bản.
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">
+                            Bước 2:
+                        </span> Xem
+                        <span>
+                            <a href="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                                style="color: blue; text-decoration: none; font-weight: 700;">
+                                12 video mẹo thi A2 để dễ nhớ – dễ đậu
+                            </a>
+                        </span> Video chia nhỏ theo từng phần, hướng dẫn cách làm nhanh, mẹo nhớ hiệu quả, giúp bạn
+                        không bị rối với những câu hỏi lý thuyết tưởng dễ mà dễ sai.
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">
+                            Bước 3:
+                        </span> Làm thử
+                        <span">
+                            <a href="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
+                                style="color: blue; text-decoration: none; font-weight: 700;">
+                                50 câu điểm liệt A2
+                            </a>
+                            </span> Đây là những câu dễ khiến bạn mất điểm nặng nếu sai. Dù làm đúng 24/25 câu nhưng
+                            trượt vì 1
+                            <span style="color: blue; font-weight: 700;">câu điểm liệt</span> thì cũng rất tiếc, nên
+                            đừng bỏ qua phần
+                            này
+                            nhé!
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">
+                            Bước 4:
+                        </span> Luyện đề sát hạch theo chuẩn
+                        Hệ thống gồm 18 đề được sắp theo thứ tự để bạn làm quen với dạng bài thi thật.
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">
+                            Bước 5:
+                        </span> Xem video
+                        <span>
+                            <a href="https://www.youtube.com/watch?v=nN8yp86xYzQ"
+                                style="color: blue; text-decoration: none; font-weight: 700;">
+                                hướng dẫn thi thực hành A2
+                            </a>
+                        </span>
+                        Nắm trước các bước khi lên xe, cách xử lý tình huống, cảm nhận khi thi trên xe cảm biến –
+                        rất hữu ích nếu bạn chưa từng
+                        thi thực hành.
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">
+                            Bước 6:
+                        </span> Thư giãn trước ngày thi
+                        Tránh học dồn, nhồi nhét vào phút cuối. Thay vào đó,
+                        <span style="color: blue; font-weight: 700;">
+                            hãy nghỉ ngơi, ngủ đủ giấc để đầu óc
+                            tỉnh táo, giữ tâm lý thoải mái
+                            trước giờ thi.
+                        </span>
+                    </li>
+                </ul>
+                <p class="exam-note">
+                    📌 Nhớ xem lại mẹo học lý thuyết A2 một lượt trước khi vào phòng thi – vừa gọn nhẹ mà cực kỳ hữu
+                    ích.
+                </p>
+            </div>
+
+            <div>
+                <div class="description">
+                    <h2 class="tips-section">MẸO THI LÝ THUYẾT BẰNG LÁI A2</h2>
+                    <p>
+                        <span style="text-transform: uppercase; color: red; font-weight: 700;">
+                            Video hướng dẫn mẹo làm bài thi A2 dễ nhớ – dễ áp dụng:
+                        </span>
+                        12 video ngắn gọn, dễ hiểu giúp bạn nắm trọn mẹo làm bài lý thuyết, nhận diện nhanh các
+                        loại biển báo và xử lý chính xác
+                        phần sa hình. Tất cả đều đã cập nhật theo bộ 450 câu hỏi mới nhất – học một lần, nhớ lâu,
+                        thi
+                        đâu trúng đó!
+                    </p>
                 </div>
+
+                <div class="video-wrapper">
+                    <iframe width="700" height="400"
+                        src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div>
+                <div class="description">
+                    <h2 class="tips-section">Video Hướng Dẫn Thi Thực Hành Lái Xe A2</h2>
+                    <p>
+                        <span style="text-transform: uppercase; color: red; font-weight: 700;">
+                            Video hướng dẫn chạy vòng số 8:
+                        </span>
+                        Video hướng dẫn chi tiết cách chạy vòng số 8 trong bài thi thực hành A2, từ cách giữ tay
+                        lái,
+                        điều chỉnh ga, tư thế ngồi
+                        đến mẹo xử lý góc hẹp không bị chạm vạch. Nội dung dễ hiểu, phù hợp cho người mới bắt đầu,
+                        giúp
+                        bạn tự tin vượt qua bài
+                        thi ngay từ lần đầu tiên.
+                    </p>
+                </div>
+
+
+                <div class="video-wrapper">
+                    <iframe width="700" height="400" src="https://www.youtube.com/embed/nN8yp86xYzQ?si=sxn6-sRMYpyU2Wvg"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="address-section">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.2120340408314!2d109.19560007474969!3d13.766083186627293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6cb7c3c5685f%3A0x3df59a1674b81b54!2zMzYxIFTDonkgU8ahbiwgUXVhbmcgVHJ1bmcsIFF1eSBOaMahbiwgQsOsbmggxJDhu4tuaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1747291617983!5m2!1svi!2s"
+                    width="800" height="400" style="border:0; margin-top: 10px;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <p style="font-weight: 700; margin-top: 10px;">Địa Chỉ Đăng Ký Thi Bằng Lái Xe Máy Thành phố Quy
+                    Nhơn:
+                </p>
+                <ul>
+                    <li>
+                        <span style="color: blue;">
+                            Lịch thi A1 sớm nhất tại Thành phố Quy Nhơn => Nhấp Để Xem</span> <span>
+                            <a href="https://www.facebook.com/vieclamsinhvienqn"
+                                style="text-decoration: none; color: red; font-weight: 700;">
+                                Lịch Thi Bằng Lái Xe Máy 2025 Cập Nhật Thường Xuyên</a>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">Địa chỉ đăng ký học :</span> <strong>361 Tây Sơn, P.Quang Trung,
+                            TP
+                            Quy Nhơn, Bình Định</strong>
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">Địa chỉ thi lý thuyết & thực hành: </span><strong>Trung tâm Đào
+                            tạo
+                            NVGTVT Bình Định, Lô A1.02+03 Nhơn Hội, TP Quy Nhơn</strong>
+                    </li>
+
+                    <li>
+                        <span style="color: blue;">Google Maps: </span>
+                        <a href="https://www.google.com/maps/place/Trung+T%C3%A2m+%C4%90%C3%A0o+T%E1%BA%A1o+V%C3%A0+S%C3%A1t+H%E1%BA%A1ch+L%C3%A1i+Xe+C%C6%A1+Gi%E1%BB%9Bi+B%C3%ACnh+%C4%90%E1%BB%8Bnh/@13.8270828,109.2606696,291m/data=!3m1!1e3!4m6!3m5!1s0x316f6b9668e9e65d:0xe3e4a78c81c7a9c0!8m2!3d13.8273109!4d109.2613589!16s%2Fg%2F11vxm7x_fq?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
+                            style="color: #ef4444; text-decoration: none; font-weight: 700;">Xem
+                            Tại Đây
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </main>
     </div>
 

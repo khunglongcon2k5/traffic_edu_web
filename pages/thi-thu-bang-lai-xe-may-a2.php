@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-$current_page = basename($_SERVER['PHP_SELF']);
+$current_page = basename($_SERVER['PHP_SELF']); // Lấy tên file hiện tại
 
 // Lấy câu hỏi theo bộ đề
 function getQuestionsBySet($conn, $set_id, $limit = 25)
@@ -58,7 +58,7 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $question = [];
+    $questions = [];
 
     if (isset($critical_questions_by_set[$set_id]))
         $critical_ids = $critical_questions_by_set[$set_id];
@@ -67,12 +67,13 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
 
     while ($row = $result->fetch_assoc()) {
         $row['is_critical'] = in_array($row['question_id'], $critical_ids) ? 1 : 0;
-        $question[] = $row;
+        $questions[] = $row;
     }
 
     $stmt->close();
-    return $question;
+    return $questions;
 }
+
 // Lấy câu trả lời theo câu hỏi
 function getAnswersForQuestion($conn, $question_id)
 {
@@ -81,33 +82,15 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $answer = [];
+    $answers = [];
     while ($row = $result->fetch_assoc()) {
-        $answer[] = $row;
+        $answers[] = $row;
     }
     $stmt->close();
-    return $answer;
-}
-// Lấy danh sách đề thi
-function getExamSets($conn, $category_id = null)
-{
-    if ($category_id === null)
-        return [];
-
-    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $exam_sets = [];
-    while ($row = $result->fetch_assoc()) {
-        $exam_sets[] = $row;
-    }
-    $stmt->close();
-    return $exam_sets;
+    return $answers;
 }
 
-$set_id = isset($_GET['set_id']) ? (int)($_GET['set_id']) : 1;
+$set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 22;
 
 if ($set_id < 22 || $set_id > 39) {
     $set_id = 22;
@@ -242,7 +225,7 @@ $stmt->close();
             </div>
 
             <div class="countdown">
-                <div class="countdown-text">
+                <div class=" countdown-text">
                     Thời gian còn lại:
                     <div class="countdown-value">
                         19 : 00

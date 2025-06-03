@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeText = countdownElement.innerText.trim();
     const parts = timeText.split(':');
 
-    // Kiểm tra format thời gian hợp lệ
+    // Kiểm tra định dạng thời gian hợp lệ
     if (parts.length !== 2) {
-        console.error('Format thời gian không hợp lệ');
+        console.error('Định dạng thời gian không hợp lệ');
         return;
     }
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mins = Math.floor(totalSeconds / 60);
         const secs = totalSeconds % 60;
 
-        // Format hiển thị đẹp hơn
+        // Format hiển thị 
         const display = `${mins.toString().padStart(2, '0')} : ${secs.toString().padStart(2, '0')}`;
         countdownElement.innerText = display;
 

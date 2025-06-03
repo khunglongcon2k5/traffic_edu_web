@@ -63,31 +63,12 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $answersForQuestion = [];
+    $answers = [];
     while ($row = $result->fetch_assoc()) {
-        $answersForQuestion[] = $row;
+        $answers[] = $row;
     }
     $stmt->close();
-    return $answersForQuestion;
-}
-
-// Lấy danh sách đề thi
-function getExamSets($conn, $category_id = null)
-{
-    if ($category_id === null)
-        return [];
-
-    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $exam_sets = [];
-    while ($row = $result->fetch_assoc()) {
-        $exam_sets[] = $row;
-    }
-    $stmt->close();
-    return $exam_sets;
+    return $answers;
 }
 
 // Lấy set_id từ URL mặc định là 1

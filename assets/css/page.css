@@ -5,18 +5,18 @@
     box-sizing: border-box;
 }
 
-html {
-    font-family: 'Quicksand', sans-serif;
-}
-
-/* ----- ROOT VARIABLES ----- */
+/* ROOT VARIABLES */
 :root {
     --background-light: #F9FAFB;
 }
 
 /* BASE STYLES */
+html {
+    font-family: 'Quicksand', sans-serif;
+}
+
 body {
-    background: #F9FAFB;
+    background: var(--background-light);
 }
 
 /* LAYOUT & CONTAINERS */
@@ -26,15 +26,11 @@ body {
     padding: 20px;
 }
 
-.container.main-content {
-    margin-top: 100px;
-}
-
 .main-content {
     display: grid;
     grid-template-columns: 1fr 3fr;
     gap: 30px;
-    margin-top: 220px;
+    margin-top: 130px;
 }
 
 .sub-content {
@@ -44,7 +40,7 @@ body {
     margin-bottom: 30px;
 }
 
-/* NAVIGATION */
+/* HEADER & NAVIGATION */
 header {
     background: #0a2540;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -81,17 +77,20 @@ nav li a {
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 nav li:hover a {
     color: #fff;
-    background-color: #01f4a3e4;
+    background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
     transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 nav li a.active {
-    background-color: #01f4a3e4;
+    background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
     color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 nav .user-info {
@@ -115,7 +114,7 @@ nav .btn-logout:hover {
     background-color: #ff0000;
 }
 
-/* SIDEBAR STYLES */
+/* SIDEBAR */
 .side-bar {
     padding: 20px;
     border-radius: 8px;
@@ -135,7 +134,7 @@ nav .btn-logout:hover {
     color: #374151;
 }
 
-/* MAIN CONTENT STYLES */
+/* MAIN CONTENT */
 .content {
     padding: 25px;
     border-radius: 8px;
@@ -150,7 +149,7 @@ nav .btn-logout:hover {
     padding: 15px 20px;
     border-radius: 5px;
     font-weight: 700;
-    margin: 0px 0px 25px;
+    margin: 0 0 25px;
     line-height: 32px;
 }
 
@@ -163,7 +162,7 @@ nav .btn-logout:hover {
 
 .tips-section {
     text-align: center;
-    margin: 15px;
+    margin: 15px 0;
     border-top: 2px solid #374151;
 }
 
@@ -171,7 +170,7 @@ nav .btn-logout:hover {
     line-height: 1.6;
 }
 
-/* EXAM INFO ELEMENTS */
+/* EXAM INFORMATION */
 .exam-info {
     background-color: #f8fafc;
     border-left: 4px solid #2563eb;
@@ -194,8 +193,9 @@ nav .btn-logout:hover {
     line-height: 1.6;
 }
 
+/* EXAM BUTTONS & GRID */
 .exam-btn {
-    background-color: #01f4a3e4;
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
     text-decoration: none;
     color: white;
     padding: 12px 10px;
@@ -205,11 +205,13 @@ nav .btn-logout:hover {
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .exam-btn:hover {
-    background-color: #059669;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .exam-grid {
@@ -226,7 +228,7 @@ nav .btn-logout:hover {
     text-align: center;
 }
 
-/* STUDY STEPS & GUIDES */
+/* STUDY STEPS */
 .study-steps {
     margin-bottom: 25px;
 }
@@ -237,18 +239,19 @@ nav .btn-logout:hover {
     line-height: 1.6;
 }
 
+/* ADDRESS SECTION */
 .address-section {
     border-top: 2px solid #374151;
     margin-top: 10px;
 }
 
+.address-section ul {
+    margin-top: 15px;
+}
+
 .address-section ul li {
     margin-left: 35px;
     margin-top: 10px;
-}
-
-.address-section ul {
-    margin-top: 15px;
 }
 
 /* VIDEO SECTION */
@@ -257,7 +260,7 @@ nav .btn-logout:hover {
     margin-top: 12px;
 }
 
-/* BUTTONS & INTERACTIVE ELEMENTS */
+/* CTA BUTTON */
 .cta-button {
     display: inline-block;
     background-color: #10B981;
@@ -275,7 +278,7 @@ nav .btn-logout:hover {
     transform: translateY(-4px);
 }
 
-/* FOOTER STYLES */
+/* FOOTER */
 footer {
     padding: 30px 0;
     background: #0a2540;
@@ -326,11 +329,15 @@ footer {
     margin-right: auto;
 }
 
-/*  PC  */
-@media (min-width: 992px) {}
+/* MEDIA QUERIES */
+@media (min-width: 992px) {
+    /* PC styles (if needed) */
+}
 
-/*  Tablet  */
-@media (min-width: 768px) and (max-width: 991px) {}
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Tablet styles (if needed) */
+}
 
-/*  Mobile */
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+    /* Mobile styles (if needed) */
+}

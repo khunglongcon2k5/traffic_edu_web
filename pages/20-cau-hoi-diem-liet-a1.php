@@ -70,9 +70,6 @@ $result = $stmt->get_result();
                 và giúp bạn nâng cao khả năng thi đạt điểm cao một cách nhanh chóng. Vậy thì còn chờ gì nữa? Hãy thử
                 ngay hôm nay và chinh phục kỳ thi lái xe A1 với sự tự tin tuyệt đối!
             </p>
-
-            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
-            </div>
         </aside>
 
         <main class="content">

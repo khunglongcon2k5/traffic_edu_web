@@ -5,11 +5,7 @@
     box-sizing: border-box;
 }
 
-html {
-    font-family: 'Quicksand', sans-serif;
-}
-
-/* ----- ROOT VARIABLES ----- */
+/* ROOT VARIABLES */
 :root {
     --primary: #3b82f6;
     --primary-dark: #2563eb;
@@ -28,7 +24,11 @@ html {
     --gradient: linear-gradient(135deg, #3b82f6, #10b981);
 }
 
-/* ----- BASE STYLES ----- */
+/* BASE STYLES */
+html {
+    font-family: 'Quicksand', sans-serif;
+}
+
 body {
     background: var(--light-gray);
 }
@@ -39,13 +39,7 @@ body {
     padding: 20px;
 }
 
-.text-center {
-    text-align: center;
-    color: var(--white);
-    font-size: 22px;
-}
-
-/* ----- HEADER & NAVIGATION ----- */
+/* HEADER & NAVIGATION */
 header {
     background: #0a2540;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -82,17 +76,20 @@ nav li a {
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 nav li:hover a {
     color: #fff;
-    background-color: #01f4a3e4;
+    background: linear-gradient(135deg, #4a90e2 0%, #6366f1 100%);
     transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 nav li a.active {
-    background-color: #01f4a3e4;
+    background: linear-gradient(135deg, #0a2540 0%, #4a90e2 100%);
     color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 nav .user-info {
@@ -116,20 +113,25 @@ nav .btn-logout:hover {
     background-color: #ff0000;
 }
 
-/* ----- PAGE TITLE ----- */
+/* PAGE TITLE */
 .text {
     padding: 15px 20px;
-    margin-top: 30px;
+    margin-top: 110px;
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
     border-radius: 5px;
     width: 1158px;
     background: var(--gradient);
-    margin-top: 110px;
 }
 
-/* ----- QUIZ/TEST CONTAINER ----- */
+.text-center {
+    text-align: center;
+    color: var(--white);
+    font-size: 22px;
+}
+
+/* QUIZ/TEST CONTAINER */
 .test-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -140,12 +142,16 @@ nav .btn-logout:hover {
     padding: 20px;
 }
 
-/* ----- QUESTION NAVIGATION ----- */
+/* QUESTION NAVIGATION */
 .question-nav {
     padding: 20px;
     border-radius: var(--radius);
     background-color: var(--white);
     box-shadow: var(--shadow-sm);
+}
+
+.question-nav-header {
+    margin-bottom: 20px;
 }
 
 .question-grid {
@@ -180,7 +186,7 @@ nav .btn-logout:hover {
     border-color: var(--primary);
 }
 
-/* ----- QUESTION CONTENT ----- */
+/* QUESTION CONTENT */
 .question-content {
     padding: 25px;
     border-radius: var(--radius);
@@ -194,7 +200,6 @@ nav .btn-logout:hover {
     font-weight: 700;
     margin-bottom: 16px;
     display: inline-block;
-    /* k có inline-block bgcolor sẽ bị tràn full */
     padding: 6px 16px;
     background-color: var(--primary-light);
     border-radius: 20px;
@@ -204,10 +209,6 @@ nav .btn-logout:hover {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 30px;
-}
-
-.question-nav-header {
-    margin-bottom: 20px;
 }
 
 .question-image {
@@ -221,7 +222,7 @@ nav .btn-logout:hover {
     margin-right: auto;
 }
 
-/* ----- ANSWER OPTIONS ----- */
+/* ANSWER OPTIONS */
 .option {
     padding: 16px;
     cursor: pointer;
@@ -247,17 +248,11 @@ nav .btn-logout:hover {
     margin-bottom: 4px;
 }
 
-/* ----- NAVIGATION BUTTONS ----- */
+/* NAVIGATION BUTTONS */
 .navigation-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
-}
-
-.previous-question {
-    color: transparent;
-    background: linear-gradient(to bottom right, #5ebbff, #a174ff);
-    background-clip: text;
 }
 
 .nav-btn {
@@ -294,7 +289,13 @@ nav .btn-logout:hover {
     color: var(--primary);
 }
 
-/* ----- COUNTDOWN ----- */
+.previous-question {
+    color: transparent;
+    background: linear-gradient(to bottom right, #5ebbff, #a174ff);
+    background-clip: text;
+}
+
+/* COUNTDOWN */
 .countdown {
     background-color: var(--white);
     border-radius: var(--radius);
@@ -322,7 +323,7 @@ nav .btn-logout:hover {
     background-clip: text;
 }
 
-/* ----- SUBMIT BUTTONS ----- */
+/* SUBMIT BUTTONS */
 .submit-buttons {
     display: flex;
     justify-content: center;
@@ -331,7 +332,7 @@ nav .btn-logout:hover {
 
 .submit-btn {
     color: var(--white);
-    background: var(--accent);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     border: none;
     border-radius: 30px;
     padding: 16px;
@@ -344,11 +345,11 @@ nav .btn-logout:hover {
 
 .submit-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: red;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 
-/* ----- FOOTER ----- */
+/* FOOTER */
 footer {
     padding: 30px 0;
     background: #0a2540;
@@ -399,11 +400,15 @@ footer {
     margin-right: auto;
 }
 
-/*  PC  */
-@media (min-width: 992px) {}
+/* MEDIA QUERIES */
+@media (min-width: 992px) {
+    /* PC styles */
+}
 
-/*  Tablet  */
-@media (min-width: 768px) and (max-width: 991px) {}
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Tablet styles */
+}
 
-/*  Mobile */
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+    /* Mobile styles */
+}

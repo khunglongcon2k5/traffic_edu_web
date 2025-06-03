@@ -69,9 +69,6 @@ $result = $stmt->get_result();
                     </a>
                 </span> hôm nay để chinh phục kỳ thi A2 với tâm lý vững vàng và kết quả “bao đậu”!
             </p>
-
-            <div style=" margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
-            </div>
         </aside>
 
         <main class="content">

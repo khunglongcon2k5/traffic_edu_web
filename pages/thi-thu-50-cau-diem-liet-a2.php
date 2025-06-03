@@ -43,25 +43,6 @@ function getAnswersForQuestion($conn, $question_id)
     return $answersForQuestion;
 }
 
-// Lấy danh sách đề thi
-function getExamSets($conn, $category_id = null)
-{
-    if ($category_id === null)
-        return [];
-
-    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $exam_sets = [];
-    while ($row = $result->fetch_assoc())
-        $exam_sets[] = $row;
-
-    $stmt->close();
-    return $exam_sets;
-}
-
 // Hiển thị đề thi
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 40;
 

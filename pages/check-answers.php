@@ -35,13 +35,8 @@ function getAnswersForQuestion($conn, $question_id)
     return $answersForQuestion;
 }
 
-// Get exam info
-$stmt = $conn->prepare(
-    "SELECT es.set_name, ec.category_name, ec.time_limit 
-     FROM exam_sets es 
-     JOIN exam_categories ec ON es.category_id = ec.category_id
-     WHERE es.set_id = ?"
-);
+// Get exam info 
+$stmt = $conn->prepare("SELECT set_name FROM exam_sets WHERE set_id = ?");
 $stmt->bind_param("i", $set_id);
 $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();
@@ -153,15 +148,12 @@ $stmt->close();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <a href="#">
+            <a href="/index.php">
                 <img src="../assets/img/logo.svg" width="150" height="100"
                     alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             </a>
@@ -206,12 +198,10 @@ $stmt->close();
                 $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
                 $answers = getAnswersForQuestion($conn, $questions_id);
                 $is_correct = false;
-                $selected_answer = '';
                 $explanation = '';
 
                 foreach ($answers as $answer) {
                     if ($answer['answer_id'] == $user_answer_id) {
-                        $selected_answer = $answer['answer_text'];
                         $is_correct = $answer['is_correct'];
                     }
                     if ($answer['is_correct']) {
@@ -226,11 +216,13 @@ $stmt->close();
                 echo "</div>";
                 echo "<div class='question-content'>";
                 echo "<div class='question-text'>" . htmlspecialchars($question['question_text']) . "</div>";
-                if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
+
+                if (!empty($question['question_image']) && $question['question_image'] !== '../assets/img/0.jpg') {
                     echo "<div style='text-align: center'>";
                     echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Câu hỏi bài thi' class='question_image' style='width: 400px;'>";
                     echo "</div>";
                 }
+
                 echo "<div class='answer-options'>";
                 foreach ($answers as $answer) {
                     echo "<div class='answer-option " .
