@@ -33,13 +33,13 @@ require_once 'includes/auth_check.php';
                                 style="margin-left: 10px;">Thêm câu hỏi mới</span></a></li>
                     <li class="user-information">
                         <?php if (isset($_SESSION['name'])): ?>
-                            <div class="user-info">
-                                <div class="user-name-container">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                    <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
-                                </div>
-                                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                        <div class="user-info">
+                            <div class="user-name-container">
+                                <i class="fa-solid fa-user-tie"></i>
+                                <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
                             </div>
+                            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                        </div>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -48,26 +48,6 @@ require_once 'includes/auth_check.php';
     </aside>
 
     <div class="container main-content">
-        <!-- Hiển thị lỗi nếu có -->
-        <?php if (isset($_SESSION['errors'])): ?>
-            <div style="color: red; margin-bottom: 20px;">
-                <?php
-                echo implode("<br>", array_map('htmlspecialchars', $_SESSION['errors']));
-                unset($_SESSION['errors']);
-                ?>
-            </div>
-        <?php endif; ?>
-
-        <!-- Hiển thị thông báo thành công nếu có -->
-        <?php if (isset($_SESSION['success'])): ?>
-            <div style="color: green; margin-bottom: 20px; padding: 10px; border: 1px solid green; background: #e6ffe6;">
-                <?php
-                echo htmlspecialchars($_SESSION['success']);
-                unset($_SESSION['success']);
-                ?>
-            </div>
-        <?php endif; ?>
-
         <!-- Tab Danh sách câu hỏi -->
         <div id="question-list-tab" class="tab-content">
             <?php include 'question_list.php'; ?>
