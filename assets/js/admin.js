@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
 
-                    // Thêm event listener cho nút xóa
                     const removeBtn = preview.querySelector('.remove-preview-btn');
                     removeBtn.addEventListener('click', () => {
                         // Xóa preview

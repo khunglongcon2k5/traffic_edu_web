@@ -9,28 +9,25 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Cập nhật câu hỏi
     $question_id = (int)$_POST['question_id'];
     $question_text = trim($_POST['question_text'] ?? '');
     $is_critical = isset($_POST['is_critical']) ? 1 : 0;
     $question_image = $_POST['existing_image'] ?? '';
+    $set_id = isset($_POST['set_id']) ? (int)$_POST['set_id'] : 0;
 
-    // Kiểm tra dữ liệu đầu vào
-    $errors = [];
     if ($question_id <= 0) {
-        $errors[] = "ID câu hỏi không hợp lệ.";
+        die("ID câu hỏi không hợp lệ.");
     }
     if (empty($question_text)) {
-        $errors[] = "Nội dung câu hỏi không được để trống.";
+        die("Nội dung câu hỏi không được để trống.");
     }
 
     if (!empty($errors)) {
-        die("Lỗi: " . implode("<br>", $errors));
+        die($errors);
     }
 
-    // Xử lý upload hình ảnh mới
     if (!empty($_FILES['question_image']['name'])) {
-        $target_dir = "../assets/img/questions/";
+        $target_dir = "../assets/img/";
         if (!file_exists($target_dir)) {
             mkdir($target_dir, 0755, true);
         }
@@ -41,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Cập nhật câu hỏi
-    $stmt = $conn->prepare("UPDATE questions SET question_text = ?, question_image = ?, is_critical = ? WHERE question_id = ?");
-    $stmt->bind_param("ssii", $question_text, $question_image, $is_critical, $question_id);
+    $stmt = $conn->prepare("UPDATE questions SET question_text = ?, question_image = ?, is_critical = ?, set_id = ? WHERE question_id = ?");
+    $stmt->bind_param("ssiis", $question_text, $question_image, $is_critical, $set_id, $question_id);
     $stmt->execute();
 
     // Xóa đáp án cũ
@@ -63,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("isis", $question_id, $answer_text, $is_correct, $explanation);
         $stmt->execute();
     }
-
     $stmt->close();
     header("Location: dashboard.php");
     exit;

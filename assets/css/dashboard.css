@@ -351,7 +351,7 @@
  }
 
  .preview-image {
-     max-width: 200px;
+     max-width: 1000px;
      max-height: 200px;
      border: 1px solid #ddd;
      margin-top: 10px;

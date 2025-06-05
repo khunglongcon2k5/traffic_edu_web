@@ -33,15 +33,15 @@
             <div id="answers">
                 <div class="answer-group">
                     <input type="text" name="answer_text[]" placeholder="Đáp án 1" required>
-                    <input type="checkbox" name="is_correct[]" value="1"> Đúng
+                    <input type="checkbox" name="is_correct[]" value="0"> Đúng
                     <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
-                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Del</button>
+                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                 </div>
                 <div class="answer-group">
                     <input type="text" name="answer_text[]" placeholder="Đáp án 2" required>
                     <input type="checkbox" name="is_correct[]" value="1"> Đúng
                     <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
-                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Del</button>
+                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                 </div>
             </div>
             <button type="button" id="add_answer">Thêm đáp án</button>

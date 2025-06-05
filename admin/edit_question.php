@@ -57,6 +57,16 @@ $stmt->close();
                 <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
 
                 <div class="form-group">
+                    <label for="set_id">Bộ đề:</label>
+                    <select id="set_id" name="set_id" required>
+                        <option value="1">A1</option>
+                        <option value="2">Câu liệt A1</option>
+                        <option value="3">A2</option>
+                        <option value="4">Câu liệt A2</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="question_text">Nội dung câu hỏi:</label>
                     <textarea id="question_text" name="question_text"
                         required><?php echo htmlspecialchars($question['question_text']); ?></textarea>
@@ -90,6 +100,7 @@ $stmt->close();
                                 <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
                             <textarea
                                 name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
+                            <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
                         </div>
                         <?php endforeach; ?>
                     </div>

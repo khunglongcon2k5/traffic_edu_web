@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question_id = (int)$_POST['question_id'];
 
     if ($question_id <= 0) {
-        die("Lỗi: ID câu hỏi không hợp lệ.");
+        die("ID câu hỏi không hợp lệ.");
     }
 
     // Xóa đáp án trước

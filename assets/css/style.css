@@ -8,20 +8,13 @@
 :root {
     --error-color: #ff4d4f;
     --primary-color: #0a2540;
-    /* Dark blue */
     --secondary-color: #0d3b66;
-    /* Slightly lighter blue */
     --accent-color: #4a90e2;
-    /* Blue accent */
     --bg-color: #f8f9fa;
-    /* Light background */
     --text-color: #343a40;
-    /* Dark text */
     --light-grey: #e9ecef;
     --gradient-blue: linear-gradient(135deg, #0a2540 0%, #4a90e2 100%);
-    /* Blue gradient */
     --light-blue: #e6f0ff;
-    /* Light blue background */
 }
 
 body {
