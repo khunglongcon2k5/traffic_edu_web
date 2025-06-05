@@ -16,14 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    let answerIndex = 2;
+    // Đếm số đáp án hiện có
+    let answerIndex = document.querySelectorAll('.answer-group').length;
+
     document.getElementById('add_answer')?.addEventListener('click', () => {
         const answersContainer = document.getElementById('answers');
         const newAnswerGroup = document.createElement('div');
         newAnswerGroup.classList.add('answer-group');
         newAnswerGroup.innerHTML = `
             <input type="text" name="answer_text[]" placeholder="Đáp án ${answerIndex + 1}" required>
-            <input type="checkbox" name="is_correct[]" value="1"> Đúng
+            <input type="checkbox" name="is_correct[]" value="${answerIndex}"> Đúng
             <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
             <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
         `;
@@ -99,4 +101,9 @@ function removeAnswer(button) {
     } else {
         alert('Phải có ít nhất 2 đáp án!');
     }
+}
+
+function removeCurrentImage() {
+    document.getElementById('current-image').style.display = 'none';
+    document.getElementById('remove_image').value = '1';
 }

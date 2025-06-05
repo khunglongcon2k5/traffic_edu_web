@@ -14,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $is_critical = isset($_POST['is_critical']) ? 1 : 0;
     $question_image = $_POST['existing_image'] ?? '';
     $set_id = isset($_POST['set_id']) ? (int)$_POST['set_id'] : 0;
+    $remove_image = $_POST['remove_image'] == '1';
 
+    // Validation
     if ($question_id <= 0) {
         die("ID câu hỏi không hợp lệ.");
     }
@@ -22,11 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Nội dung câu hỏi không được để trống.");
     }
 
-    if (!empty($errors)) {
-        die($errors);
-    }
-
-    if (!empty($_FILES['question_image']['name'])) {
+    if ($remove_image) {
+        $question_image = null;
+    } elseif (!empty($_FILES['question_image']['name'])) {
+        // Upload hình ảnh mới
         $target_dir = "../assets/img/";
         if (!file_exists($target_dir)) {
             mkdir($target_dir, 0755, true);
@@ -39,28 +40,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Cập nhật câu hỏi
     $stmt = $conn->prepare("UPDATE questions SET question_text = ?, question_image = ?, is_critical = ?, set_id = ? WHERE question_id = ?");
-    $stmt->bind_param("ssiis", $question_text, $question_image, $is_critical, $set_id, $question_id);
+    $stmt->bind_param("ssiii", $question_text, $question_image, $is_critical, $set_id, $question_id);
     $stmt->execute();
+    $stmt->close();
 
     // Xóa đáp án cũ
     $stmt = $conn->prepare("DELETE FROM answers WHERE question_id = ?");
     $stmt->bind_param("i", $question_id);
     $stmt->execute();
+    $stmt->close();
 
     // Thêm đáp án mới
     $answer_texts = $_POST['answer_text'] ?? [];
-    $is_corrects = isset($_POST['is_correct']) ? $_POST['is_correct'] : [];
+    $is_corrects = $_POST['is_correct'] ?? [];
     $explanations = $_POST['explanation'] ?? [];
 
-    foreach ($answer_texts as $index => $answer_text) {
-        $is_correct = isset($is_corrects[$index]) ? 1 : 0;
-        $explanation = $explanations[$index] ?? '';
-
-        $stmt = $conn->prepare("INSERT INTO answers (question_id, answer_text, is_correct, explanation) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("isis", $question_id, $answer_text, $is_correct, $explanation);
-        $stmt->execute();
+    if (empty($is_corrects)) {
+        die("Phải có ít nhất một đáp án đúng!");
     }
-    $stmt->close();
+
+    foreach ($answer_texts as $index => $answer_text) {
+        $answer_text = trim($answer_text);
+        if (!empty($answer_text)) {
+            $is_correct = in_array($index, $is_corrects) ? 1 : 0;
+            $explanation = trim($explanations[$index] ?? '');
+
+            $stmt = $conn->prepare("INSERT INTO answers (question_id, answer_text, is_correct, explanation) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("isis", $question_id, $answer_text, $is_correct, $explanation);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+
     header("Location: dashboard.php");
     exit;
 } else {

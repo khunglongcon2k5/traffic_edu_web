@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($answer_texts) < 2) {
         die("Phải có ít nhất hai đáp án.");
     }
-    // Kiểm tra xem có ít nhất một đáp án đúng
+
+    // Kiểm tra có ít nhất một đáp án đúng
     $has_correct_answer = false;
     for ($i = 0; $i < count($answer_texts); $i++) {
         if (in_array($i, $is_corrects)) {
