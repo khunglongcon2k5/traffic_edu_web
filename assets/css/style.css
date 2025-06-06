@@ -68,6 +68,7 @@ header {
 
 .nav-item {
     margin-left: 25px;
+    position: relative;
 }
 
 .nav-link {
@@ -75,16 +76,32 @@ header {
     color: var(--text-color);
     font-weight: 500;
     transition: color 0.3s;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover {
     color: var(--accent-color);
 }
 
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
 .nav-link.active {
     color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 5px;
 }
 
 .auth-buttons {

@@ -33,13 +33,13 @@ require_once 'includes/auth_check.php';
                                 style="margin-left: 10px;">Thêm câu hỏi mới</span></a></li>
                     <li class="user-information">
                         <?php if (isset($_SESSION['name'])): ?>
-                        <div class="user-info">
-                            <div class="user-name-container">
-                                <i class="fa-solid fa-user-tie"></i>
-                                <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                            <div class="user-info">
+                                <div class="user-name-container">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                                </div>
+                                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                             </div>
-                            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                        </div>
                         <?php endif; ?>
                     </li>
                 </ul>
