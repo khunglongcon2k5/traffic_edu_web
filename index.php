@@ -280,9 +280,9 @@ unset($_SESSION['register_success']);
                 <div class="footer-column">
                     <h3>Liên hệ</h3>
                     <ul class="footer-links">
-                        <li>Email: hotro@thilaixea1.vn</li>
-                        <li>Điện thoại: 0987 654 321</li>
-                        <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                        <li>Email: hotrothilythuyetxemay@gmail.com</li>
+                        <li>Điện thoại: 0815.62.63.72</li>
+                        <li>Địa chỉ: TP.Quy Nhơn, Việt Nam</li>
                     </ul>
                 </div>
             </div>

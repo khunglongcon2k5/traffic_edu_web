@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Bộ đề không hợp lệ.");
     }
     if (count($answer_texts) < 2) {
-        die("Phải có ít nhất hai đáp án.");
+        die("Phải có ít nhất 2 đáp án trong một câu hỏi.");
     }
 
     // Kiểm tra có ít nhất một đáp án đúng
@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$has_correct_answer) {
         die("Phải có ít nhất một đáp án đúng.");
     }
-
     if (!empty($_FILES['question_image']['name'])) {
         $target_dir = "../assets/img/";
         if (!file_exists($target_dir)) {

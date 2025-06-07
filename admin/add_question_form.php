@@ -1,8 +1,6 @@
 <div class="form-container">
     <h2>Thêm câu hỏi mới</h2>
     <form method="POST" action="create_question.php" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="create">
-
         <div class="form-group">
             <label for="set_id">Bộ đề:</label>
             <select id="set_id" name="set_id" required>
