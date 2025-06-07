@@ -39,7 +39,8 @@
                     <input type="text" name="answer_text[]" placeholder="Đáp án 2" required>
                     <input type="checkbox" name="is_correct[]" value="1"> Đúng
                     <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
-                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
+                    <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
+                            class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
             <button type="button" id="add_answer">Thêm đáp án</button>

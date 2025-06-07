@@ -80,7 +80,8 @@ $stmt->close();
                         <p style="font-weight: 600; margin-top: 10px;">Hình ảnh hiện tại: </p>
                         <div class="image-preview-container">
                             <img src="<?php echo htmlspecialchars($question['question_image']); ?>" width="350">
-                            <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()">×</button>
+                            <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -106,13 +107,13 @@ $stmt->close();
                                 <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
                             <textarea
                                 name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
-                            <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
+                            <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </div>
                         <?php endforeach; ?>
                     </div>
                     <button type="button" id="add_answer">Thêm đáp án</button>
                 </div>
-
 
                 <button type="submit" class="submit-btn">Cập nhật câu hỏi</button>
                 <a href="dashboard.php" class="logout-btn">Thoát</a>
