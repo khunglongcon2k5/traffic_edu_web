@@ -54,7 +54,7 @@ $stmt->close();
         <div class="form-container">
             <h2 style="margin-bottom: 10px;"><i class="fa-solid fa-wrench"
                     style="margin-right: 13px; cursor: pointer;"></i>Chỉnh sửa câu hỏi</h2>
-            <form method=" POST" action="update_question.php" enctype="multipart/form-data">
+            <form method="POST" action="update_question.php" enctype="multipart/form-data">
                 <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
 
                 <div class="form-group">

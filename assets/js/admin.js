@@ -16,27 +16,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Đếm số đáp án hiện có
-    let answerIndex = document.querySelectorAll('.answer-group').length;
+    function updateAnswerIndexes() {
+        const answerGroups = document.querySelectorAll('.answer-group');
+        answerGroups.forEach((group, index) => {
+            const checkbox = group.querySelector('input[name="is_correct[]"]');
+            const textInput = group.querySelector('input[name="answer_text[]"]');
+
+            if (checkbox) {
+                checkbox.value = index;
+            }
+            if (textInput && !textInput.placeholder.includes('${')) {
+                textInput.placeholder = `Đáp án ${index + 1}`;
+            }
+        });
+    }
 
     document.getElementById('add_answer')?.addEventListener('click', () => {
         const answersContainer = document.getElementById('answers');
+        const currentAnswerCount = document.querySelectorAll('.answer-group').length;
+
         const newAnswerGroup = document.createElement('div');
         newAnswerGroup.classList.add('answer-group');
         newAnswerGroup.innerHTML = `
-            <input type="text" name="answer_text[]" placeholder="Đáp án ${answerIndex + 1}" required>
-            <input type="checkbox" name="is_correct[]" value="${answerIndex}"> Đúng
+            <input type="text" name="answer_text[]" placeholder="Đáp án ${currentAnswerCount + 1}" required>
+            <input type="checkbox" name="is_correct[]" value="${currentAnswerCount}"> Đúng
             <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
-            <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
+            <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i class="fa-solid fa-trash"></i></button>
         `;
         answersContainer.appendChild(newAnswerGroup);
-        answerIndex++;
+
+        updateAnswerIndexes();
     });
 
     const questionForms = document.querySelectorAll('form[action="create_question.php"], form[action="update_question.php"]');
     questionForms.forEach(form => {
         if (form.querySelector('#question_text')) {
             form.addEventListener('submit', e => {
+                updateAnswerIndexes();
+
                 const correctAnswers = form.querySelectorAll('input[name="is_correct[]"]:checked');
                 if (correctAnswers.length === 0) {
                     e.preventDefault();
@@ -93,11 +110,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    updateAnswerIndexes();
 });
 
 function removeAnswer(button) {
     if (document.querySelectorAll('.answer-group').length > 2) {
         button.closest('.answer-group').remove();
+
+        // Cập nhật lại index sau khi xóa
+        const answerGroups = document.querySelectorAll('.answer-group');
+        answerGroups.forEach((group, index) => {
+            const checkbox = group.querySelector('input[name="is_correct[]"]');
+            const textInput = group.querySelector('input[name="answer_text[]"]');
+
+            if (checkbox) {
+                checkbox.value = index;
+            }
+            if (textInput) {
+                textInput.placeholder = `Đáp án ${index + 1}`;
+            }
+        });
     } else {
         alert('Phải có ít nhất 2 đáp án!');
     }
