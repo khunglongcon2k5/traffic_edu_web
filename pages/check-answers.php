@@ -42,7 +42,7 @@ $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Get a list of questions
+// Get questions based on set_id
 $questions = [];
 if ($set_id >= 1 && $set_id <= 8) {
     list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
@@ -97,10 +97,9 @@ if ($set_id >= 1 && $set_id <= 8) {
     $questions = [];
 }
 
-// Handle scoring
+// Calculate results
 $total_questions = count($questions);
 $correct_count = 0;
-$wrong_count = 0;
 $has_critical_error = false;
 
 foreach ($questions as $questions_id => $question) {
@@ -118,18 +117,19 @@ foreach ($questions as $questions_id => $question) {
     $is_correct = ($user_answer_id == $correct_answer_id);
     if ($is_correct) {
         $correct_count++;
-    } else {
-        $wrong_count++;
-        if ($question['is_critical']) {
-            $has_critical_error = true;
-        }
+    } elseif ($question['is_critical']) {
+        $has_critical_error = true;
     }
 }
 
-// Save overall result to exam_results
+$wrong_count = $total_questions - $correct_count;
+
+// Determine pass/fail
 $pass = (!$has_critical_error && $correct_count >= 21);
 $has_critical_error = $has_critical_error ? 1 : 0;
 $pass_value = $pass ? 1 : 0;
+
+// Save result to database
 $stmt = $conn->prepare("INSERT INTO exam_results (user_id, set_id, total_questions, correct_count, wrong_count, has_critical_error, passed) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error, $pass_value);
 $stmt->execute();
@@ -148,9 +148,6 @@ $stmt->close();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>

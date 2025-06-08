@@ -20,80 +20,82 @@ $stmt->close();
 ?>
 
 <div class="question-list">
-    <h2>Danh sách câu hỏi</h2>
+    <h2><i class="fa-solid fa-list-ul" style="margin-right: 13px; cursor: pointer;"></i>Danh sách câu hỏi</h2>
 
     <?php if (empty($questions)): ?>
-    <p style="text-align: center; color: red;">Hiện tại không có câu hỏi nào trong cơ sở dữ liệu.</p>
+        <p style="text-align: center; color: red;">Hiện tại không có câu hỏi nào trong cơ sở dữ liệu.</p>
     <?php else: ?>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nội dung</th>
-                    <th>Hình ảnh</th>
-                    <th>Câu liệt</th>
-                    <th>Loại đề</th>
-                    <th style="text-align: center;">Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($questions as $question): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($question['question_id']); ?></td>
-                    <td><?php echo htmlspecialchars($question['question_text']); ?></td>
-                    <td>
-                        <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
-                        <img src="<?php echo htmlspecialchars($question['question_image']); ?>" alt="Hình ảnh câu hỏi"
-                            width="50">
-                        <?php else: ?>
-                        Không có
-                        <?php endif; ?>
-                    </td>
-                    <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
-                    <td><?php echo htmlspecialchars($question['set_id']); ?></td>
-                    <td style="text-align: center; width: 40px;">
-                        <a href="edit_question.php?id=<?php echo $question['question_id']; ?>" class="edit-btn">Sửa</a>
-                        <form method="POST" action="delete_question.php" style="display:inline;">
-                            <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
-                            <button type="submit" class="delete-btn"
-                                onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">Xóa</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nội dung</th>
+                        <th>Hình ảnh</th>
+                        <th>Câu liệt</th>
+                        <th>Loại đề</th>
+                        <th style="text-align: center;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($questions as $question): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($question['question_id']); ?></td>
+                            <td><?php echo htmlspecialchars($question['question_text']); ?></td>
+                            <td>
+                                <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
+                                    <img src="<?php echo htmlspecialchars($question['question_image']); ?>" alt="Hình ảnh câu hỏi"
+                                        width="50">
+                                <?php else: ?>
+                                    Không có
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo $question['is_critical'] ? 'Có' : 'Không'; ?></td>
+                            <td><?php echo htmlspecialchars($question['set_id']); ?></td>
+                            <td style="text-align: center; width: 40px;">
+                                <a href="edit_question.php?id=<?php echo $question['question_id']; ?>" class="edit-btn"><i
+                                        class="fa-solid fa-pen-to-square"></i></a>
+                                <form method="POST" action="delete_question.php" style="display:inline;">
+                                    <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
+                                    <button type="submit" class="delete-btn"
+                                        onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?');"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Thanh phân trang -->
-    <div class="pagination" style="margin-top: 20px; text-align: center;">
-        <!-- Chỉ phân trang nếu có nhiều hơn 1 trang -->
-        <?php if ($total_pages > 1): ?>
-        <!-- Nút Trang đầu và Trước -->
-        <?php if ($page > 1): ?>
-        <a href="?page=1" class="nav-btn">« Trang đầu</a>
-        <a href="?page=<?php echo $page - 1; ?>" class="nav-btn">Trước</a>
-        <?php else: ?>
-        <span class="nav-btn disabled">« Trang đầu</span>
-        <span class="nav-btn disabled">Trước</span>
-        <?php endif; ?>
+        <!-- Thanh phân trang -->
+        <div class="pagination" style="margin-top: 20px; text-align: center;">
+            <!-- Chỉ phân trang nếu có nhiều hơn 1 trang -->
+            <?php if ($total_pages > 1): ?>
+                <!-- Nút Trang đầu và Trước -->
+                <?php if ($page > 1): ?>
+                    <a href="?page=1" class="nav-btn"><i class="fa-solid fa-backward"></i> Trang đầu</a>
+                    <a href="?page=<?php echo $page - 1; ?>" class="nav-btn">Trước</a>
+                <?php else: ?>
+                    <span class="nav-btn disabled"><i class="fa-solid fa-backward"></i> Trang đầu</span>
+                    <span class="nav-btn disabled">Trước</span>
+                <?php endif; ?>
 
-        <!-- Số trang -->
-        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-        <a href="?page=<?php echo $i; ?>"
-            class="nav-btn <?php echo $page == $i ? 'active' : ''; ?>"><?php echo $i; ?></a>
-        <?php endfor; ?>
+                <!-- Số trang -->
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>"
+                        class="nav-btn <?php echo $page == $i ? 'active' : ''; ?>"><?php echo $i; ?></a>
+                <?php endfor; ?>
 
-        <!-- Nút Sau và Trang cuối -->
-        <?php if ($page < $total_pages): ?>
-        <a href="?page=<?php echo $page + 1; ?>" class="nav-btn">Sau</a>
-        <a href="?page=<?php echo $total_pages; ?>" class="nav-btn">Trang cuối »</a>
-        <?php else: ?>
-        <span class="nav-btn disabled">Sau</span>
-        <span class="nav-btn disabled">Trang cuối »</span>
-        <?php endif; ?>
-        <?php endif; ?>
-    </div>
+                <!-- Nút Sau và Trang cuối -->
+                <?php if ($page < $total_pages): ?>
+                    <a href="?page=<?php echo $page + 1; ?>" class="nav-btn">Sau</a>
+                    <a href="?page=<?php echo $total_pages; ?>" class="nav-btn">Trang cuối <i class="fa-solid fa-forward"></i></a>
+                <?php else: ?>
+                    <span class="nav-btn disabled">Sau</span>
+                    <span class="nav-btn disabled">Trang cuối <i class="fa-solid fa-forward"></i></span>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 </div>

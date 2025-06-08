@@ -214,6 +214,8 @@
      cursor: pointer;
      border: none;
      text-decoration: none;
+     padding-top: 6px;
+     padding-bottom: 9px;
  }
 
  .logout-btn:hover {

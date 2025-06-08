@@ -1,5 +1,5 @@
 <div class="form-container">
-    <h2>Thêm câu hỏi mới</h2>
+    <h2><i class="fa-solid fa-plus" style="margin-right: 13px; cursor: pointer;"></i>Thêm câu hỏi mới</h2>
     <form method="POST" action="create_question.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="set_id">Bộ đề:</label>
@@ -33,17 +33,18 @@
                     <input type="text" name="answer_text[]" placeholder="Đáp án 1" required>
                     <input type="checkbox" name="is_correct[]" value="0"> Đúng
                     <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
-                    <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
+                    <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
+                            class="fa-solid fa-trash" style="cursor: pointer;"></i></button>
                 </div>
                 <div class="answer-group">
                     <input type="text" name="answer_text[]" placeholder="Đáp án 2" required>
                     <input type="checkbox" name="is_correct[]" value="1"> Đúng
                     <textarea name="explanation[]" placeholder="Giải thích (nếu là đáp án đúng)"></textarea>
                     <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
-                            class="fa-solid fa-trash"></i></button>
+                            class="fa-solid fa-trash" style="cursor: pointer;"></i></button>
                 </div>
             </div>
-            <button type="button" id="add_answer">Thêm đáp án</button>
+            <button type=" button" id="add_answer">Thêm đáp án</button>
         </div>
 
         <button type="submit" class="submit-btn">Thêm câu hỏi</button>
