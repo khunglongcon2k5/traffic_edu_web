@@ -319,7 +319,7 @@ nav .btn-logout:hover {
     font-size: 28px;
     font-weight: 700;
     color: transparent;
-    background: linear-gradient(to bottom right, #5ebbff, #a174ff);
+    background: linear-gradient(45deg, #ff416c, #ff4b2b, #ff6b35);
     background-clip: text;
 }
 
