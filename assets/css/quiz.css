@@ -186,6 +186,18 @@ nav .btn-logout:hover {
     border-color: var(--primary);
 }
 
+.question-btn.answered {
+    background-color: #10b981 !important;
+    color: white !important;
+    border-color: #10b981 !important;
+}
+
+.question-btn.active.answered {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+}
+
 /* QUESTION CONTENT */
 .question-content {
     padding: 25px;
@@ -323,6 +335,7 @@ nav .btn-logout:hover {
     background-clip: text;
 }
 
+
 /* SUBMIT BUTTONS */
 .submit-buttons {
     display: flex;
@@ -398,17 +411,4 @@ footer {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-}
-
-/* MEDIA QUERIES */
-@media (min-width: 992px) {
-    /* PC styles */
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* Tablet styles */
-}
-
-@media (max-width: 767px) {
-    /* Mobile styles */
 }

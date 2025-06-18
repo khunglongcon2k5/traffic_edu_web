@@ -130,4 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
             showQuestion(firstQuestion);
         }
     }
+
+    const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+    radioInputs.forEach(radio => {
+        radio.addEventListener('change', () => {
+            // Tìm câu hỏi hiện tại
+            const questionPanel = this.closest('.question-panel');
+            const questionId = questionPanel.id;
+            const questionNumber = questionId.replace('question-', '');
+
+            // Tìm nút tương ứng và thêm class 'answered'
+            const questionBtn = document.querySelector(`[data-question="${questionNumber}"]`);
+            if (questionBtn) {
+                questionBtn.classList.add('answered');
+            }
+        });
+    });
 });
