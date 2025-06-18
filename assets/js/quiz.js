@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     radioInputs.forEach(radio => {
         radio.addEventListener('change', () => {
             // Tìm câu hỏi hiện tại
-            const questionPanel = this.closest('.question-panel');
+            const questionPanel = radio.closest('.question-panel');
             const questionId = questionPanel.id;
             const questionNumber = questionId.replace('question-', '');
 
