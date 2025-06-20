@@ -1,12 +1,15 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
-// Lấy danh sách đề thi
 $category_id = 3;
-$sql_sets = "SELECT * FROM exam_sets WHERE category_id = $category_id";
-$result_sets = $conn->query($sql_sets);
+$stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+$stmt->bind_param("i", $category_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -137,8 +140,8 @@ $result_sets = $conn->query($sql_sets);
                 <div class="exam-grid">
                     <?php
                     $count = 1;
-                    if ($result_sets->num_rows > 0) {
-                        while ($row = $result_sets->fetch_assoc()) {
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
                             if ($count <= 18) {
                                 echo '<a href="thi-thu-bang-lai-xe-may-a2.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
                                 $count++;
