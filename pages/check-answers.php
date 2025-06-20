@@ -57,11 +57,7 @@ if ($set_id >= 1 && $set_id <= 8) {
 } elseif ($set_id == 21) {
     $critical_ids = [3, 5, 12, 28, 29, 30, 33, 53, 54, 79, 104, 108, 129, 135, 152, 153, 154, 177, 179, 701];
     $placeholders = implode(',', array_fill(0, count($critical_ids), '?'));
-    $stmt = $conn->prepare(
-        "SELECT * 
-         FROM questions 
-         WHERE question_id IN ($placeholders) LIMIT 20"
-    );
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT 20");
     $types = str_repeat('i', count($critical_ids));
     $stmt->bind_param($types, ...$critical_ids);
     $stmt->execute();
@@ -185,7 +181,17 @@ $stmt->close();
             </div>
 
             <div class="result-status <?php echo $pass ? 'status-pass' : 'status-fail'; ?>">
-                <?php echo $pass ? 'ĐẠT - Chúc mừng bạn đã vượt qua bài thi!' : 'KHÔNG ĐẠT - Bạn bị sai câu điểm liệt - Hãy thử lại vào lần sau!'; ?>
+                <?php
+                if ($pass) {
+                    echo 'ĐẠT - Chúc mừng bạn đã vượt qua bài thi!';
+                } else {
+                    if ($has_critical_error) {
+                        echo 'CHƯA ĐẠT - Bạn bị sai câu điểm liệt';
+                    } else {
+                        echo 'CHƯA ĐẠT - Bạn chưa đạt đủ 21/25 câu đúng';
+                    }
+                }
+                ?>
             </div>
         </div>
 
@@ -252,7 +258,9 @@ $stmt->close();
                     } elseif ($set_id == 40) {
                         echo 'thi-thu-50-cau-diem-liet-a2.php?set_id=' . $set_id;
                     }
-                    ?>" class="retry-button">Làm Lại Bài Thi</a>
+                    ?>" class="retry-button">
+            Làm Lại Bài Thi
+        </a>
     </div>
 </body>
 

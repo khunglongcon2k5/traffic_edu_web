@@ -90,11 +90,7 @@ function getAnswersForQuestion($conn, $question_id)
     return $answers;
 }
 
-$set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 22;
-
-if ($set_id < 22 || $set_id > 39) {
-    $set_id = 22;
-}
+$set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 22 && $_GET['set_id'] <= 39) ? (int)$_GET['set_id'] : 22;
 
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
