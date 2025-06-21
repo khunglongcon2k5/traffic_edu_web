@@ -4,21 +4,8 @@ require_once '../includes/config.php';
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-// Lấy câu hỏi theo bộ đề
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
-    // Danh sách câu hỏi điểm liệt theo bộ đề
-    $critical_questions_by_set = [
-        1 => [3, 5, 12],
-        2 => [28, 29, 30, 33],
-        3 => [53, 54],
-        4 => [79],
-        5 => [104, 108],
-        6 => [129, 135],
-        7 => [152, 153, 154],
-        8 => [177, 179]
-    ];
-    // Phạm vi ID câu hỏi cho từng bộ đề
     $question_ranges = [
         1 => [1, 25],
         2 => [26, 50],
@@ -42,13 +29,7 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
 
     $questions = [];
 
-    if (isset($critical_questions_by_set[$set_id]))
-        $critical_ids = $critical_questions_by_set[$set_id];
-    else
-        $critical_ids = [];
-
     while ($row = $result->fetch_assoc()) {
-        $row['is_critical'] = in_array($row['question_id'], $critical_ids) ? 1 : 0;
         $questions[] = $row;
     }
 
@@ -56,7 +37,6 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
     return $questions;
 }
 
-// Lấy câu trả lời cho câu hỏi
 function getAnswersForQuestion($conn, $question_id)
 {
     $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
@@ -74,12 +54,11 @@ function getAnswersForQuestion($conn, $question_id)
 
 $set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 1 && $_GET['set_id'] <= 8) ? (int)$_GET['set_id'] : 1;
 
-// Lấy 25 câu hỏi cho đề thi
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
 // Lấy thông tin đề thi
 $stmt = $conn->prepare(
-    "SELECT es.set_name, ec.category_name, ec.time_limit
+    "SELECT es.set_name, ec.category_name
      FROM exam_sets es
      JOIN exam_categories ec ON es.category_id = ec.category_id
      WHERE es.set_id = ?"
@@ -169,7 +148,7 @@ $stmt->close();
                         }
 
                         // Display Answers
-                        echo "<label class='options'>";
+                        echo "<div class='options'>";
                         foreach ($answers as $answer_index => $answer) {
                             $option_number = $answer_index + 1;
                             echo "<label class='option'>";
@@ -177,31 +156,31 @@ $stmt->close();
                             echo "<label for='q{$question_number}_option{$option_number}'>{$option_number}- " . htmlspecialchars($answer['answer_text']) . "</label>";
                             echo "</label>";
                         }
-                        echo "</label>";
+                        echo "</div>";
 
-                        // điều hướng
+                        // Navigation buttons
                         echo "<div class='navigation-buttons'>";
                         if ($question_number > 1) {
-                            echo "<button class='nav-btn prev-btn' data-target='" . ($question_number - 1) . "'>";
+                            echo "<button type='button' class='nav-btn prev-btn' data-target='" . ($question_number - 1) . "'>";
                             echo "<div class='previous-question'>Câu trước</div>";
                             echo "</button>";
                         } else {
-                            echo "<button class='nav-btn disabled'>";
+                            echo "<button type='button' class='nav-btn disabled'>";
                             echo "<div class='previous-question'>Câu trước</div>";
                             echo "</button>";
                         }
 
                         if ($question_number < $total_questions) {
-                            echo "<button class='nav-btn next-btn next' data-target='" . ($question_number + 1) . "'>";
+                            echo "<button type='button' class='nav-btn next-btn next' data-target='" . ($question_number + 1) . "'>";
                             echo "<div class='next-question'>Câu tiếp theo</div>";
                             echo "</button>";
                         } else {
-                            echo "<button class='nav-btn disabled next'>";
+                            echo "<button type='button' class='nav-btn disabled next'>";
                             echo "<div class='next-question'>Câu tiếp theo</div>";
                             echo "</button>";
                         }
-                        echo "</div>"; // đóng navigation-buttons
-                        echo "</div>"; // đóng question-panel
+                        echo "</div>"; // Close navigation-buttons
+                        echo "</div>"; // Close question-panel
                     }
                 } else {
                     echo "<div class='no-questions'>Chưa có bộ câu hỏi cho đề thi này.</div>";

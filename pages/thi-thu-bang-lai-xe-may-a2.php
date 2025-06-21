@@ -1,32 +1,11 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-$current_page = basename($_SERVER['PHP_SELF']); // Lấy tên file hiện tại
 
-// Lấy câu hỏi theo bộ đề
+$current_page = basename($_SERVER['PHP_SELF']);
+
 function getQuestionsBySet($conn, $set_id, $limit = 25)
 {
-    $critical_questions_by_set = [
-        22 => [202, 203, 206, 208],
-        23 => [227, 234],
-        24 => [252, 255, 256, 258, 260],
-        25 => [277, 278],
-        26 => [302, 310, 325],
-        27 => [327],
-        28 => [352, 353, 356],
-        29 => [377],
-        30 => [402, 403, 410],
-        31 => [427, 428, 430, 435],
-        32 => [452, 453],
-        33 => [477, 482, 484],
-        34 => [503, 509],
-        35 => [528, 529, 532],
-        36 => [552, 553],
-        37 => [578, 580, 582],
-        38 => [601, 602, 603, 609],
-        39 => [626, 627],
-    ];
-
     $question_ranges = [
         22 => [201, 225],
         23 => [226, 250],
@@ -60,13 +39,7 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
 
     $questions = [];
 
-    if (isset($critical_questions_by_set[$set_id]))
-        $critical_ids = $critical_questions_by_set[$set_id];
-    else
-        $critical_ids = [];
-
     while ($row = $result->fetch_assoc()) {
-        $row['is_critical'] = in_array($row['question_id'], $critical_ids) ? 1 : 0;
         $questions[] = $row;
     }
 
@@ -74,7 +47,6 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
     return $questions;
 }
 
-// Lấy câu trả lời theo câu hỏi
 function getAnswersForQuestion($conn, $question_id)
 {
     $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
@@ -95,7 +67,7 @@ $set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 22 && $_GET['set_id'] <=
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
 $stmt = $conn->prepare(
-    "SELECT es.set_name, ec.category_name, ec.time_limit 
+    "SELECT es.set_name, ec.category_name 
      FROM exam_sets es 
      JOIN exam_categories ec ON es.category_id = ec.category_id 
      WHERE es.set_id = ?"
