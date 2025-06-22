@@ -38,9 +38,7 @@
  .sidebar nav ul.nav-menu {
      display: flex;
      flex-direction: column;
-     gap: 0;
      list-style: none;
-     margin: 0;
      padding: 20px 0;
      flex: 1;
  }
@@ -114,17 +112,6 @@
      padding: 20px;
      min-height: 100vh;
      width: calc(100% - 250px);
-     box-sizing: border-box;
- }
-
- h1.text-center {
-     text-transform: uppercase;
-     margin-top: 0;
-     background: linear-gradient(45deg, #1d4ed8, #3b82f6);
-     padding: 20px;
-     color: #fff;
-     border-radius: 8px;
-     margin-bottom: 20px;
  }
 
  .form-container,
@@ -155,7 +142,6 @@
      padding: 8px;
      border: 1px solid #ccc;
      border-radius: 10px;
-     box-sizing: border-box;
  }
 
  .form-group textarea {
