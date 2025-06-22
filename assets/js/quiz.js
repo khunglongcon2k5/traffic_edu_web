@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Countdown Timer
     const countdownElement = document.querySelector('.countdown-value');
 
     if (!countdownElement) {
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeText = countdownElement.innerText.trim();
     const parts = timeText.split(':');
 
-    // Kiểm tra định dạng thời gian hợp lệ
     if (parts.length !== 2) {
         console.error('Định dạng thời gian không hợp lệ');
         return;
@@ -20,32 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const seconds = parseInt(parts[1]) || 0;
     let totalSeconds = minutes * 60 + seconds;
 
-    // Kiểm tra thời gian hợp lệ
     if (totalSeconds <= 0) {
         console.error('Thời gian không hợp lệ');
         return;
     }
 
+    const examForm = document.getElementById('exam-form');
+
     const timer = setInterval(() => {
         totalSeconds--;
-
         const mins = Math.floor(totalSeconds / 60);
         const secs = totalSeconds % 60;
-
-        // Format hiển thị 
         const display = `${mins.toString().padStart(2, '0')} : ${secs.toString().padStart(2, '0')}`;
         countdownElement.innerText = display;
-
-        // Cảnh báo khi còn 5 phút
         if (totalSeconds === 300) {
             alert('Chú ý: Chỉ còn 5 phút!');
         }
-
-        // Hết thời gian
         if (totalSeconds <= 0) {
             clearInterval(timer);
             alert('Hết thời gian! Bài thi của bạn sẽ được nộp tự động.');
-            const examForm = document.getElementById('exam-form');
             if (examForm) {
                 examForm.submit();
             }
@@ -55,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Question Navigation
     const questionBtns = document.querySelectorAll('.question-btn');
     const questionPanels = document.querySelectorAll('.question-panel');
-    const examForm = document.getElementById('exam-form');
 
     // Xử lý submit form
     if (examForm) {
@@ -99,52 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Xử lý nút Câu trước
-    const prevBtns = document.querySelectorAll('.prev-btn');
-    prevBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+    // Xử lý nút navigation (Câu trước & Câu tiếp theo)
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.prev-btn') || e.target.closest('.next-btn')) {
             e.preventDefault();
+            const btn = e.target.closest('.prev-btn, .next-btn');
             const targetQuestion = btn.dataset.target;
             if (targetQuestion) {
                 showQuestion(targetQuestion);
             }
-        });
-    });
-
-    // Xử lý nút Câu tiếp theo
-    const nextBtns = document.querySelectorAll('.next-btn');
-    nextBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetQuestion = btn.dataset.target;
-            if (targetQuestion) {
-                showQuestion(targetQuestion);
-            }
-        });
-    });
-
-    // Hiển thị câu hỏi đầu tiên khi load
-    if (questionBtns.length > 0) {
-        const firstQuestion = questionBtns[0].dataset.question;
-        if (firstQuestion) {
-            showQuestion(firstQuestion);
         }
-    }
+    });
 
-    const radioInputs = document.querySelectorAll('input[type="radio"]');
+    // Xử lý radio buttons để đánh dấu câu đã trả lời
+    document.addEventListener('change', (e) => {
+        if (e.target.type === 'radio') {
+            const questionPanel = e.target.closest('.question-panel');
+            if (questionPanel) {
+                const questionId = questionPanel.id;
+                const questionNumber = questionId.replace('question-', '');
 
-    radioInputs.forEach(radio => {
-        radio.addEventListener('change', () => {
-            // Tìm câu hỏi hiện tại
-            const questionPanel = radio.closest('.question-panel');
-            const questionId = questionPanel.id;
-            const questionNumber = questionId.replace('question-', '');
-
-            // Tìm nút tương ứng và thêm class 'answered'
-            const questionBtn = document.querySelector(`[data-question="${questionNumber}"]`);
-            if (questionBtn) {
-                questionBtn.classList.add('answered');
+                const questionBtn = document.querySelector(`[data-question="${questionNumber}"]`);
+                if (questionBtn) {
+                    questionBtn.classList.add('answered');
+                }
             }
-        });
+        }
     });
 });
