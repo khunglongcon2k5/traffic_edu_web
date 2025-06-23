@@ -14,10 +14,10 @@ function getQuestionsBySet($conn, $set_id, $limit = 20)
         return [];
 
     $ids = $critical_questions[$set_id];
-    $placeholders = str_repeat('?, ', count($ids) - 1) . '?';
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
     $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT ?");
-    $types = str_repeat('i', count($ids)) . 'i';
+    $types = str_repeat('i', count($ids));
     $params = array_merge($ids, [$limit]);
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
