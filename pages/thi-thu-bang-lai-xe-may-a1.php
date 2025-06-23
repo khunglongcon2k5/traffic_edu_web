@@ -140,7 +140,7 @@ $stmt->close();
                         echo htmlspecialchars($question['question_text']);
                         echo "</div>";
 
-                        // Display Img
+                        // Display Image
                         if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
                             echo "<div class='question-image'>";
                             echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='thi-ly-thuyet-lai-xe-a1-200-cau-hoi'>";

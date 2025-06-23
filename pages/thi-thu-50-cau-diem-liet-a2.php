@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 function getQuestionsBySet($conn, $set_id, $limit = 50)
@@ -27,7 +28,6 @@ function getQuestionsBySet($conn, $set_id, $limit = 50)
     return $questions;
 }
 
-// Lấy câu trả lời cho câu hỏi
 function getAnswersForQuestion($conn, $question_id)
 {
     $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
@@ -43,7 +43,6 @@ function getAnswersForQuestion($conn, $question_id)
     return $answersForQuestion;
 }
 
-// Hiển thị đề thi
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 40;
 
 $questions = getQuestionsBySet($conn, $set_id, 50);

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 function getQuestionsBySet($conn, $set_id, $limit = 20)
@@ -12,16 +13,21 @@ function getQuestionsBySet($conn, $set_id, $limit = 20)
     if (!isset($critical_questions[$set_id]))
         return [];
 
-    $ids = implode(',', $critical_questions[$set_id]);
+    $ids = $critical_questions[$set_id];
+    $placeholders = str_repeat('?, ', count($ids) - 1) . '?';
 
-    $sql = "SELECT * FROM questions WHERE question_id IN ($ids) LIMIT $limit";
-    $result = mysqli_query($conn, $sql);
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT ?");
+    $types = str_repeat('i', count($ids)) . 'i';
+    $params = array_merge($ids, [$limit]);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     $questions = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $row['is_critical'] = 1;
+    while ($row = $result->fetch_assoc()) {
         $questions[] = $row;
     }
+    $stmt->close();
     return $questions;
 }
 
@@ -40,7 +46,6 @@ function getAnswersForQuestion($conn, $question_id)
     return $answers;
 }
 
-// Hiển thị đề thi
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 21;
 
 $questions = getQuestionsBySet($conn, $set_id, 20);
