@@ -267,8 +267,7 @@ $result = $stmt->get_result();
                 </div>
 
                 <div class="video-wrapper">
-                    <iframe width="700" height="400"
-                        src="https://www.youtube.com/embed/videoseries?si=N3NU7K6v81fXKQed&amp;list=PLkuKd2OsgfWE1AutehdrJA_kWik36UShQ"
+                    <iframe width="700" height="400" src="https://www.youtube.com/embed/tc_u5Xk4tWw?si=Q8oGcXxCa7pqTNMb"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
