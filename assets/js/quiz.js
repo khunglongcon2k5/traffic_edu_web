@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function để chuyển câu hỏi
     function showQuestion(questionNumber) {
-        // Ẩn tất cả câu hỏi
         questionPanels.forEach(panel => {
             panel.style.display = 'none';
         });
@@ -89,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Xử lý nút navigation (Câu trước & Câu tiếp theo)
     document.addEventListener('click', (e) => {
         if (e.target.closest('.prev-btn') || e.target.closest('.next-btn')) {
             e.preventDefault();
@@ -101,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Xử lý radio buttons để đánh dấu câu đã trả lời
     document.addEventListener('change', (e) => {
         if (e.target.type === 'radio') {
             const questionPanel = e.target.closest('.question-panel');
