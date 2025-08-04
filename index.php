@@ -34,14 +34,6 @@ unset($_SESSION['register_success']);
             <div class="logo">
                 <div class="logo-text">Traffic Education</div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#" class="nav-link active">Trang chủ</a></li>
-                <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Học lý thuyết</a></li>
-                <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Ôn tập</a></li>
-                <li class="nav-item" id="nav-item"><a href="./pages/thi-bang-lai-xe-a1-online.php"
-                        class="nav-link required-login">Thi thử</a></li>
-                <li class="nav-item" id="nav-item"><a href="#" class="nav-link required-login">Mẹo thi</a></li>
-            </ul>
             <div class="auth-buttons">
                 <?php if (isset($_SESSION['name'])): ?>
                     <div class="user-info">

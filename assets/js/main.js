@@ -9,40 +9,62 @@ const switchToLoginBtn = document.getElementById('switchToLogin');
 const startExamBtn = document.getElementById('startExam');
 const protectedLinks = document.querySelectorAll('.required-login');
 
-showLoginBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex';
-});
+const isLoggedIN = !showLoginBtn && !showRegisterBtn;
 
-showRegisterBtn.addEventListener('click', () => {
-    registerModal.style.display = 'flex';
-});
+if (showLoginBtn) {
+    showLoginBtn.addEventListener('click', () => {
+        loginModal.style.display = 'flex';
+    })
+}
 
-closeLoginBtn.addEventListener('click', () => {
-    loginModal.style.display = 'none';
-});
+if (showRegisterBtn) {
+    showRegisterBtn.addEventListener('click', () => {
+        registerModal.style.display = 'flex';
+    });
+}
 
-closeRegisterBtn.addEventListener('click', () => {
-    registerModal.style.display = 'none';
-});
+if (closeLoginBtn) {
+    closeLoginBtn.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+}
 
-switchToRegisterBtn.addEventListener('click', () => {
-    loginModal.style.display = 'none';
-    registerModal.style.display = 'flex';
-});
+if (closeRegisterBtn) {
+    closeRegisterBtn.addEventListener('click', () => {
+        registerModal.style.display = 'none';
+    });
+}
 
-switchToLoginBtn.addEventListener('click', () => {
-    registerModal.style.display = 'none';
-    loginModal.style.display = 'flex';
-});
+if (switchToRegisterBtn) {
+    switchToRegisterBtn.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'flex';
+    });
+}
 
-startExamBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex';
-});
+if (switchToLoginBtn) {
+    switchToLoginBtn.addEventListener('click', () => {
+        registerModal.style.display = 'none';
+        loginModal.style.display = 'flex';
+    });
+}
+
+if (startExamBtn) {
+    startExamBtn.addEventListener('click', () => {
+        if (isLoggedIN) {
+            window.location.href = './pages/thi-bang-lai-xe-a1-online.php';
+        } else {
+            loginModal.style.display = 'flex';
+        }
+    });
+}
 
 protectedLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'flex';
+        if (!isLoggedIN) {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        }
     })
 });
 
